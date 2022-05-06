@@ -24,7 +24,8 @@ namespace LibraryApp.Controllers
         // GET: AuthorController/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            Author author = db.Author.Where(x => x.Id == id).Single();
+            return View(author);
         }
 
         // GET: AuthorController/Create
@@ -61,7 +62,8 @@ namespace LibraryApp.Controllers
         // GET: AuthorController/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            Author author = db.Author.Where(x => x.Id == id).Single();
+            return View(author);
         }
 
         // POST: AuthorController/Edit/5
@@ -71,6 +73,17 @@ namespace LibraryApp.Controllers
         {
             try
             {
+                Author author = db.Author.Where(x => x.Id == id).Single();
+
+                author.UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                author.Date = DateTime.Now;
+
+                author.Name = collection["Name"];
+                author.LastName = collection["LastName"];
+
+                db.Author.Update(author);
+                db.SaveChanges();
+
                 return RedirectToAction(nameof(Index));
             }
             catch

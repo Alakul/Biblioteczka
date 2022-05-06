@@ -4,3 +4,21 @@
 @{
 }
 Edytowanie autora
+
+<div class="p-4">
+    <form asp-controller="Author" asp-action="Edit" method="post">
+        <h1>Dodaj autora</h1>
+        
+        <div class="form-group">
+            <label for="Name">Imię</label><br>
+            <input name="Name" type="text" class="form-control" minlength="3" maxlength="100" required value="@Model.Name">
+        </div>
+
+        <div class="form-group">
+            <label for="LastName">Autor</label><br>
+            <input name="LastName" type="text" class="form-control" minlength="3" maxlength="100" required value="@Model.LastName">
+        </div>
+        
+        <button id="save" class="btn btn-primary" type="submit">Zapisz</button>
+    </form>
+</div>

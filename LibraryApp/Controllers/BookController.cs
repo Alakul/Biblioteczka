@@ -24,7 +24,8 @@ namespace LibraryApp.Controllers
         // GET: BookController/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            Book book = db.Book.Where(x => x.Id == id).Single();
+            return View(book);
         }
 
         // GET: BookController/Create
@@ -38,7 +39,7 @@ namespace LibraryApp.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(IFormCollection collection)
         {
-           
+            try { 
                 var book = new Book();
                 book.UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
                 book.Date = DateTime.Now;
@@ -58,13 +59,17 @@ namespace LibraryApp.Controllers
                 db.SaveChanges();
 
                 return RedirectToAction(nameof(Index));
-        
+            }
+            catch {
+                return View();
+            }
         }
 
         // GET: BookController/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            Book book = db.Book.Where(x => x.Id == id).Single();
+            return View(book);
         }
 
         // POST: BookController/Edit/5
@@ -74,6 +79,24 @@ namespace LibraryApp.Controllers
         {
             try
             {
+                Book book = db.Book.Where(x => x.Id == id).Single();
+                book.UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                book.Date = DateTime.Now;
+
+                book.Title = collection["Title"];
+                book.AuthorId = 2;
+
+                book.Description = collection["Description"];
+
+                //Trzeba przyciąć do nazwy
+                book.Image = "img";
+
+                book.Year = int.Parse(collection["Year"]);
+                book.City = collection["City"];
+
+                db.Book.Update(book);
+                db.SaveChanges();
+
                 return RedirectToAction(nameof(Index));
             }
             catch

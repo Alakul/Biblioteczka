@@ -6,22 +6,22 @@
 }
 <h1>Tu są książki</h1>
 <div class="col-9">
-        <div class="list-group list-group-flush bg-white">
-            @foreach (var book in Model)
-            {
-                <div class="list-group-item d-flex w-100 align-items-center justify-content-between">
-                        <div class="col-9">
-                            <a class="text-decoration-none text-dark" asp-route-id="@book.Title" asp-controller="Survey" asp-action="ShowSurvey"><strong class="mb-1">@book.Title</strong></a><br>
-                            <small class="small">Data zamknięcia</small>
-                        </div>
-                        <div>
-                            
-                                <a class="text-decoration-none text-dark btn btn-light" asp-route-id="@book.Id" asp-controller="Book" asp-action="Edit"><i class="answerIcon bi">Edytuj</i></a>
-                                <a class="text-decoration-none text-dark btn btn-light" asp-route-id="@book.Id" asp-controller="Book" asp-action="Delete"><i class="answerIcon bi bi-trash"> Usuń</i></a>
-                            
-                        </div>
+
+    <a class="btn btn-primary" asp-controller="Book" asp-action="Create">Dodaj książkę</a>
+
+    <div class="list-group list-group-flush bg-white">
+        @foreach (var book in Model)
+        {
+            <div class="list-group-item d-flex w-100 align-items-center justify-content-between">
+                <div class="col-9">
+                    <a class="text-decoration-none text-dark" asp-route-id="@book.Id" asp-controller="Book" asp-action="Details"><strong class="mb-1">@book.Title</strong></a><br>
+                    <small class="small">Data zamknięcia</small>
                 </div>
-                
-            }
-        </div>
+                <div>       
+                    <a class="text-decoration-none text-dark btn btn-light" asp-route-id="@book.Id" asp-controller="Book" asp-action="Edit"><i class="answerIcon bi">Edytuj</i></a>
+                    <a class="text-decoration-none text-dark btn btn-light" asp-route-id="@book.Id" asp-controller="Book" asp-action="Delete"><i class="answerIcon bi bi-trash"> Usuń</i></a>       
+                </div>
+            </div>        
+        }
+    </div>
 </div>
