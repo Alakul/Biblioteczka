@@ -1,0 +1,51 @@
+﻿
+@{
+    ViewData["Title"] = "AddBook";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="p-4">
+    <form asp-controller="Book" asp-action="Create" method="post">
+        <h1>Dodaj książkę</h1>
+        
+        <div class="form-group">
+            <label for="Title">Tytuł</label><br>
+            <input name="Title" type="text" class="form-control" minlength="3" maxlength="100" required>
+        </div>
+
+        <div class="form-group">
+            <label for="Author">Autor</label><br>
+            <select name="Author" class="form-control">
+                <option selected value="1">Ten Jeden</option>
+                <option value="2">Nie ten</option>
+            </select>
+        </div>
+        
+        <div class="form-group">
+            <label for="Description">Opis</label><br>
+            <input name="Description" type="text" class="form-control" minlength="3" maxlength="100" required>
+        </div>
+
+        <div class="form-group">
+            <label for="Image">Obraz</label><br>
+            <input name="Image" type="file" class="form-control" minlength="3" maxlength="100" required>
+        </div>
+
+        <div class="form-group">
+            <label for="Year">Rok</label><br>
+            <input name="Year" type="number" class="form-control" minlength="3" maxlength="100" required>
+        </div>
+
+        <div class="form-group">
+            <label for="City">Miasto</label><br>
+            <input name="City" type="text" class="form-control" minlength="3" maxlength="100" required>
+        </div>
+
+        <div class="form-group">
+            <label for="Quantity">Liczba egzemplarzy</label><br>
+            <input name="Quantity" type="number" class="form-control" minlength="3" maxlength="100" required>
+        </div>
+
+        <button id="save" class="btn btn-primary" type="submit">Opublikuj</button>
+    </form>
+</div>
