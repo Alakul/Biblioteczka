@@ -1,5 +1,6 @@
 ﻿using LibraryApp.Data;
 using LibraryApp.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
@@ -17,57 +18,86 @@ namespace LibraryApp.Controllers
         // GET: BookController
         public ActionResult Index()
         {
-            List<Book> books = db.Book.ToList();
-            return View(books);
+            var bookJoinAuthor = (from book in db.Book
+                                  join author in db.Author on book.AuthorId equals author.Id
+                                  select new
+                                  {
+                                      Id = book.Id,
+                                      Title = book.Title,
+                                      Name = author.Name,
+                                      LastName = author.LastName,
+                                  }).ToList();
+
+            ViewBag.Categories = AppData.bookCategories;
+            ViewBag.Sort = AppData.bookSort;
+
+            return View(bookJoinAuthor);
         }
 
         // GET: BookController/Details/5
         public ActionResult Details(int id)
         {
-            Book book = db.Book.Where(x => x.Id == id).Single();
-            return View(book);
+            var bookJointAuthor = db.Book.Join(db.Author, book => book.AuthorId, author => author.Id,
+                (book, author) => new {
+                    Id = book.Id,
+                    Title = book.Title,
+                    Descriptiion = book.Description,
+                    Image = book.Image,
+                    Year = book.Year,
+                    City = book.City,
+                    Name = author.Name,
+                    LastName = author.LastName }).Where(x => x.Id == id).Single();
+
+            return View(bookJointAuthor);
         }
 
+
         // GET: BookController/Create
+        [Authorize(Roles = "Admin")]
         public ActionResult Create()
         {
             List<Author> authors = db.Author.ToList();
-            ViewBag.Authors = authors;
-            return View();
+            return View(authors);
         }
 
         // POST: BookController/Create
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(IFormCollection collection)
         {
-            try { 
-                var book = new Book();
-                book.UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-                book.Date = DateTime.Now;
+            List<Author> authors = db.Author.ToList();
 
-                book.Title = collection["Title"];
-                book.AuthorId = 3;
+            try {
+                Book book = new Book
+                {
+                    UserId = User.FindFirstValue(ClaimTypes.NameIdentifier),
+                    Date = DateTime.Now,
 
-                book.Description = collection["Description"];
+                    Title = collection["Title"],
+                    AuthorId = int.Parse(collection["Author"]),
+                    Description = collection["Description"],
 
-                //Trzeba przyciąć do nazwy
-                book.Image = "img";
+                    //Trzeba przyciąć do nazwy
+                    Image = "img",
 
-                book.Year = int.Parse(collection["Year"]);
-                book.City = collection["City"];
+                    Year = int.Parse(collection["Year"]),
+                    City = collection["City"]
+                };
 
                 db.Book.Add(book);
                 db.SaveChanges();
 
-                return View();
+                return View(authors);
             }
             catch {
-                return View();
+
+                return View(authors);
             }
         }
 
         // GET: BookController/Edit/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit(int id)
         {
             Book book = db.Book.Where(x => x.Id == id).Single();
@@ -75,10 +105,13 @@ namespace LibraryApp.Controllers
         }
 
         // POST: BookController/Edit/5
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, IFormCollection collection)
         {
+            List<Author> authors = db.Author.ToList();
+
             try
             {
                 Book book = db.Book.Where(x => x.Id == id).Single();
@@ -86,7 +119,7 @@ namespace LibraryApp.Controllers
                 book.Date = DateTime.Now;
 
                 book.Title = collection["Title"];
-                book.AuthorId = 3;
+                book.AuthorId = int.Parse(collection["Author"]);
 
                 book.Description = collection["Description"];
 
@@ -99,11 +132,11 @@ namespace LibraryApp.Controllers
                 db.Book.Update(book);
                 db.SaveChanges();
 
-                return RedirectToAction(nameof(Index));
+                return View(authors);
             }
             catch
             {
-                return View();
+                return View(authors);
             }
         }
 
@@ -121,6 +154,7 @@ namespace LibraryApp.Controllers
         }
 
         // POST: BookController/Delete/5
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id, IFormCollection collection)

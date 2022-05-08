@@ -1,7 +1,5 @@
-﻿
-@{
-    ViewData["Title"] = "AddBook";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+﻿@{
+    ViewData["Title"] = "Dodaj książkę";
 }
 
 <div class="col-sm-6 mx-auto">
@@ -16,8 +14,11 @@
         <div class="mb-3">
             <label for="Author">Autor</label><br>
             <select id="Author" name="Author" class="form-control">
-                <option selected value="1">Ten Jeden</option>
-                <option value="2">Nie ten</option>
+                <option value="">Wybierz autora</option>
+                @foreach (var author in Model)
+                {
+                    <option value="@author.Id">@author.Name @author.LastName</option>
+                }
             </select>
         </div>
         
@@ -41,6 +42,6 @@
             <input name="City" type="text" class="form-control" minlength="3" maxlength="100" required>
         </div>
 
-        <button class="btn btn-primary" type="submit">Opublikuj</button>
+        <button class="btn btn-primary" type="submit">Zapisz</button>
     </form>
 </div>

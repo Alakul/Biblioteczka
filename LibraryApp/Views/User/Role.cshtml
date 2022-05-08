@@ -1,20 +1,23 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+﻿@{
+     ViewData["Title"] = "Zmień rolę użytkownika";
 }
 
+<div class="col-sm-6 mx-auto">
+    <form asp-controller="User" asp-action="Role" method="post">
+        <h3 class="mb-3">Zmień rolę użytkownika</h3>
 
+        <div class="mb-3">
+            <label>Użytkownik</label><br>
+            <p class="form-control">@Model.UserName</p>
+        </div>
 
-<form asp-controller="User" asp-action="Role" method="post">
-    <h3>Zarządzaj rolą</h3>
-    <input name="UserId" value="@Model.Id" hidden/>
-    <p>@Model.UserName</p>
+        <div class="mb-3">
+            <select name="Role">
+            <option value="Admin">Administrator</option>
+            <option value="User">Zwykły użytkownik</option>
+            </select>
+        </div>
 
-    <select name="Role">
-        <option value="Admin">Administrator</option>
-        <option value="User">Zwykły użytkownik</option>
-    </select>
-
-    <button class="btn btn-primary" type="submit">Zapisz</button>
-</form>
+        <button class="btn btn-primary" type="submit">Zapisz</button>
+    </form>
+</div>

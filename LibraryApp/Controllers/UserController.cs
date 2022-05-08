@@ -1,4 +1,5 @@
 ﻿using LibraryApp.Areas.Identity.Data;
+using LibraryApp.Data;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -6,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace LibraryApp.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class UserController : Controller
     {
         readonly UserManager<AppUser> UserManager;
@@ -19,6 +21,10 @@ namespace LibraryApp.Controllers
         public ActionResult Index()
         {
             var users = UserManager.Users.ToList();
+
+            ViewBag.Categories = AppData.userCategories;
+            ViewBag.Sort = AppData.userSort;
+
             return View(users);
         }
 
@@ -96,7 +102,7 @@ namespace LibraryApp.Controllers
         }
 
 
-        [Authorize(Roles = "Admin")]
+        
         // GET: UserController/Role
         public async Task<ActionResult> Role(string id)
         {
@@ -112,7 +118,15 @@ namespace LibraryApp.Controllers
             try
             {
                 AppUser appUser = await UserManager.FindByIdAsync(id);
-                await UserManager.AddToRoleAsync(appUser, "Admin");
+                var result = await UserManager.IsInRoleAsync(appUser, "Admin");
+
+                if (collection["Role"] == "Admin" && result==false){
+                    await UserManager.AddToRoleAsync(appUser, "Admin");
+
+                }
+                else if (collection["Role"] == "User" && result==true){
+                    await UserManager.RemoveFromRoleAsync(appUser, "Admin");
+                }
 
                 return RedirectToAction(nameof(Index));
             }

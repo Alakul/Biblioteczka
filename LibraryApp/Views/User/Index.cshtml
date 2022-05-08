@@ -1,10 +1,24 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@using Microsoft.AspNetCore.Identity
+@using LibraryApp.Areas.Identity.Data
+@inject UserManager<AppUser> UserManager
+
 @{
+     ViewData["Title"] = "Użytkownicy";
 }
 
 <div class="container">
+    <div class="row p-2">
+        <div class="col-12 d-flex justify-content-end">
+            <label class="form-label me-3 align-self-center">Kategoria</label>
+            <select class="form-control w-25">
+                <option value="">Wszystko</option>
+                @for (int i = 0; i < @ViewBag.Categories.Count; i++)
+                {
+                    <option value="@i">@ViewBag.Categories[@i]</option>
+                }
+            </select>
+        </div>
+    </div>
     <div class="row p-2">
         <div class="col-5">
             <form class="d-flex">
@@ -15,7 +29,12 @@
         </div>
         <div class="col-7 d-flex justify-content-end">
             <label class="form-label me-3 align-self-center">Sortowanie</label>
-            <select class="form-control w-25"></select>
+            <select class="form-control w-25">
+                @for (int i = 0; i < @ViewBag.Sort.Count; i++)
+                {
+                    <option value="@i">@ViewBag.Sort[@i]</option>
+                }
+            </select>
         </div>
     </div>
     
@@ -24,31 +43,38 @@
         {
             <li class="list-group-item d-flex justify-content-between">
                 <div class="align-self-center">
-                    <a class="text-decoration-none text-dark"><strong class="mb-1">@user.UserName</strong></a><br>
+                    <a class="text-decoration-none text-dark" asp-route-id="@user.Id" asp-controller="User" asp-action="Details"><strong class="mb-1">@user.UserName</strong></a><br>
                 </div>
                 <div class="align-self-center">
-                    <a class="btn btn-outline-primary" asp-route-id="@user.Id" asp-controller="User" asp-action="Role"><i class="bi"></i>Zarządzaj rolą</a>
-                    <a class="btn btn-outline-primary" asp-route-id="@user.Id" asp-controller="User" asp-action="Edit"><i class="bi"></i>Edytuj</a>
-                    <a class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteModal"><i class="bi bi-trash"></i> Usuń</a>
-                    <form asp-route-id="@user.Id" asp-controller="User" asp-action="Delete" method="post">
-                        <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
-                          <div class="modal-dialog">
-                            <div class="modal-content">
-                              <div class="modal-header">
-                                <h5 class="modal-title" id="deleteModalLabel">Usuwanie</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                              </div>
-                              <div class="modal-body">
-                                Czy na pewno usunąć użytkownika?
-                              </div>
-                              <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Anuluj</button>
-                                <button type="submit" class="btn btn-danger">Usuń</button>
+                    @if (UserManager.GetUserId(User) != @user.Id)
+                    {
+                        <a class="btn btn-outline-primary" asp-route-id="@user.Id" asp-controller="User" asp-action="Role"><i class="bi"></i>Zarządzaj rolą</a>
+                        <a class="btn btn-outline-primary" asp-route-id="@user.Id" asp-controller="User" asp-action="Edit"><i class="bi"></i>Edytuj</a>
+                        <a class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteModal"><i class="bi bi-trash"></i> Usuń</a>
+                        <form asp-route-id="@user.Id" asp-controller="User" asp-action="Delete" method="post">
+                            <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                              <div class="modal-dialog">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <h5 class="modal-title" id="deleteModalLabel">Usuwanie</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                  </div>
+                                  <div class="modal-body">
+                                    Czy na pewno usunąć użytkownika?
+                                  </div>
+                                  <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Anuluj</button>
+                                    <button type="submit" class="btn btn-danger">Usuń</button>
+                                  </div>
+                                </div>
                               </div>
                             </div>
-                          </div>
-                        </div>
-                    </form>
+                        </form>
+                    }
+                    else
+                    {
+                        <a class="btn btn-outline-primary" asp-route-id="@UserManager.GetUserId(User)" asp-controller="User" asp-action="Edit"><i class="bi"></i>Edytuj profil</a>
+                    }
                 </div>
             </li>    
         }
