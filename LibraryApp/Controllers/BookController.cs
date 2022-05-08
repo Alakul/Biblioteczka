@@ -10,9 +10,11 @@ namespace LibraryApp.Controllers
     public class BookController : Controller
     {
         AppDbContext db;
-        public BookController(AppDbContext context)
+        private readonly IWebHostEnvironment webHostEnvironment;
+        public BookController(AppDbContext context, IWebHostEnvironment hostEnvironment)
         {
             db = context;
+            webHostEnvironment = hostEnvironment;
         }
 
         // GET: BookController
@@ -56,43 +58,47 @@ namespace LibraryApp.Controllers
         [Authorize(Roles = "Admin")]
         public ActionResult Create()
         {
-            List<Author> authors = db.Author.ToList();
-            return View(authors);
+            return View(GetBookViewModel());
         }
 
         // POST: BookController/Create
         [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create(BookViewModel model)
         {
-            List<Author> authors = db.Author.ToList();
-
             try {
-                Book book = new Book
+                string fileName = UploadedFile(model);
+                if (fileName != null)
                 {
-                    UserId = User.FindFirstValue(ClaimTypes.NameIdentifier),
-                    Date = DateTime.Now,
+                    Book book = new Book
+                    {
+                        UserId = User.FindFirstValue(ClaimTypes.NameIdentifier),
+                        Date = DateTime.Now,
 
-                    Title = collection["Title"],
-                    AuthorId = int.Parse(collection["Author"]),
-                    Description = collection["Description"],
+                        Title = model.Title,
+                        AuthorId = model.Author,
+                        Description = model.Description,
+                        Image = fileName,
+                        Year = model.Year,
+                        City = model.City
+                    };
 
-                    //Trzeba przyciąć do nazwy
-                    Image = "img",
+                    db.Book.Add(book);
+                    db.SaveChanges();
 
-                    Year = int.Parse(collection["Year"]),
-                    City = collection["City"]
-                };
-
-                db.Book.Add(book);
-                db.SaveChanges();
-
-                return View(authors);
+                    ViewData["Alert"] = "Success";
+                    return View(GetBookViewModel());
+                }
+                else
+                {
+                    ViewData["Alert"] = "Danger";
+                    return View(GetBookViewModel());
+                }
             }
             catch {
-
-                return View(authors);
+                ViewData["Alert"] = "Danger";
+                return View(GetBookViewModel());
             }
         }
 
@@ -101,42 +107,50 @@ namespace LibraryApp.Controllers
         public ActionResult Edit(int id)
         {
             Book book = db.Book.Where(x => x.Id == id).Single();
-            return View(book);
+
+            BookViewModel bookViewModel = new BookViewModel();
+            bookViewModel.Title = book.Title;
+            bookViewModel.Description = book.Description;
+            bookViewModel.Year = book.Year;
+            bookViewModel.City = book.City;
+            bookViewModel.Authors = db.Author.ToList();
+
+            return View(bookViewModel);
         }
 
         // POST: BookController/Edit/5
         [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(int id, BookViewModel model)
         {
-            List<Author> authors = db.Author.ToList();
-
             try
             {
                 Book book = db.Book.Where(x => x.Id == id).Single();
                 book.UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
                 book.Date = DateTime.Now;
 
-                book.Title = collection["Title"];
-                book.AuthorId = int.Parse(collection["Author"]);
+                book.Title = model.Title;
+                book.AuthorId = model.Author;
 
-                book.Description = collection["Description"];
+                book.Description = model.Description;
 
                 //Trzeba przyciąć do nazwy
                 book.Image = "img";
 
-                book.Year = int.Parse(collection["Year"]);
-                book.City = collection["City"];
+                book.Year = model.Year;
+                book.City = model.City;
 
                 db.Book.Update(book);
                 db.SaveChanges();
 
-                return View(authors);
+                ViewData["Alert"] = "Success";
+                return View(GetBookViewModel());
             }
             catch
             {
-                return View(authors);
+                ViewData["Alert"] = "Danger";
+                return View(GetBookViewModel());
             }
         }
 
@@ -164,12 +178,43 @@ namespace LibraryApp.Controllers
                 db.Remove(db.Book.Where(x => x.Id == id).Single());
                 db.SaveChanges();
 
+                TempData["Alert"] = "Success";
                 return RedirectToAction(nameof(Index));
             }
             catch
             {
+                TempData["Alert"] = "Danger";
                 return RedirectToAction(nameof(Index));
             }
+        }
+
+
+        private BookViewModel GetBookViewModel()
+        {
+            BookViewModel bookViewModel = new BookViewModel();
+            bookViewModel.Authors = db.Author.ToList();
+
+            return bookViewModel;
+        }
+
+        //NIE DZIAŁA
+        private string UploadedFile(BookViewModel model)
+        {
+            string fileName=null;
+
+            if (model.Image != null)
+            {
+                string destinationFolder = Path.Combine(webHostEnvironment.WebRootPath, "images");
+                Directory.CreateDirectory(destinationFolder);
+
+                fileName = Guid.NewGuid().ToString() + "_" + model.Image.FileName;
+                string filePath = Path.Combine(destinationFolder, fileName);
+                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    model.Image.CopyTo(fileStream);
+                }
+            }
+            return fileName;
         }
     }
 }

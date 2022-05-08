@@ -1,5 +1,22 @@
-﻿@{
+﻿@model BookViewModel
+@{
      ViewData["Title"] = "Edytuj książkę";
+}
+
+@if (@ViewData["Alert"] != null)
+{
+    if (@ViewData["Alert"]?.ToString() == "Success")
+    {
+        <div class="alert alert-success" role="alert">
+            Akcja została wykonana pomyślnie!
+        </div>
+    }
+    else if (@ViewData["Alert"]?.ToString() == "Danger")
+    {
+        <div class="alert alert-danger" role="alert">
+            Wystąpił błąd! Akcja nie została wykonana!
+        </div>
+    }
 }
 
 <div class="col-sm-6 mx-auto">
@@ -8,35 +25,38 @@
         
         <div class="mb-3">
             <label for="Title">Tytuł</label><br>
-            <input id="Title" name="Title" type="text" class="form-control" minlength="3" maxlength="100" required value="@Model.Title">
+            <input id="Title" name="Title" type="text" class="form-control" minlength="3" maxlength="100" value="@Model.Title" required/>
         </div>
 
         <div class="mb-3">
             <label for="Author">Autor</label><br>
             <select id="Author" name="Author" class="form-control">
-                <option selected value="1">Ten Jeden</option>
-                <option value="2">Nie ten</option>
+                <option value="">Wybierz autora</option>
+                @foreach (var author in @Model.Authors)
+                {
+                    <option value="@author.Id">@author.Name @author.LastName</option>
+                }
             </select>
         </div>
         
         <div class="mb-3">
             <label for="Description">Opis</label><br>
-            <input id="Description" name="Description" type="text" class="form-control" minlength="3" maxlength="100" required value="@Model.Description">
+            <input id="Description" name="Description" type="text" class="form-control" minlength="3" maxlength="100" value="@Model.Description" required/>
         </div>
 
         <div class="mb-3">
             <label for="Image">Obraz</label><br>
-            <input id="Image" name="Image" type="file" class="form-control" minlength="3" maxlength="100" required>
+            <input id="Image" name="Image" type="file" class="form-control" minlength="3" maxlength="100" required/>
         </div>
 
         <div class="mb-3">
             <label for="Year">Rok</label><br>
-            <input id="Year" name="Year" type="number" class="form-control" minlength="3" maxlength="100" required value="@Model.Year">
+            <input id="Year" name="Year" type="number" class="form-control" minlength="3" maxlength="100" value="@Model.Year" required/>
         </div>
 
         <div class="mb-3">
             <label for="City">Miasto</label><br>
-            <input id="City" name="City" type="text" class="form-control" minlength="3" maxlength="100" required value="@Model.City">
+            <input id="City" name="City" type="text" class="form-control" minlength="3" maxlength="100" value="@Model.City" required/>
         </div>
         
         <button class="btn btn-primary" type="submit">Zapisz</button>
