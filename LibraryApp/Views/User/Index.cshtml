@@ -2,19 +2,9 @@
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
-    @model List<Book>
 }
 
 <div class="container">
-    <div class="row p-2">
-        <div class="col-5">
-            <a class="btn btn-primary" asp-controller="Book" asp-action="Create">Dodaj książkę</a>
-        </div>
-        <div class="col-7 d-flex justify-content-end">
-            <label class="form-label me-3 align-self-center">Kategoria</label>
-            <select class="form-control w-25"></select>
-        </div>
-    </div>
     <div class="row p-2">
         <div class="col-5">
             <form class="d-flex">
@@ -30,17 +20,17 @@
     </div>
     
     <ul class="list-group mt-4">
-        @foreach (var book in Model)
+        @foreach (var user in Model)
         {
             <li class="list-group-item d-flex justify-content-between">
                 <div class="align-self-center">
-                    <a class="text-decoration-none text-dark" asp-route-id="@book.Id" asp-controller="Book" asp-action="Details"><strong class="mb-1">@book.Title</strong></a><br>
-                    <small class="small">@book.AuthorId</small>
+                    <a class="text-decoration-none text-dark"><strong class="mb-1">@user.UserName</strong></a><br>
                 </div>
-                <div class="align-self-center">       
-                    <a class="btn btn-outline-primary" asp-route-id="@book.Id" asp-controller="Book" asp-action="Edit"><i class="bi"></i> Edytuj</a>
+                <div class="align-self-center">
+                    <a class="btn btn-outline-primary" asp-route-id="@user.Id" asp-controller="User" asp-action="Role"><i class="bi"></i>Zarządzaj rolą</a>
+                    <a class="btn btn-outline-primary" asp-route-id="@user.Id" asp-controller="User" asp-action="Edit"><i class="bi"></i>Edytuj</a>
                     <a class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteModal"><i class="bi bi-trash"></i> Usuń</a>
-                    <form asp-route-id="@book.Id" asp-controller="Book" asp-action="Delete" method="post">
+                    <form asp-route-id="@user.Id" asp-controller="User" asp-action="Delete" method="post">
                         <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
                           <div class="modal-dialog">
                             <div class="modal-content">
@@ -49,7 +39,7 @@
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                               </div>
                               <div class="modal-body">
-                                Czy na pewno usunąć książkę?
+                                Czy na pewno usunąć użytkownika?
                               </div>
                               <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Anuluj</button>
@@ -63,12 +53,5 @@
             </li>    
         }
     </ul>
-
-    <div class="row">
-        <div class="col-md-4">
-            <div class="">
-
-            </div>
-        </div>
-    </div>
 </div>
+

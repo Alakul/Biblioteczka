@@ -3,45 +3,44 @@
 *@
 @{
 }
-Edytowanie książki
 
-<div class="p-4">
+<div class="col-sm-6 mx-auto">
     <form asp-controller="Book" asp-action="Edit" method="post">
-        <h1>Edytuj książkę</h1>
+        <h3 class="mb-3">Edytuj książkę</h3>
         
-        <div class="form-group">
+        <div class="mb-3">
             <label for="Title">Tytuł</label><br>
-            <input name="Title" type="text" class="form-control" minlength="3" maxlength="100" required value="@Model.Title">
+            <input id="Title" name="Title" type="text" class="form-control" minlength="3" maxlength="100" required value="@Model.Title">
         </div>
 
-        <div class="form-group">
+        <div class="mb-3">
             <label for="Author">Autor</label><br>
-            <select name="Author" class="form-control">
+            <select id="Author" name="Author" class="form-control">
                 <option selected value="1">Ten Jeden</option>
                 <option value="2">Nie ten</option>
             </select>
         </div>
         
-        <div class="form-group">
+        <div class="mb-3">
             <label for="Description">Opis</label><br>
-            <input name="Description" type="text" class="form-control" minlength="3" maxlength="100" required value="@Model.Description">
+            <input id="Description" name="Description" type="text" class="form-control" minlength="3" maxlength="100" required value="@Model.Description">
         </div>
 
-        <div class="form-group">
+        <div class="mb-3">
             <label for="Image">Obraz</label><br>
-            <input name="Image" type="file" class="form-control" minlength="3" maxlength="100" required>
+            <input id="Image" name="Image" type="file" class="form-control" minlength="3" maxlength="100" required>
         </div>
 
-        <div class="form-group">
+        <div class="mb-3">
             <label for="Year">Rok</label><br>
-            <input name="Year" type="number" class="form-control" minlength="3" maxlength="100" required value="@Model.Year">
+            <input id="Year" name="Year" type="number" class="form-control" minlength="3" maxlength="100" required value="@Model.Year">
         </div>
 
-        <div class="form-group">
+        <div class="mb-3">
             <label for="City">Miasto</label><br>
-            <input name="City" type="text" class="form-control" minlength="3" maxlength="100" required value="@Model.City">
+            <input id="City" name="City" type="text" class="form-control" minlength="3" maxlength="100" required value="@Model.City">
         </div>
         
-        <button id="save" class="btn btn-primary" type="submit">Zapisz</button>
+        <button class="btn btn-primary" type="submit">Zapisz</button>
     </form>
 </div>

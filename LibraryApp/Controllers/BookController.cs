@@ -31,6 +31,8 @@ namespace LibraryApp.Controllers
         // GET: BookController/Create
         public ActionResult Create()
         {
+            List<Author> authors = db.Author.ToList();
+            ViewBag.Authors = authors;
             return View();
         }
 
@@ -45,7 +47,7 @@ namespace LibraryApp.Controllers
                 book.Date = DateTime.Now;
 
                 book.Title = collection["Title"];
-                book.AuthorId = 2;
+                book.AuthorId = 3;
 
                 book.Description = collection["Description"];
 
@@ -58,7 +60,7 @@ namespace LibraryApp.Controllers
                 db.Book.Add(book);
                 db.SaveChanges();
 
-                return RedirectToAction(nameof(Index));
+                return View();
             }
             catch {
                 return View();
@@ -84,7 +86,7 @@ namespace LibraryApp.Controllers
                 book.Date = DateTime.Now;
 
                 book.Title = collection["Title"];
-                book.AuthorId = 2;
+                book.AuthorId = 3;
 
                 book.Description = collection["Description"];
 
@@ -110,9 +112,6 @@ namespace LibraryApp.Controllers
         {
             try
             {
-                db.Remove(db.Book.Where(x => x.Id == id).Single());
-                db.SaveChanges();
-
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -128,11 +127,14 @@ namespace LibraryApp.Controllers
         {
             try
             {
+                db.Remove(db.Book.Where(x => x.Id == id).Single());
+                db.SaveChanges();
+
                 return RedirectToAction(nameof(Index));
             }
             catch
             {
-                return View();
+                return RedirectToAction(nameof(Index));
             }
         }
     }

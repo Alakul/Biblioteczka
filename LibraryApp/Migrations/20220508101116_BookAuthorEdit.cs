@@ -23,7 +23,7 @@ namespace LibraryApp.Migrations
             migrationBuilder.AddColumn<string>(
                 name: "UserId",
                 table: "Book",
-                type: "nvarchar(450)",
+                type: "nvarchar(max)",
                 nullable: true);
 
             migrationBuilder.AddColumn<DateTime>(
@@ -36,52 +36,12 @@ namespace LibraryApp.Migrations
             migrationBuilder.AddColumn<string>(
                 name: "UserId",
                 table: "Author",
-                type: "nvarchar(450)",
+                type: "nvarchar(max)",
                 nullable: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Book_UserId",
-                table: "Book",
-                column: "UserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Author_UserId",
-                table: "Author",
-                column: "UserId");
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_Author_AspNetUsers_UserId",
-                table: "Author",
-                column: "UserId",
-                principalTable: "AspNetUsers",
-                principalColumn: "Id");
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_Book_AspNetUsers_UserId",
-                table: "Book",
-                column: "UserId",
-                principalTable: "AspNetUsers",
-                principalColumn: "Id");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropForeignKey(
-                name: "FK_Author_AspNetUsers_UserId",
-                table: "Author");
-
-            migrationBuilder.DropForeignKey(
-                name: "FK_Book_AspNetUsers_UserId",
-                table: "Book");
-
-            migrationBuilder.DropIndex(
-                name: "IX_Book_UserId",
-                table: "Book");
-
-            migrationBuilder.DropIndex(
-                name: "IX_Author_UserId",
-                table: "Author");
-
             migrationBuilder.DropColumn(
                 name: "Date",
                 table: "Book");

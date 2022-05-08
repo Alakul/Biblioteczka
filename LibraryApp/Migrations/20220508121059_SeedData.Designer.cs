@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LibraryApp.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20220506141758_BookAuthorEdit")]
-    partial class BookAuthorEdit
+    [Migration("20220508121059_SeedData")]
+    partial class SeedData
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -87,6 +87,23 @@ namespace LibraryApp.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "89782a8d-8591-441d-a818-46cbfa582d92",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "8cc98c97-9522-4454-8f2f-3a0380f72451",
+                            Email = "admin@gmail.com",
+                            EmailConfirmed = false,
+                            LockoutEnabled = false,
+                            NormalizedUserName = "ADMIN@GMAIL.COM",
+                            PasswordHash = "AQAAAAEAACcQAAAAEHpdHsPgUJ23RDxRPshNSTAwpCXFwqC8zIKqBAvvVLBvEMqf586+K3r5uFr75s+rwA==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "f078d4e5-a123-4155-90f7-5034aaff3a44",
+                            TwoFactorEnabled = false,
+                            UserName = "admin@gmail.com"
+                        });
                 });
 
             modelBuilder.Entity("LibraryApp.Models.Author", b =>
@@ -107,11 +124,9 @@ namespace LibraryApp.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Author");
                 });
@@ -143,7 +158,7 @@ namespace LibraryApp.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Year")
                         .HasColumnType("int");
@@ -151,8 +166,6 @@ namespace LibraryApp.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("AuthorId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Book");
                 });
@@ -182,6 +195,15 @@ namespace LibraryApp.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "ce41a814-18f2-47d6-b16e-b2263ad13d43",
+                            ConcurrencyStamp = "1",
+                            Name = "Admin",
+                            NormalizedName = "Admin"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -271,6 +293,13 @@ namespace LibraryApp.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = "89782a8d-8591-441d-a818-46cbfa582d92",
+                            RoleId = "ce41a814-18f2-47d6-b16e-b2263ad13d43"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
@@ -294,15 +323,6 @@ namespace LibraryApp.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("LibraryApp.Models.Author", b =>
-                {
-                    b.HasOne("LibraryApp.Areas.Identity.Data.AppUser", "AppUser")
-                        .WithMany()
-                        .HasForeignKey("UserId");
-
-                    b.Navigation("AppUser");
-                });
-
             modelBuilder.Entity("LibraryApp.Models.Book", b =>
                 {
                     b.HasOne("LibraryApp.Models.Author", "Author")
@@ -310,12 +330,6 @@ namespace LibraryApp.Migrations
                         .HasForeignKey("AuthorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("LibraryApp.Areas.Identity.Data.AppUser", "AppUser")
-                        .WithMany()
-                        .HasForeignKey("UserId");
-
-                    b.Navigation("AppUser");
 
                     b.Navigation("Author");
                 });

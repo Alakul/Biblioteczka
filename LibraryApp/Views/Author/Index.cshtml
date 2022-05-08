@@ -4,23 +4,62 @@
 @{
 }
 
-<h1>Tu są autorzy</h1>
-<div class="col-9">
-    <a class="btn btn-primary" asp-controller="Author" asp-action="Create">Dodaj autora</a>
 
-    <div class="list-group list-group-flush bg-white">
+<div class="container">
+    <div class="row p-2">
+        <div class="col-5">
+            <a class="btn btn-primary" asp-controller="Author" asp-action="Create">Dodaj autora</a>
+        </div>
+        <div class="col-7 d-flex justify-content-end">
+            <label class="form-label me-3 align-self-center">Kategoria</label>
+            <select class="form-control w-25"></select>
+        </div>
+    </div>
+    <div class="row p-2">
+        <div class="col-5">
+            <form class="d-flex">
+                <label class="form-label me-3 align-self-center">Wyszukiwanie</label> 
+                <input class="form-control me-2" type="search">
+                <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
+        </div>
+        <div class="col-7 d-flex justify-content-end">
+            <label class="form-label me-3 align-self-center">Sortowanie</label>
+            <select class="form-control w-25"></select>
+        </div>
+    </div>
+    
+    <ul class="list-group mt-4">
         @foreach (var author in Model)
         {
-            <div class="list-group-item d-flex w-100 align-items-center justify-content-between">
-                <div class="col-9">
-                    <a class="text-decoration-none text-dark" asp-route-id="@author.Id" asp-controller="Author" asp-action="Details"><strong class="mb-1">@author.Name</strong></a><br>
-                    <small class="small">Data zamknięcia</small>
+            <li class="list-group-item d-flex justify-content-between">
+                <div class="align-self-center">
+                    <a class="text-decoration-none text-dark" asp-route-id="@author.Id" asp-controller="Author" asp-action="Details"><strong class="mb-1">@author.Name @author.LastName</strong></a><br>
                 </div>
-                <div>   
-                    <a class="text-decoration-none text-dark btn btn-light" asp-route-id="@author.Id" asp-controller="Author" asp-action="Edit"><i class="answerIcon bi">Edytuj</i></a>
-                    <a class="text-decoration-none text-dark btn btn-light" asp-route-id="@author.Id" asp-controller="Author" asp-action="Delete"><i class="answerIcon bi bi-trash"> Usuń</i></a>                 
+                <div class="align-self-center">       
+                    <a class="btn btn-outline-primary" asp-route-id="@author.Id" asp-controller="Author" asp-action="Edit"><i class="bi"></i> Edytuj</a>
+                    <a class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteModal"><i class="bi bi-trash"></i> Usuń</a>
+                    <form asp-route-id="@author.Id" asp-controller="Author" asp-action="Delete" method="post">
+                        <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                          <div class="modal-dialog">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h5 class="modal-title" id="deleteModalLabel">Usuwanie</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                              </div>
+                              <div class="modal-body">
+                                Czy na pewno usunąć książkę?
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Anuluj</button>
+                                <button type="submit" class="btn btn-danger">Usuń</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                    </form>
                 </div>
-            </div>    
+            </li>    
         }
-    </div>
+    </ul>
 </div>

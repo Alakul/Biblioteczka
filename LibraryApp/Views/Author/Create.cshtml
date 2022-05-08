@@ -4,21 +4,21 @@
 @{
 }
 
-<div class="p-4">
+<div class="col-sm-6 mx-auto">
     <form asp-controller="Author" asp-action="Create" method="post">
         <h1>Dodaj autora</h1>
         
-        <div class="form-group">
+        <div class="mb-3">
             <label for="Name">Imię</label><br>
-            <input name="Name" type="text" class="form-control" minlength="3" maxlength="100" required>
+            <input id="Name" name="Name" type="text" class="form-control" minlength="3" maxlength="100" required>
         </div>
 
-        <div class="form-group">
+        <div class="mb-3">
             <label for="LastName">Autor</label><br>
-            <input name="LastName" type="text" class="form-control" minlength="3" maxlength="100" required>
+            <input id="LastName" name="LastName" type="text" class="form-control" minlength="3" maxlength="100" required>
         </div>
         
-        <button id="save" class="btn btn-primary" type="submit">Opublikuj</button>
+        <button class="btn btn-primary" type="submit">Opublikuj</button>
     </form>
 </div>
 

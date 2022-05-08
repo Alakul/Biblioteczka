@@ -97,9 +97,6 @@ namespace LibraryApp.Controllers
         {
             try
             {
-                db.Remove(db.Author.Where(x => x.Id == id).Single());
-                db.SaveChanges();
-
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -117,11 +114,14 @@ namespace LibraryApp.Controllers
         {
             try
             {
+                db.Remove(db.Author.Where(x => x.Id == id).Single());
+                db.SaveChanges();
+
                 return RedirectToAction(nameof(Index));
             }
             catch
             {
-                return View();
+                return RedirectToAction(nameof(Index));
             }
         }
     }
