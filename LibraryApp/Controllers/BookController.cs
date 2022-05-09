@@ -20,40 +20,29 @@ namespace LibraryApp.Controllers
         // GET: BookController
         public ActionResult Index()
         {
-            var bookJoinAuthor = (from book in db.Book
-                                  join author in db.Author on book.AuthorId equals author.Id
-                                  select new
-                                  {
-                                      Id = book.Id,
-                                      Title = book.Title,
-                                      Name = author.Name,
-                                      LastName = author.LastName,
-                                  }).ToList();
+            BookAuthorViewModel bookAuthorViewModel = new BookAuthorViewModel();
+            bookAuthorViewModel.Books = db.Book.ToList();
+            bookAuthorViewModel.Authors = db.Author.ToList();
 
             ViewBag.Categories = AppData.bookCategories;
             ViewBag.Sort = AppData.bookSort;
 
-            return View(bookJoinAuthor);
+            return View(bookAuthorViewModel);
         }
 
         // GET: BookController/Details/5
         public ActionResult Details(int id)
         {
-            var bookJointAuthor = db.Book.Join(db.Author, book => book.AuthorId, author => author.Id,
-                (book, author) => new {
-                    Id = book.Id,
-                    Date = book.Date,
-                    Title = book.Title,
-                    Descriptiion = book.Description,
-                    Image = book.Image,
-                    Year = book.Year,
-                    City = book.City,
-                    Name = author.Name,
-                    LastName = author.LastName }).Where(x => x.Id == id).Single();
+            BookAuthorCopyViewModel bookAuthorCopyViewModel = new BookAuthorCopyViewModel();
+            bookAuthorCopyViewModel.Book = db.Book.Where(x => x.Id == id).Single();
+            bookAuthorCopyViewModel.Author = db.Author.Where(x => x.Id == bookAuthorCopyViewModel.Book.AuthorId).Single();
+            bookAuthorCopyViewModel.Copies = db.Copy.Where(x => x.BookId == id).ToList();
 
-            return View(bookJointAuthor);
+            ViewBag.Categories = AppData.copyCategories;
+            ViewBag.Sort = AppData.copySort;
+
+            return View(bookAuthorCopyViewModel);
         }
-
 
         // GET: BookController/Create
         [Authorize(Roles = "Admin")]
@@ -66,7 +55,7 @@ namespace LibraryApp.Controllers
         [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(BookViewModel model)
+        public ActionResult Create(BookCreateEditViewModel model)
         {
             try {
                 string newFileName = UploadFile(model);
@@ -77,12 +66,12 @@ namespace LibraryApp.Controllers
                         UserId = User.FindFirstValue(ClaimTypes.NameIdentifier),
                         Date = DateTime.Now,
 
-                        Title = model.Title,
-                        AuthorId = model.AuthorId,
-                        Description = model.Description,
+                        Title = model.Book.Title,
+                        AuthorId = model.Book.AuthorId,
+                        Description = model.Book.Description,
                         Image = newFileName,
-                        Year = model.Year,
-                        City = model.City
+                        Year = model.Book.Year,
+                        City = model.Book.City
                     };
 
                     db.Book.Add(book);
@@ -114,7 +103,7 @@ namespace LibraryApp.Controllers
         [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, BookViewModel model)
+        public ActionResult Edit(int id, BookCreateEditViewModel model)
         {
             try
             {
@@ -122,13 +111,13 @@ namespace LibraryApp.Controllers
                 book.UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
                 book.Date = DateTime.Now;
 
-                book.Title = model.Title;
-                book.AuthorId = model.AuthorId;
-                book.Description = model.Description;
-                book.Year = model.Year;
-                book.City = model.City;
+                book.Title = model.Book.Title;
+                book.AuthorId = model.Book.AuthorId;
+                book.Description = model.Book.Description;
+                book.Year = model.Book.Year;
+                book.City = model.Book.City;
 
-                if (model.Image != null)
+                if (model.Book.Image != null)
                 {
                     DeleteFile(book.Image);
                     string newFileName = UploadFile(model);
@@ -188,31 +177,25 @@ namespace LibraryApp.Controllers
 
 
 
-        private BookViewModel GetBook(int id)
+        private BookCreateEditViewModel GetBook(int id)
         {
             Book book = db.Book.Where(x => x.Id == id).Single();
 
-            BookViewModel bookViewModel = new BookViewModel();
-            bookViewModel.Date = book.Date;
-            bookViewModel.Title = book.Title; 
-            bookViewModel.AuthorId = book.AuthorId;
-            bookViewModel.Description = book.Description;
-            bookViewModel.Image = book.Image;
-            bookViewModel.Year = book.Year;
-            bookViewModel.City = book.City;
-            bookViewModel.Authors = db.Author.ToList();
+            BookCreateEditViewModel bookCreateEditViewModel = new BookCreateEditViewModel();
+            bookCreateEditViewModel.Book = book;
+            bookCreateEditViewModel.Authors = db.Author.ToList();
 
-            return bookViewModel;
+            return bookCreateEditViewModel;
         }
-        private BookViewModel GetAuthors()
+        private BookCreateEditViewModel GetAuthors()
         {
-            BookViewModel bookViewModel = new BookViewModel();
-            bookViewModel.Authors = db.Author.ToList();
+            BookCreateEditViewModel bookCreateEditViewModel = new BookCreateEditViewModel();
+            bookCreateEditViewModel.Authors = db.Author.ToList();
 
-            return bookViewModel;
+            return bookCreateEditViewModel;
         }
 
-        private string UploadFile(BookViewModel model)
+        private string UploadFile(BookCreateEditViewModel model)
         {
             string fileName = null;
 

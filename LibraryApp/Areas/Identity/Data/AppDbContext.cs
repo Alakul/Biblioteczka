@@ -10,8 +10,9 @@ public class AppDbContext : IdentityDbContext<AppUser>
 {
     public DbSet<Author> Author { get; set; }
     public DbSet<Book> Book { get; set; }
-
     public DbSet<Copy> Copy { get; set; }
+    public DbSet<Loan> Loan { get; set; }
+    public DbSet<Reservation> Reservation { get; set; }
 
     public AppDbContext(DbContextOptions<AppDbContext> options)
         : base(options)
@@ -33,6 +34,7 @@ public class AppDbContext : IdentityDbContext<AppUser>
     {
         IdentityRole identityRole = new IdentityRole()
         {
+            Id = "14976c8a-e19b-4982-b395-ab0dca5efa99",
             Name = "Admin",
             NormalizedName = "Admin",
             ConcurrencyStamp = "1"
@@ -41,9 +43,10 @@ public class AppDbContext : IdentityDbContext<AppUser>
 
         AppUser identityUser = new AppUser()
         {
+            Id = "0b948a1f-c552-41af-9818-77ab56a8be88",
             UserName = "admin@gmail.com",
             Email = "admin@gmail.com",
-            NormalizedUserName = "ADMIN@GMAIL.COM",
+            NormalizedUserName = "ADMIN@GMAIL.COM"
         };
         var hasher = new PasswordHasher<AppUser>();
         identityUser.PasswordHash = hasher.HashPassword(identityUser, "12345678");

@@ -15,38 +15,9 @@ namespace LibraryApp.Controllers
         }
 
         // GET: CopyController
-        public ActionResult Index(int id)
-        {/*
-            var copyJoinBookJoinAuthor = (from copy in db.Copy
-                                  join book in db.Book on copy.BookId equals book.Id
-                                  join author in db.Author on book.AuthorId equals author.Id
-                                  select new
-                                  {
-                                      Id = book.Id,
-                                      Title = book.Title,
-                                      Description = book.Description,
-                                      Image = book.Image,
-                                      Copies = book.Copies,
-                                      Name = author.Name,
-                                      LastName = author.LastName,
-                                  }).ToList();
-            */
-
-            Book book = db.Book.Where(x => x.Id == id).Single();
-            List<Copy> copies = db.Copy.Where(x => x.BookId == id).ToList();
-            Author author = db.Author.Where(x => x.Id == book.AuthorId).Single();
-
-            CopyViewModel copyViewModel = new CopyViewModel();
-            copyViewModel.BookId = book.Id;
-            copyViewModel.Title = book.Title;
-            copyViewModel.Name = author.Name;
-            copyViewModel.LastName = author.LastName;
-            copyViewModel.Copies = copies;
-
-            ViewBag.Categories = AppData.copyCategories;
-            ViewBag.Sort = AppData.copySort;
-
-            return View(copyViewModel);
+        public ActionResult Index()
+        {
+            return View();
         }
 
         // GET: CopyController/Details/5
@@ -60,27 +31,27 @@ namespace LibraryApp.Controllers
         {
             GetCategories();
 
-            CopyViewModel copyViewModel = new CopyViewModel();
-            copyViewModel.BookId = id;
+            CopyCreateEditViewModel copyCreateEditView = new CopyCreateEditViewModel();
+            copyCreateEditView.BookId = id;
 
-            return View(copyViewModel);
+            return View(copyCreateEditView);
         }
 
         // POST: CopyController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(int id, CopyViewModel model)
+        public ActionResult Create(CopyCreateEditViewModel model)
         {
             try
-            {
+            {///błąd
                 Copy copy = new Copy
                 {
                     UserId = User.FindFirstValue(ClaimTypes.NameIdentifier),
                     Date = DateTime.Now,
 
-                    BookId = id,
-                    Number = model.Number,
-                    Status = model.Status,
+                    BookId = model.BookId,
+                    Number = model.Copy.Number,
+                    Status = model.Copy.Status,
                 };
 
                 db.Copy.Add(copy);
@@ -88,13 +59,13 @@ namespace LibraryApp.Controllers
 
                 ViewData["Alert"] = "Success";
                 GetCategories();
-                return View();
+                return View(model);
             }
             catch
             {
                 ViewData["Alert"] = "Danger";
                 GetCategories();
-                return View();
+                return View(model);
             }
         }
 
@@ -104,10 +75,9 @@ namespace LibraryApp.Controllers
             GetCategories();
             Copy copy = db.Copy.Where(x => x.Id == id).Single();
 
-            CopyViewModel copyViewModel = new CopyViewModel();
-            copyViewModel.BookId = id;
-            copyViewModel.Number = copy.Number;
-            copyViewModel.Status = copy.Status;
+            CopyCreateEditViewModel copyViewModel = new CopyCreateEditViewModel();
+            copyViewModel.BookId = copy.BookId;
+            copyViewModel.Copy = copy;
 
             return View(copyViewModel);
         }
@@ -115,15 +85,15 @@ namespace LibraryApp.Controllers
         // POST: CopyController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, CopyViewModel model)
+        public ActionResult Edit(CopyCreateEditViewModel model)
         {
             try
-            {
-                Copy copy = db.Copy.Where(x => x.Id == id).Single();
+            {///błąd
+                Copy copy = db.Copy.Where(x => x.Id == model.BookId).Single();
                 copy.UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
                 copy.Date = DateTime.Now;
-                copy.Number = model.Number;
-                copy.Status = model.Status;
+                copy.Number = model.Copy.Number;
+                copy.Status = model.Copy.Status;
 
                 db.Copy.Update(copy);
                 db.SaveChanges();

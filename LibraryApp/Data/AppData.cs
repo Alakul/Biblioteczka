@@ -32,7 +32,7 @@
 
         //COPY
         public static List<string> copyCategories = new List<string> {
-            "Dostępna", "Niedostępna"
+            "Niedostępna", "Dostępna"
         };
         
         public static List<string> copySort = new List<string> {

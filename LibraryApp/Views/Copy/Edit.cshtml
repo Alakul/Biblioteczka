@@ -1,4 +1,4 @@
-﻿@model CopyViewModel
+﻿@model CopyCreateEditViewModel
 @{
     ViewData["Title"] = "Edytuj egzemplarz";
 }
@@ -25,15 +25,15 @@
         
         <div class="mb-3">
             <label for="Number">Numer</label><br>
-            <input id="Number" name="Number" type="text" class="form-control" minlength="3" maxlength="100" value="@Model.Number" required >
+            <input id="Number" name="Copy.Number" type="text" class="form-control" minlength="3" maxlength="100" value="@Model.Copy.Number" required >
         </div>
 
         <div class="mb-3">
             <label for="Status">Status</label><br>
-            <select id="Status" name="Status" class="form-control" >
+            <select id="Status" name="Copy.Status" class="form-control" >
                 @for (int i = 0; i < @ViewBag.Categories.Count; i++)
                 {
-                    @if (i == int.Parse(Model.Status)){
+                    @if (i == int.Parse(Model.Copy.Status)){
                         <option value="@i" selected>@ViewBag.Categories[@i]</option>
                     }
                     else {

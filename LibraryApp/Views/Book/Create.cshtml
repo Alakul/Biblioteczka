@@ -1,4 +1,4 @@
-﻿@model BookViewModel
+﻿@model BookCreateEditViewModel
 @{
     ViewData["Title"] = "Dodaj książkę";
 }
@@ -25,23 +25,23 @@
         
         <div class="mb-3">
             <label for="Title">Tytuł</label><br>
-            <input id="Title" name="Title" type="text" class="form-control" minlength="3" maxlength="100" required>
+            <input id="Title" name="Book.Title" type="text" class="form-control" minlength="3" maxlength="100" required>
         </div>
 
         <div class="mb-3">
             <label for="Author">Autor</label><br>
-            <select id="Author" name="Author" class="form-control">
+            <select id="Author" name="Book.AuthorId" class="form-control">
                 <option value="">Wybierz autora</option>
-                @foreach (var author in @Model.Authors)
+                @foreach (var Author in @Model.Authors)
                 {
-                    <option value="@author.Id">@author.Name @author.LastName</option>
+                    <option value="@Author.Id">@Author.Name @Author.LastName</option>
                 }
             </select>
         </div>
         
         <div class="mb-3">
             <label for="Description">Opis</label><br>
-            <input id="Description" name="Description" type="text" class="form-control" minlength="3" maxlength="100" required>
+            <input id="Description" name="Book.Description" type="text" class="form-control" minlength="3" maxlength="100" required>
         </div>
 
         <div class="mb-3">
@@ -58,12 +58,12 @@
 
         <div class="mb-3">
             <label for="Year">Rok</label><br>
-            <input id="Year" name="Year" type="number" class="form-control" minlength="3" maxlength="100" required>
+            <input id="Year" name="Book.Year" type="number" class="form-control" minlength="3" maxlength="100" required>
         </div>
 
         <div class="mb-3">
             <label for="City">Miasto</label><br>
-            <input id="City" name="City" type="text" class="form-control" minlength="3" maxlength="100" required>
+            <input id="City" name="Book.City" type="text" class="form-control" minlength="3" maxlength="100" required>
         </div>
 
         <button class="btn btn-primary" type="submit">Zapisz</button>

@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "XY7IM3ODF6YtIaShKfVA2NqwF9UCReZSL/12Sffng1A=",
+  "Hash": "RG1CKbiUqr/azfrgbRG613dlM65Y7UEKjIHq7d7r9/M=",
   "Source": "LibraryApp",
   "BasePath": "_content/LibraryApp",
   "Mode": "Default",
@@ -1105,12 +1105,12 @@
       "OriginalItemSpec": "wwwroot\\favicon.ico"
     },
     {
-      "Identity": "C:\\Users\\alicj\\source\\repos\\LibraryApp\\LibraryApp\\wwwroot\\images\\621ff949-6a71-41d6-b38b-07fc192968be_.png",
+      "Identity": "C:\\Users\\alicj\\source\\repos\\LibraryApp\\LibraryApp\\wwwroot\\images\\527a7715-7f73-45c3-9fa0-2df8173eea07.png",
       "SourceId": "LibraryApp",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\alicj\\source\\repos\\LibraryApp\\LibraryApp\\wwwroot\\",
       "BasePath": "_content/LibraryApp",
-      "RelativePath": "images/621ff949-6a71-41d6-b38b-07fc192968be_.png",
+      "RelativePath": "images/527a7715-7f73-45c3-9fa0-2df8173eea07.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1119,7 +1119,7 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\621ff949-6a71-41d6-b38b-07fc192968be_.png"
+      "OriginalItemSpec": "wwwroot\\images\\527a7715-7f73-45c3-9fa0-2df8173eea07.png"
     },
     {
       "Identity": "C:\\Users\\alicj\\source\\repos\\LibraryApp\\LibraryApp\\wwwroot\\images\\a80b9367-8444-4d1a-9d13-36a8784ff78e.png",
@@ -1137,6 +1137,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\images\\a80b9367-8444-4d1a-9d13-36a8784ff78e.png"
+    },
+    {
+      "Identity": "C:\\Users\\alicj\\source\\repos\\LibraryApp\\LibraryApp\\wwwroot\\images\\f7a806b9-ae87-46ca-9a7c-8939f89bce28.png",
+      "SourceId": "LibraryApp",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\alicj\\source\\repos\\LibraryApp\\LibraryApp\\wwwroot\\",
+      "BasePath": "_content/LibraryApp",
+      "RelativePath": "images/f7a806b9-ae87-46ca-9a7c-8939f89bce28.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\f7a806b9-ae87-46ca-9a7c-8939f89bce28.png"
     },
     {
       "Identity": "C:\\Users\\alicj\\source\\repos\\LibraryApp\\LibraryApp\\wwwroot\\js\\site.js",
