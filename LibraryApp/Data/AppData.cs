@@ -28,5 +28,15 @@
         public static List<string> userSort = new List<string> {
             "po nazwie rosnąco", "po nazwie malejąco", "po dacie rosnąco", "po dacie malejąco"
         };
+
+
+        //COPY
+        public static List<string> copyCategories = new List<string> {
+            "Dostępna", "Niedostępna"
+        };
+        
+        public static List<string> copySort = new List<string> {
+            "po numerze rosnąco", "po numerze malejąco", "po dacie rosnąco", "po dacie malejąco"
+        };
     }
 }

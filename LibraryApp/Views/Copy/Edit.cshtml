@@ -1,0 +1,48 @@
+﻿@model CopyViewModel
+@{
+    ViewData["Title"] = "Edytuj egzemplarz";
+}
+
+@if (@ViewData["Alert"] != null)
+{
+    if (@ViewData["Alert"]?.ToString() == "Success")
+    {
+        <div class="alert alert-success" role="alert">
+            Akcja została wykonana pomyślnie!
+        </div>
+    }
+    else if (@ViewData["Alert"]?.ToString() == "Danger")
+    {
+        <div class="alert alert-danger" role="alert">
+            Wystąpił błąd! Akcja nie została wykonana!
+        </div>
+    }
+}
+
+<div class="col-sm-6 mx-auto">
+    <form asp-controller="Copy" asp-action="Edit" method="post">
+        <h1>Edytuj egzemplarz</h1>
+        
+        <div class="mb-3">
+            <label for="Number">Numer</label><br>
+            <input id="Number" name="Number" type="text" class="form-control" minlength="3" maxlength="100" value="@Model.Number" required >
+        </div>
+
+        <div class="mb-3">
+            <label for="Status">Status</label><br>
+            <select id="Status" name="Status" class="form-control" >
+                @for (int i = 0; i < @ViewBag.Categories.Count; i++)
+                {
+                    @if (i == int.Parse(Model.Status)){
+                        <option value="@i" selected>@ViewBag.Categories[@i]</option>
+                    }
+                    else {
+                        <option value="@i">@ViewBag.Categories[@i]</option>
+                    }
+                }
+            </select>
+        </div>
+        
+        <button class="btn btn-primary" type="submit">Zapisz</button>
+    </form>
+</div>

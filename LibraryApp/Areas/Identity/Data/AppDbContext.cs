@@ -11,6 +11,8 @@ public class AppDbContext : IdentityDbContext<AppUser>
     public DbSet<Author> Author { get; set; }
     public DbSet<Book> Book { get; set; }
 
+    public DbSet<Copy> Copy { get; set; }
+
     public AppDbContext(DbContextOptions<AppDbContext> options)
         : base(options)
     {

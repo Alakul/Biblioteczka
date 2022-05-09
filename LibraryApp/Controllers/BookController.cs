@@ -42,6 +42,7 @@ namespace LibraryApp.Controllers
             var bookJointAuthor = db.Book.Join(db.Author, book => book.AuthorId, author => author.Id,
                 (book, author) => new {
                     Id = book.Id,
+                    Date = book.Date,
                     Title = book.Title,
                     Descriptiion = book.Description,
                     Image = book.Image,
@@ -192,7 +193,8 @@ namespace LibraryApp.Controllers
             Book book = db.Book.Where(x => x.Id == id).Single();
 
             BookViewModel bookViewModel = new BookViewModel();
-            bookViewModel.Title = book.Title;
+            bookViewModel.Date = book.Date;
+            bookViewModel.Title = book.Title; 
             bookViewModel.AuthorId = book.AuthorId;
             bookViewModel.Description = book.Description;
             bookViewModel.Image = book.Image;

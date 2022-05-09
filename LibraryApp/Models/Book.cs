@@ -23,5 +23,7 @@ namespace LibraryApp.Models
 
         public int Year { get; set; }
         public string? City { get; set; }
+
+        public List<Copy>? Copies { get; set; }
     }
 }
