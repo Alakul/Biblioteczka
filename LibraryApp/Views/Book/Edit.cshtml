@@ -34,7 +34,12 @@
                 <option value="">Wybierz autora</option>
                 @foreach (var author in @Model.Authors)
                 {
-                    <option value="@author.Id">@author.Name @author.LastName</option>
+                    @if (@author.Id == @Model.AuthorId){
+                        <option value="@author.Id" selected>@author.Name @author.LastName</option>
+                    }
+                    else {
+                        <option value="@author.Id">@author.Name @author.LastName</option>
+                    }
                 }
             </select>
         </div>
@@ -45,9 +50,16 @@
         </div>
 
         <div class="mb-3">
-            <label for="Image">Obraz</label><br>
-            <input id="Image" name="Image" type="file" class="form-control" minlength="3" maxlength="100" required/>
+            <label for="File">Obraz</label><br>
+            <input id="File" name="File" type="file" class="form-control-file" onchange="preview();" minlength="3" maxlength="100" >
+            <img id="ImagePreview" name="ImagePreview" src="~/images/@Model.Image"  height="100" width="100"/>
         </div>
+
+        <script>
+            function preview() {
+                ImagePreview.src = URL.createObjectURL(event.target.files[0]);
+            }
+        </script>
 
         <div class="mb-3">
             <label for="Year">Rok</label><br>

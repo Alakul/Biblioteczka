@@ -63,9 +63,10 @@
                         <a class="text-decoration-none text-dark" asp-route-id="@book.Id" asp-controller="Book" asp-action="Details"><strong class="mb-1">@book.Title</strong></a><br>
                         <small class="small">@book.Name @book.LastName</small>
                     </div>
-                    <div class="align-self-center">       
-                        <a class="btn btn-outline-primary" asp-route-id="@book.Id" asp-controller="Book" asp-action="Edit"><i class="bi"></i> Edytuj</a>
-                        <a class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteModal"><i class="bi bi-trash"></i> Usuń</a>
+                    <div class="align-self-center">
+                        <a class="btn btn-outline-primary">Egzemlarze</a>
+                        <a class="btn btn-outline-primary" asp-route-id="@book.Id" asp-controller="Book" asp-action="Edit">Edytuj</a>
+                        <a class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">Usuń</a>
                         <form asp-route-id="@book.Id" asp-controller="Book" asp-action="Delete" method="post">
                             <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
                               <div class="modal-dialog">

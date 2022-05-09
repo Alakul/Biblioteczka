@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "gQDkjeFDJkQPvhDtWWrdFDSqXOhKqfwOARuh0coiY4Q=",
+  "Hash": "XY7IM3ODF6YtIaShKfVA2NqwF9UCReZSL/12Sffng1A=",
   "Source": "LibraryApp",
   "BasePath": "_content/LibraryApp",
   "Mode": "Default",
@@ -1103,6 +1103,40 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\favicon.ico"
+    },
+    {
+      "Identity": "C:\\Users\\alicj\\source\\repos\\LibraryApp\\LibraryApp\\wwwroot\\images\\621ff949-6a71-41d6-b38b-07fc192968be_.png",
+      "SourceId": "LibraryApp",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\alicj\\source\\repos\\LibraryApp\\LibraryApp\\wwwroot\\",
+      "BasePath": "_content/LibraryApp",
+      "RelativePath": "images/621ff949-6a71-41d6-b38b-07fc192968be_.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\621ff949-6a71-41d6-b38b-07fc192968be_.png"
+    },
+    {
+      "Identity": "C:\\Users\\alicj\\source\\repos\\LibraryApp\\LibraryApp\\wwwroot\\images\\a80b9367-8444-4d1a-9d13-36a8784ff78e.png",
+      "SourceId": "LibraryApp",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\alicj\\source\\repos\\LibraryApp\\LibraryApp\\wwwroot\\",
+      "BasePath": "_content/LibraryApp",
+      "RelativePath": "images/a80b9367-8444-4d1a-9d13-36a8784ff78e.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\a80b9367-8444-4d1a-9d13-36a8784ff78e.png"
     },
     {
       "Identity": "C:\\Users\\alicj\\source\\repos\\LibraryApp\\LibraryApp\\wwwroot\\js\\site.js",

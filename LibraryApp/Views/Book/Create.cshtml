@@ -20,7 +20,7 @@
 }
 
 <div class="col-sm-6 mx-auto">
-    <form asp-controller="Book" asp-action="Create" method="post">
+    <form asp-controller="Book" asp-action="Create" method="post" enctype="multipart/form-data">
         <h3 class="mb-3">Dodaj książkę</h3>
         
         <div class="mb-3">
@@ -45,10 +45,16 @@
         </div>
 
         <div class="mb-3">
-            <label for="Image">Obraz</label><br>
-            <input id="Image" name="Image" type="file" class="form-control-file" minlength="3" maxlength="100" required>
-            <img src="~/images/@Model.Image"  height="40" width="40"/> 
+            <label for="File">Obraz</label><br>
+            <input id="File" name="File" type="file" class="form-control-file" onchange="preview();" minlength="3" maxlength="100" required>
+            <img id="ImagePreview" src=""  height="100" width="100"/>
         </div>
+
+        <script>
+            function preview() {
+                ImagePreview.src = URL.createObjectURL(event.target.files[0]);
+            }
+        </script>
 
         <div class="mb-3">
             <label for="Year">Rok</label><br>

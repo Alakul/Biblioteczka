@@ -58,7 +58,7 @@ namespace LibraryApp.Controllers
         [Authorize(Roles = "Admin")]
         public ActionResult Create()
         {
-            return View(GetBookViewModel());
+            return View(GetAuthors());
         }
 
         // POST: BookController/Create
@@ -68,8 +68,8 @@ namespace LibraryApp.Controllers
         public ActionResult Create(BookViewModel model)
         {
             try {
-                string fileName = UploadedFile(model);
-                if (fileName != null)
+                string newFileName = UploadFile(model);
+                if (newFileName != null)
                 {
                     Book book = new Book
                     {
@@ -77,9 +77,9 @@ namespace LibraryApp.Controllers
                         Date = DateTime.Now,
 
                         Title = model.Title,
-                        AuthorId = model.Author,
+                        AuthorId = model.AuthorId,
                         Description = model.Description,
-                        Image = fileName,
+                        Image = newFileName,
                         Year = model.Year,
                         City = model.City
                     };
@@ -88,17 +88,17 @@ namespace LibraryApp.Controllers
                     db.SaveChanges();
 
                     ViewData["Alert"] = "Success";
-                    return View(GetBookViewModel());
+                    return View(GetAuthors());
                 }
                 else
                 {
                     ViewData["Alert"] = "Danger";
-                    return View(GetBookViewModel());
+                    return View(GetAuthors());
                 }
             }
             catch {
                 ViewData["Alert"] = "Danger";
-                return View(GetBookViewModel());
+                return View(GetAuthors());
             }
         }
 
@@ -106,16 +106,7 @@ namespace LibraryApp.Controllers
         [Authorize(Roles = "Admin")]
         public ActionResult Edit(int id)
         {
-            Book book = db.Book.Where(x => x.Id == id).Single();
-
-            BookViewModel bookViewModel = new BookViewModel();
-            bookViewModel.Title = book.Title;
-            bookViewModel.Description = book.Description;
-            bookViewModel.Year = book.Year;
-            bookViewModel.City = book.City;
-            bookViewModel.Authors = db.Author.ToList();
-
-            return View(bookViewModel);
+            return View(GetBook(id));
         }
 
         // POST: BookController/Edit/5
@@ -131,26 +122,28 @@ namespace LibraryApp.Controllers
                 book.Date = DateTime.Now;
 
                 book.Title = model.Title;
-                book.AuthorId = model.Author;
-
+                book.AuthorId = model.AuthorId;
                 book.Description = model.Description;
-
-                //Trzeba przyciąć do nazwy
-                book.Image = "img";
-
                 book.Year = model.Year;
                 book.City = model.City;
+
+                if (model.Image != null)
+                {
+                    DeleteFile(book.Image);
+                    string newFileName = UploadFile(model);
+                    book.Image = newFileName;
+                }
 
                 db.Book.Update(book);
                 db.SaveChanges();
 
                 ViewData["Alert"] = "Success";
-                return View(GetBookViewModel());
+                return View(GetBook(id));
             }
             catch
             {
                 ViewData["Alert"] = "Danger";
-                return View(GetBookViewModel());
+                return View(GetBook(id));
             }
         }
 
@@ -175,6 +168,10 @@ namespace LibraryApp.Controllers
         {
             try
             {
+                Book book = db.Book.Where(x => x.Id == id).Single();
+                string fileName = book.Image;
+                DeleteFile(fileName);
+
                 db.Remove(db.Book.Where(x => x.Id == id).Single());
                 db.SaveChanges();
 
@@ -189,7 +186,23 @@ namespace LibraryApp.Controllers
         }
 
 
-        private BookViewModel GetBookViewModel()
+
+        private BookViewModel GetBook(int id)
+        {
+            Book book = db.Book.Where(x => x.Id == id).Single();
+
+            BookViewModel bookViewModel = new BookViewModel();
+            bookViewModel.Title = book.Title;
+            bookViewModel.AuthorId = book.AuthorId;
+            bookViewModel.Description = book.Description;
+            bookViewModel.Image = book.Image;
+            bookViewModel.Year = book.Year;
+            bookViewModel.City = book.City;
+            bookViewModel.Authors = db.Author.ToList();
+
+            return bookViewModel;
+        }
+        private BookViewModel GetAuthors()
         {
             BookViewModel bookViewModel = new BookViewModel();
             bookViewModel.Authors = db.Author.ToList();
@@ -197,24 +210,34 @@ namespace LibraryApp.Controllers
             return bookViewModel;
         }
 
-        //NIE DZIAŁA
-        private string UploadedFile(BookViewModel model)
+        private string UploadFile(BookViewModel model)
         {
-            string fileName=null;
+            string fileName = null;
 
-            if (model.Image != null)
+            if (model.File != null)
             {
                 string destinationFolder = Path.Combine(webHostEnvironment.WebRootPath, "images");
                 Directory.CreateDirectory(destinationFolder);
 
-                fileName = Guid.NewGuid().ToString() + "_" + model.Image.FileName;
+                string fileExtension = model.File.FileName;
+                fileName = Guid.NewGuid().ToString() + fileExtension.Substring(fileExtension.LastIndexOf('.'));
                 string filePath = Path.Combine(destinationFolder, fileName);
-                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                using (var stream = System.IO.File.Create(filePath))
                 {
-                    model.Image.CopyTo(fileStream);
+                    model.File.CopyTo(stream);
                 }
             }
             return fileName;
+        }
+
+        private void DeleteFile(string newFileName)
+        {
+            string destinationFolder = Path.Combine(webHostEnvironment.WebRootPath, "images");
+            string filePath = Path.Combine(destinationFolder, newFileName);
+
+            if (System.IO.File.Exists(filePath)){
+                System.IO.File.Delete(filePath);
+            }
         }
     }
 }

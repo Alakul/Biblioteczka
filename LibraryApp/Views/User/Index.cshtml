@@ -48,9 +48,9 @@
                 <div class="align-self-center">
                     @if (UserManager.GetUserId(User) != @user.Id)
                     {
-                        <a class="btn btn-outline-primary" asp-route-id="@user.Id" asp-controller="User" asp-action="Role"><i class="bi"></i>Zarządzaj rolą</a>
-                        <a class="btn btn-outline-primary" asp-route-id="@user.Id" asp-controller="User" asp-action="Edit"><i class="bi"></i>Edytuj</a>
-                        <a class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteModal"><i class="bi bi-trash"></i> Usuń</a>
+                        <a class="btn btn-outline-primary" asp-route-id="@user.Id" asp-controller="User" asp-action="Role">Zarządzaj rolą</a>
+                        <a class="btn btn-outline-primary" asp-route-id="@user.Id" asp-controller="User" asp-action="Edit">Edytuj</a>
+                        <a class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">Usuń</a>
                         <form asp-route-id="@user.Id" asp-controller="User" asp-action="Delete" method="post">
                             <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
                               <div class="modal-dialog">
@@ -73,7 +73,7 @@
                     }
                     else
                     {
-                        <a class="btn btn-outline-primary" asp-route-id="@UserManager.GetUserId(User)" asp-controller="User" asp-action="Edit"><i class="bi"></i>Edytuj profil</a>
+                        <a class="btn btn-outline-primary" asp-route-id="@UserManager.GetUserId(User)" asp-controller="User" asp-action="Edit">Edytuj profil</a>
                     }
                 </div>
             </li>    

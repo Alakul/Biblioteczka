@@ -30,8 +30,8 @@
                     <a class="text-decoration-none text-dark" asp-route-id="@author.Id" asp-controller="Author" asp-action="Details"><strong class="mb-1">@author.Name @author.LastName</strong></a><br>
                 </div>
                 <div class="align-self-center">       
-                    <a class="btn btn-outline-primary" asp-route-id="@author.Id" asp-controller="Author" asp-action="Edit"><i class="bi"></i> Edytuj</a>
-                    <a class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteModal"><i class="bi bi-trash"></i> Usuń</a>
+                    <a class="btn btn-outline-primary" asp-route-id="@author.Id" asp-controller="Author" asp-action="Edit">Edytuj</a>
+                    <a class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">Usuń</a>
                     <form asp-route-id="@author.Id" asp-controller="Author" asp-action="Delete" method="post">
                         <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
                           <div class="modal-dialog">
