@@ -3,140 +3,57 @@
      ViewData["Title"] = "Książki";
 }
 
-@if (@TempData["Alert"] != null)
-{
-    if (@TempData["Alert"]?.ToString() == "Success")
-    {
-        <div class="alert alert-success" role="alert">
-            Akcja została wykonana pomyślnie!
-        </div>
-    }
-    else if (@TempData["Alert"]?.ToString() == "Danger")
-    {
-        <div class="alert alert-danger" role="alert">
-            Wystąpił błąd! Akcja nie została wykonana!
-        </div>
-    }
-}
+
 
 <div class="container">
-    @if (User.IsInRole("Admin"))
-    {
-        <div class="row p-2">
-            <div class="col-5">
-                <a class="btn btn-primary" asp-controller="Book" asp-action="Create">Dodaj książkę</a>
-            </div>
-            <div class="col-7 d-flex justify-content-end">
-                <label class="form-label me-3 align-self-center">Kategoria</label>
-                <select class="form-control w-25">
-                    <option value="">Wszystko</option>
-                    @for (int i = 0; i < @ViewBag.Categories.Count; i++)
-                    {
-                        <option value="@i">@ViewBag.Categories[@i]</option>
-                    }
-                </select>
-            </div>
-        </div>
-        <div class="row p-2">
-            <div class="col-5">
-                <form class="d-flex">
-                    <label class="form-label me-3 align-self-center">Wyszukiwanie</label> 
-                    <input class="form-control me-2" type="search">
-                    <button class="btn btn-outline-success" type="submit">Search</button>
-                </form>
-            </div>
-            <div class="col-7 d-flex justify-content-end">
-                <label class="form-label me-3 align-self-center">Sortowanie</label>
-                <select class="form-control w-25">
-                    @for (int i = 0; i < @ViewBag.Sort.Count; i++)
-                    {
-                        <option value="@i">@ViewBag.Sort[@i]</option>
-                    }
-                </select>
-            </div>
-        </div>
+    <partial name="Templates/_Alert" model="@TempData["Alert"]?.ToString()"/>
 
-        <ul class="list-group mt-4">
-            @foreach (var Book in Model.Books)
-            {
-                <li class="list-group-item d-flex justify-content-between">
-                    <div class="align-self-center">
-                        <a class="text-decoration-none text-dark" asp-route-id="@Book.Id" asp-controller="Book" asp-action="Details"><strong class="mb-1">@Book.Title</strong></a><br>
-                        <small class="small">@Book.Author.Name @Book.Author.LastName</small>
-                    </div>
-                    <div class="align-self-center">
-                        <a class="btn btn-outline-primary" hidden asp-route-id="@Book.Id" asp-controller="Book" asp-action="Details">Egzemplarze</a>
-                        <a class="btn btn-outline-primary" asp-route-id="@Book.Id" asp-controller="Book" asp-action="Edit">Edytuj</a>
-                        <a class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">Usuń</a>
-                        <form asp-route-id="@Book.Id" asp-controller="Book" asp-action="Delete" method="post">
-                            <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
-                              <div class="modal-dialog">
-                                <div class="modal-content">
-                                  <div class="modal-header">
-                                    <h5 class="modal-title" id="deleteModalLabel">Usuwanie</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                  </div>
-                                  <div class="modal-body">
-                                    Czy na pewno usunąć książkę?
-                                  </div>
-                                  <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Anuluj</button>
-                                    <button type="submit" class="btn btn-danger">Usuń</button>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                        </form>
-                    </div>
-                </li>    
-            }
-        </ul>
+    <div class="row p-2">
+    @if (User.IsInRole("Admin")){
+        <div class="col-5">
+            <a class="btn btn-primary" asp-controller="Book" asp-action="Create">Dodaj książkę</a>
+        </div>
+        <div class="col-7 d-flex justify-content-end">
+            <label class="form-label me-3 align-self-center">Kategoria</label>
+            <select class="form-control w-25">
+                <partial name="Templates/_Select" model="@ViewBag.Categories"/>
+            </select>
+        </div>
     }
-    else
-    {
-        <div class="row p-2">
-            <div class="col-12 d-flex justify-content-end">
-                <label class="form-label me-3 align-self-center">Kategoria</label>
-                <select class="form-control w-25">
-                    <option value="">Wszystko</option>
-                    @for (int i = 0; i < @ViewBag.Categories.Count; i++)
-                    {
-                        <option value="@i">@ViewBag.Categories[@i]</option>
-                    }
-                </select>
-            </div>
+    else {
+        <div class="col-12 d-flex justify-content-end">
+            <label class="form-label me-3 align-self-center">Kategoria</label>
+            <select class="form-control w-25">
+                <partial name="Templates/_Select" model="@ViewBag.Categories"/>  
+            </select>
         </div>
-        <div class="row p-2">
-            <div class="col-5">
-                <form class="d-flex">
-                    <label class="form-label me-3 align-self-center">Wyszukiwanie</label> 
-                    <input class="form-control me-2" type="search">
-                    <button class="btn btn-outline-success" type="submit">Search</button>
-                </form>
-            </div>
-            <div class="col-7 d-flex justify-content-end">
-                <label class="form-label me-3 align-self-center">Sortowanie</label>
-                <select class="form-control w-25">
-                    @for (int i = 0; i < @ViewBag.Sort.Count; i++)
-                    {
-                        <option value="@i">@ViewBag.Sort[@i]</option>
-                    }
-                </select>
-            </div>
-        </div>
+    }
 
-        <ul class="list-group mt-4">
-            @foreach (var Book in Model.Books)
-            {
-                <li class="list-group-item d-flex justify-content-between">
-                    <div class="align-self-center">
-                        <a class="text-decoration-none text-dark" asp-route-id="@Book.Id" asp-controller="Book" asp-action="Details"><strong class="mb-1">@Book.Title</strong></a><br>
-                        <small class="small">@Book.Author.Name @Book.Author.LastName</small>
-                    </div>
-                </li>    
-            }
-        </ul>
-    }
+    </div>
+    <div class="row p-2">
+        <div class="col-5">
+            <form class="d-flex">
+                <label class="form-label me-3 align-self-center">Wyszukiwanie</label> 
+                <input class="form-control me-2" type="search">
+                <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
+    </div>
+    <div class="col-7 d-flex justify-content-end">
+            <label class="form-label me-3 align-self-center">Sortowanie</label>
+            <select class="form-control w-25">
+                <partial name="Templates/_Select" model="@ViewBag.Sort"/>  
+            </select>
+        </div>
+    </div>
+
+    <ul class="list-group mt-4">
+        @if (User.IsInRole("Admin")){
+            <partial name="Templates/_BookListAdmin" model="@Model.Books"/>
+        }
+        else {
+            <partial name="Templates/_BookList" model="@Model.Books"/>
+        }
+    </ul>
 
     <div class="row">
         <div class="col-md-4">

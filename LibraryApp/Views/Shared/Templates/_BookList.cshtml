@@ -1,0 +1,11 @@
+﻿@model List<Book>
+
+@foreach (var Book in Model)
+{
+    <li class="list-group-item d-flex justify-content-between">
+        <div class="align-self-center">
+            <a class="text-decoration-none text-dark" asp-route-id="@Book.Id" asp-controller="Book" asp-action="Details"><strong class="mb-1">@Book.Title</strong></a><br>
+            <small class="small">@Book.Author.Name @Book.Author.LastName</small>
+        </div>
+    </li>
+}

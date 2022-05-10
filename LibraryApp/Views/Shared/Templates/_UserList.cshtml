@@ -1,0 +1,28 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using LibraryApp.Areas.Identity.Data
+@inject UserManager<AppUser> UserManager
+@model List<AppUser>
+
+@foreach (var user in Model)
+{
+    <li class="list-group-item d-flex justify-content-between">
+        <div class="align-self-center">
+            <a class="text-decoration-none text-dark" asp-route-id="@user.Id" asp-controller="User" asp-action="Details"><strong class="mb-1">@user.UserName</strong></a><br>
+        </div>
+        <div class="align-self-center">
+            @if (UserManager.GetUserId(User) != @user.Id)
+            {
+                <a class="btn btn-outline-primary" asp-route-id="@user.Id" asp-controller="User" asp-action="Role">Zarządzaj rolą</a>
+                <a class="btn btn-outline-primary" asp-route-id="@user.Id" asp-controller="User" asp-action="Edit">Edytuj</a>
+                <a class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">Usuń</a>
+                <form asp-route-id="@user.Id" asp-controller="User" asp-action="Delete" method="post">
+                    <partial name="Templates/_ModalDelete"/>
+                </form>
+            }
+            else
+            {
+                <a class="btn btn-outline-primary" asp-route-id="@UserManager.GetUserId(User)" asp-controller="User" asp-action="Edit">Edytuj profil</a>
+            }
+        </div>
+    </li>    
+}

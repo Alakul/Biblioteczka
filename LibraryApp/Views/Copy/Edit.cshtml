@@ -3,21 +3,7 @@
     ViewData["Title"] = "Edytuj egzemplarz";
 }
 
-@if (@ViewData["Alert"] != null)
-{
-    if (@ViewData["Alert"]?.ToString() == "Success")
-    {
-        <div class="alert alert-success" role="alert">
-            Akcja została wykonana pomyślnie!
-        </div>
-    }
-    else if (@ViewData["Alert"]?.ToString() == "Danger")
-    {
-        <div class="alert alert-danger" role="alert">
-            Wystąpił błąd! Akcja nie została wykonana!
-        </div>
-    }
-}
+<partial name="Templates/_Alert" model="@ViewData["Alert"]?.ToString()"/>
 
 <div class="col-sm-6 mx-auto">
     <form asp-controller="Copy" asp-action="Edit" method="post">

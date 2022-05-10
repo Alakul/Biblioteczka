@@ -5,55 +5,16 @@
 @inject UserManager<AppUser> UserManager
 
 @{
+    ViewData["Title"] = "Wypożyczanie";
 }
 
 lista wypożyczeń
 
 <ul class="list-group mt-4">
-    @if (User.IsInRole("Admin"))
-    {
-        @foreach (var Loan in Model)
-        {
-                <li class="list-group-item d-flex justify-content-between">
-                    <div class="align-self-center">
-                        <a class="text-decoration-none text-dark"><strong class="mb-1">@Loan.Id</strong></a><br>
-                        <small class="small">User @Loan.UserBorrowingId</small>
-                        <small class="small">Książka id @Loan.BookId</small>
-                    </div>
-                    <div class="align-self-center">
-                        <small class="small">Data wypożyczenia @Loan.LoanDate</small>
-                        @if (Loan.ReturnDate==null)
-                        {
-                            <form asp-route-id="@Loan.Id" asp-controller="Loan" asp-action="Return">
-                                <button type="submit" class="btn btn-primary">Zatwierdź oddanie</button>
-                            </form>
-                        }
-                        else
-                        {
-                            <small class="small">Data oddania @Loan.ReturnDate</small>
-                        }
-                    </div>
-                </li>  
-        }
+    @if (User.IsInRole("Admin")){
+        <partial name="Templates/_LoanListAdmin" model="@Model"/>
     }
-    else if (SignInManager.IsSignedIn(User))
-    {
-        @foreach (var Loan in Model)
-        {
-            @if (Loan.UserBorrowingId == @UserManager.GetUserId(User))
-            {
-                <li class="list-group-item d-flex justify-content-between">
-                    <div class="align-self-center">
-                        <a class="text-decoration-none text-dark"><strong class="mb-1">@Loan.Id</strong></a><br>
-                        <small class="small">User @Loan.UserBorrowingId</small>
-                        <small class="small">Książka id @Loan.BookId</small>
-                    </div>
-                    <div class="align-self-center">
-                        <small class="small">Data wypożyczenia @Loan.LoanDate</small>
-                        <small class="small">Data oddania @Loan.ReturnDate</small>
-                    </div>
-                </li>
-            }
-        }
+    else if (SignInManager.IsSignedIn(User)){
+        <partial name="Templates/_LoanList" model="@Model"/>
     }
 </ul>

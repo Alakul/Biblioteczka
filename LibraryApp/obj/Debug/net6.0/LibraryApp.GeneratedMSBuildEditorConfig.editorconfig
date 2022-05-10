@@ -215,10 +215,6 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29weVxFZGl0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/alicj/source/repos/LibraryApp/LibraryApp/Views/Copy/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29weVxJbmRleC5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
 [C:/Users/alicj/source/repos/LibraryApp/LibraryApp/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
@@ -237,6 +233,54 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/alicj/source/repos/LibraryApp/LibraryApp/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/alicj/source/repos/LibraryApp/LibraryApp/Views/Shared/Templates/_Alert.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXFRlbXBsYXRlc1xfQWxlcnQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/alicj/source/repos/LibraryApp/LibraryApp/Views/Shared/Templates/_AuthorList.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXFRlbXBsYXRlc1xfQXV0aG9yTGlzdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/alicj/source/repos/LibraryApp/LibraryApp/Views/Shared/Templates/_BookList.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXFRlbXBsYXRlc1xfQm9va0xpc3QuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/alicj/source/repos/LibraryApp/LibraryApp/Views/Shared/Templates/_BookListAdmin.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXFRlbXBsYXRlc1xfQm9va0xpc3RBZG1pbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/alicj/source/repos/LibraryApp/LibraryApp/Views/Shared/Templates/_CopyList.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXFRlbXBsYXRlc1xfQ29weUxpc3QuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/alicj/source/repos/LibraryApp/LibraryApp/Views/Shared/Templates/_LoanList.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXFRlbXBsYXRlc1xfTG9hbkxpc3QuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/alicj/source/repos/LibraryApp/LibraryApp/Views/Shared/Templates/_LoanListAdmin.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXFRlbXBsYXRlc1xfTG9hbkxpc3RBZG1pbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/alicj/source/repos/LibraryApp/LibraryApp/Views/Shared/Templates/_ModalDelete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXFRlbXBsYXRlc1xfTW9kYWxEZWxldGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/alicj/source/repos/LibraryApp/LibraryApp/Views/Shared/Templates/_ReservationList.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXFRlbXBsYXRlc1xfUmVzZXJ2YXRpb25MaXN0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/alicj/source/repos/LibraryApp/LibraryApp/Views/Shared/Templates/_ReservationListAdmin.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXFRlbXBsYXRlc1xfUmVzZXJ2YXRpb25MaXN0QWRtaW4uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/alicj/source/repos/LibraryApp/LibraryApp/Views/Shared/Templates/_Select.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXFRlbXBsYXRlc1xfU2VsZWN0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/alicj/source/repos/LibraryApp/LibraryApp/Views/Shared/Templates/_UserList.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXFRlbXBsYXRlc1xfVXNlckxpc3QuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/alicj/source/repos/LibraryApp/LibraryApp/Views/Shared/_LoginPartial.cshtml]

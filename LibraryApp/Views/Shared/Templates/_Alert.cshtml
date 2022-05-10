@@ -1,0 +1,17 @@
+﻿@model string
+
+@if (@Model != null)
+{
+    if (@Model == "Success")
+    {
+        <div class="alert alert-success" role="alert">
+            Akcja została wykonana pomyślnie!
+        </div>
+    }
+    else if (@Model == "Danger")
+    {
+        <div class="alert alert-danger" role="alert">
+            Wystąpił błąd! Akcja nie została wykonana!
+        </div>
+    }
+}

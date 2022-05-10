@@ -1,0 +1,38 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using LibraryApp.Areas.Identity.Data
+
+@inject SignInManager<AppUser> SignInManager
+@model List<Copy>
+
+@foreach (var Copy in Model)
+{
+    <li class="list-group-item d-flex justify-content-between">
+        <div class="align-self-center">
+            <a class="text-decoration-none text-dark"><strong class="mb-1">@Copy.Number</strong></a>
+            @if (Copy.Status=="0"){
+                <a class="text-decoration-none text-dark">Niedostępna</a>
+            }
+            else if (Copy.Status=="1"){
+                <a class="text-decoration-none text-dark">Dostępna</a>
+            }
+        </div>
+        <div class="align-self-center">
+            @if (User.IsInRole("Admin")){
+                <a class="btn btn-outline-primary" asp-route-id="@Copy.Id" asp-controller="Copy" asp-action="Edit">Edytuj</a>
+                @if (Copy.Status == "1"){
+                    <a class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">Usuń</a>
+                    <form asp-route-id="@Copy.Id" asp-controller="Copy" asp-action="Delete" method="post">
+                        <partial name="Templates/_ModalDelete"/>
+                    </form>
+                }
+                else if (SignInManager.IsSignedIn(User)){
+                    @if (@Copy.Status == "1"){
+                        <form asp-route-id="@Copy.Id" asp-controller="Book" asp-action="Reservate" method="post">
+                            <button type="submit" class="btn btn-outline-primary">Zarezerwuj</button>
+                        </form>
+                    }
+                }
+            }
+        </div>
+    </li>    
+}

@@ -11,11 +11,7 @@
         <div class="col-12 d-flex justify-content-end">
             <label class="form-label me-3 align-self-center">Kategoria</label>
             <select class="form-control w-25">
-                <option value="">Wszystko</option>
-                @for (int i = 0; i < @ViewBag.Categories.Count; i++)
-                {
-                    <option value="@i">@ViewBag.Categories[@i]</option>
-                }
+                <partial name="Templates/_Select" model="@ViewBag.Categories"/>
             </select>
         </div>
     </div>
@@ -30,54 +26,13 @@
         <div class="col-7 d-flex justify-content-end">
             <label class="form-label me-3 align-self-center">Sortowanie</label>
             <select class="form-control w-25">
-                @for (int i = 0; i < @ViewBag.Sort.Count; i++)
-                {
-                    <option value="@i">@ViewBag.Sort[@i]</option>
-                }
+                <partial name="Templates/_Select" model="@ViewBag.Sort"/>
             </select>
         </div>
     </div>
     
     <ul class="list-group mt-4">
-        @foreach (var user in Model)
-        {
-            <li class="list-group-item d-flex justify-content-between">
-                <div class="align-self-center">
-                    <a class="text-decoration-none text-dark" asp-route-id="@user.Id" asp-controller="User" asp-action="Details"><strong class="mb-1">@user.UserName</strong></a><br>
-                </div>
-                <div class="align-self-center">
-                    @if (UserManager.GetUserId(User) != @user.Id)
-                    {
-                        <a class="btn btn-outline-primary" asp-route-id="@user.Id" asp-controller="User" asp-action="Role">Zarządzaj rolą</a>
-                        <a class="btn btn-outline-primary" asp-route-id="@user.Id" asp-controller="User" asp-action="Edit">Edytuj</a>
-                        <a class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">Usuń</a>
-                        <form asp-route-id="@user.Id" asp-controller="User" asp-action="Delete" method="post">
-                            <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
-                              <div class="modal-dialog">
-                                <div class="modal-content">
-                                  <div class="modal-header">
-                                    <h5 class="modal-title" id="deleteModalLabel">Usuwanie</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                  </div>
-                                  <div class="modal-body">
-                                    Czy na pewno usunąć użytkownika?
-                                  </div>
-                                  <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Anuluj</button>
-                                    <button type="submit" class="btn btn-danger">Usuń</button>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                        </form>
-                    }
-                    else
-                    {
-                        <a class="btn btn-outline-primary" asp-route-id="@UserManager.GetUserId(User)" asp-controller="User" asp-action="Edit">Edytuj profil</a>
-                    }
-                </div>
-            </li>    
-        }
+        <partial name="Templates/_UserList" model="@Model"/>      
     </ul>
 </div>
 

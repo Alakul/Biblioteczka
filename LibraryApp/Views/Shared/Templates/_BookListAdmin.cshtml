@@ -1,0 +1,19 @@
+﻿@model List<Book>
+
+@foreach (var Book in Model)
+{
+    <li class="list-group-item d-flex justify-content-between">
+        <div class="align-self-center">
+            <a class="text-decoration-none text-dark" asp-route-id="@Book.Id" asp-controller="Book" asp-action="Details"><strong class="mb-1">@Book.Title</strong></a><br>
+            <small class="small">@Book.Author.Name @Book.Author.LastName</small>
+        </div>
+        <div class="align-self-center">
+            <a class="btn btn-outline-primary" hidden asp-route-id="@Book.Id" asp-controller="Book" asp-action="Details">Egzemplarze</a>
+            <a class="btn btn-outline-primary" asp-route-id="@Book.Id" asp-controller="Book" asp-action="Edit">Edytuj</a>
+            <a class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">Usuń</a>
+            <form asp-route-id="@Book.Id" asp-controller="Book" asp-action="Delete" method="post">
+                <partial name="Templates/_ModalDelete"/>
+            </form>
+        </div>
+    </li>
+}

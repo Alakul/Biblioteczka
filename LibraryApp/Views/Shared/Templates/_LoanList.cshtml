@@ -1,0 +1,23 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using LibraryApp.Areas.Identity.Data
+
+@inject UserManager<AppUser> UserManager
+@model List<Loan>
+
+@foreach (var Loan in Model)
+{
+    @if (Loan.UserBorrowingId == @UserManager.GetUserId(User))
+    {
+        <li class="list-group-item d-flex justify-content-between">
+            <div class="align-self-center">
+                <a class="text-decoration-none text-dark"><strong class="mb-1">@Loan.Id</strong></a><br>
+                <small class="small">User @Loan.UserBorrowingId</small>
+                <small class="small">Książka id @Loan.BookId</small>
+            </div>
+            <div class="align-self-center">
+                <small class="small">Data wypożyczenia @Loan.LoanDate</small>
+                <small class="small">Data oddania @Loan.ReturnDate</small>
+            </div>
+        </li>
+    }
+}

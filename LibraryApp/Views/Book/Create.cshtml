@@ -3,21 +3,7 @@
     ViewData["Title"] = "Dodaj książkę";
 }
 
-@if (@ViewData["Alert"] != null)
-{
-    if (@ViewData["Alert"]?.ToString() == "Success")
-    {
-        <div class="alert alert-success" role="alert">
-            Akcja została wykonana pomyślnie!
-        </div>
-    }
-    else if (@ViewData["Alert"]?.ToString() == "Danger")
-    {
-        <div class="alert alert-danger" role="alert">
-            Wystąpił błąd! Akcja nie została wykonana!
-        </div>
-    }
-}
+<partial name="Templates/_Alert" model="@ViewData["Alert"]?.ToString()"/>
 
 <div class="col-sm-6 mx-auto">
     <form asp-controller="Book" asp-action="Create" method="post" enctype="multipart/form-data">
@@ -31,7 +17,6 @@
         <div class="mb-3">
             <label for="Author">Autor</label><br>
             <select id="Author" name="Book.AuthorId" class="form-control">
-                <option value="">Wybierz autora</option>
                 @foreach (var Author in @Model.Authors)
                 {
                     <option value="@Author.Id">@Author.Name @Author.LastName</option>
@@ -49,7 +34,6 @@
             <input id="File" name="File" type="file" class="form-control-file" onchange="preview();" minlength="3" maxlength="100" required>
             <img id="ImagePreview" src=""  height="100" width="100"/>
         </div>
-
         <script>
             function preview() {
                 ImagePreview.src = URL.createObjectURL(event.target.files[0]);

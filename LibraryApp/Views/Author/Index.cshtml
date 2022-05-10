@@ -23,36 +23,6 @@
     </div>
     
     <ul class="list-group mt-4">
-        @foreach (var Author in Model)
-        {
-            <li class="list-group-item d-flex justify-content-between">
-                <div class="align-self-center">
-                    <a class="text-decoration-none text-dark" asp-route-id="@Author.Id" asp-controller="Author" asp-action="Details"><strong class="mb-1">@Author.Name @Author.LastName</strong></a><br>
-                </div>
-                <div class="align-self-center">       
-                    <a class="btn btn-outline-primary" asp-route-id="@Author.Id" asp-controller="Author" asp-action="Edit">Edytuj</a>
-                    <a class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">Usuń</a>
-                    <form asp-route-id="@Author.Id" asp-controller="Author" asp-action="Delete" method="post">
-                        <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
-                          <div class="modal-dialog">
-                            <div class="modal-content">
-                              <div class="modal-header">
-                                <h5 class="modal-title" id="deleteModalLabel">Usuwanie</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                              </div>
-                              <div class="modal-body">
-                                Czy na pewno usunąć książkę?
-                              </div>
-                              <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Anuluj</button>
-                                <button type="submit" class="btn btn-danger">Usuń</button>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                    </form>
-                </div>
-            </li>    
-        }
+        <partial name="Templates/_AuthorList" model="@Model"/>
     </ul>
 </div>

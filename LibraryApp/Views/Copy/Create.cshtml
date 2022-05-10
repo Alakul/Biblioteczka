@@ -3,21 +3,7 @@
     ViewData["Title"] = "Dodaj egzemplarz";
 }
 
-@if (@ViewData["Alert"] != null)
-{
-    if (@ViewData["Alert"]?.ToString() == "Success")
-    {
-        <div class="alert alert-success" role="alert">
-            Akcja została wykonana pomyślnie!
-        </div>
-    }
-    else if (@ViewData["Alert"]?.ToString() == "Danger")
-    {
-        <div class="alert alert-danger" role="alert">
-            Wystąpił błąd! Akcja nie została wykonana!
-        </div>
-    }
-}
+<partial name="Templates/_Alert" model="@ViewData["Alert"]?.ToString()"/>
 
 <div class="col-sm-6 mx-auto">
     <form asp-controller="Copy" asp-action="Create" method="post">
@@ -31,10 +17,7 @@
         <div class="mb-3">
             <label for="Status">Status</label><br>
             <select id="Status" name="Copy.Status" class="form-control">
-                @for (int i = 0; i < @ViewBag.Categories.Count; i++)
-                {
-                    <option value="@i">@ViewBag.Categories[@i]</option>
-                }
+                <partial name="Templates/_Select" model="@ViewBag.Categories"/>
             </select>
         </div>
         

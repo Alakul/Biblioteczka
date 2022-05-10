@@ -10,108 +10,14 @@
 
 Rezerwacje
 
-@if (@TempData["Alert"] != null)
-{
-    if (@TempData["Alert"]?.ToString() == "Success")
-    {
-        <div class="alert alert-success" role="alert">
-            Akcja została wykonana pomyślnie!
-        </div>
-    }
-    else if (@TempData["Alert"]?.ToString() == "Danger")
-    {
-        <div class="alert alert-danger" role="alert">
-            Wystąpił błąd! Akcja nie została wykonana!
-        </div>
-    }
-}
+<partial name="Templates/_Alert" model="@TempData["Alert"]?.ToString()"/>
 
 <ul class="list-group mt-4">
-    @if (User.IsInRole("Admin"))
-    {
-        @foreach (var Reservation in Model)
-        {
-                    <li class="list-group-item d-flex justify-content-between">
-                    <div class="align-self-center">
-                        <a class="text-decoration-none text-dark" asp-route-id="@Reservation.Id" asp-controller="Book" asp-action="Details"><strong class="mb-1">@Reservation.Id</strong></a><br>
-                        <small class="small">User @Reservation.UserBorrowingId</small>
-                        <small class="small">Książka id @Reservation.BookId</small>
-                    </div>
-                    <div class="align-self-center">
-                        @if (User.IsInRole("Admin"))
-                        {
-                            <form asp-route-id="@Reservation.Id" asp-controller="Loan" asp-action="Create">
-                                <button type="submit" class="btn btn-outline-primary">Wypożycz</button>
-                            </form>
-                        }
-
-                        <a class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">Usuń</a>
-                        <form asp-route-id="@Reservation.Id" asp-controller="Reservation" asp-action="Delete" method="post">
-                            <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
-                              <div class="modal-dialog">
-                                <div class="modal-content">
-                                  <div class="modal-header">
-                                    <h5 class="modal-title" id="deleteModalLabel">Usuwanie</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                  </div>
-                                  <div class="modal-body">
-                                    Czy na pewno usunąć rezerwację?
-                                  </div>
-                                  <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Anuluj</button>
-                                    <button type="submit" class="btn btn-danger">Usuń</button>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                        </form>
-                    </div>
-                </li>  
-        }
+    @if (User.IsInRole("Admin")){
+        <partial name="Templates/_ReservationListAdmin" model="@Model"/>
     }
-    else if (SignInManager.IsSignedIn(User))
-    {
-        @foreach (var Reservation in Model)
-            {
-                @if (Reservation.UserBorrowingId == @UserManager.GetUserId(User))
-                {
-                    <li class="list-group-item d-flex justify-content-between">
-                    <div class="align-self-center">
-                        <a class="text-decoration-none text-dark" asp-route-id="@Reservation.Id" asp-controller="Book" asp-action="Details"><strong class="mb-1">@Reservation.Id</strong></a><br>
-                        <small class="small">User @Reservation.UserBorrowingId</small>
-                        <small class="small">Książka id @Reservation.BookId</small>
-                    </div>
-                    <div class="align-self-center">
-                        @if (User.IsInRole("Admin"))
-                        {
-                            <a class="btn btn-outline-primary" asp-route-id="@Reservation.Id" asp-controller="Loan" asp-action="Create">Wypożycz</a>
-                        }
-
-                        <a class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">Usuń</a>
-                        <form asp-route-id="@Reservation.Id" asp-controller="Reservation" asp-action="Delete" method="post">
-                            <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
-                              <div class="modal-dialog">
-                                <div class="modal-content">
-                                  <div class="modal-header">
-                                    <h5 class="modal-title" id="deleteModalLabel">Usuwanie</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                  </div>
-                                  <div class="modal-body">
-                                    Czy na pewno usunąć rezerwację?
-                                  </div>
-                                  <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Anuluj</button>
-                                    <button type="submit" class="btn btn-danger">Usuń</button>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                        </form>
-                    </div>
-                </li>
-                }
-                
-            }
+    else if (SignInManager.IsSignedIn(User)){
+        <partial name="Templates/_ReservationList" model="@Model"/>
     }
 </ul>
             

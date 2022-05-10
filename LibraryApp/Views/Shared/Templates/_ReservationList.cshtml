@@ -1,0 +1,28 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using LibraryApp.Areas.Identity.Data
+@inject UserManager<AppUser> UserManager
+@model List<Reservation>
+
+@foreach (var Reservation in Model)
+{
+    @if (Reservation.UserBorrowingId == @UserManager.GetUserId(User))
+    {
+        <li class="list-group-item d-flex justify-content-between">
+            <div class="align-self-center">
+                <a class="text-decoration-none text-dark" asp-route-id="@Reservation.Id" asp-controller="Book" asp-action="Details"><strong class="mb-1">@Reservation.Id</strong></a><br>
+                <small class="small">User @Reservation.UserBorrowingId</small>
+                <small class="small">Książka id @Reservation.BookId</small>
+            </div>
+            <div class="align-self-center">
+                @if (User.IsInRole("Admin")){
+                    <a class="btn btn-outline-primary" asp-route-id="@Reservation.Id" asp-controller="Loan" asp-action="Create">Wypożycz</a>
+                }
+
+                <a class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">Usuń</a>
+                <form asp-route-id="@Reservation.Id" asp-controller="Reservation" asp-action="Delete" method="post">
+                    <partial name="Templates/_ModalDelete"/>
+                </form>
+            </div>
+        </li>
+    }
+}
