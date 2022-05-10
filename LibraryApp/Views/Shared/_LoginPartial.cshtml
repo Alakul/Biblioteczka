@@ -17,6 +17,8 @@
                 <li><a class="dropdown-item" asp-controller="Book" asp-action="Index">Książki</a></li>
                 <li><a class="dropdown-item" asp-controller="Author" asp-action="Index">Autorzy</a></li>
                 <li><a class="dropdown-item" asp-controller="User" asp-action="Index">Użytkownicy</a></li>
+                <li><a class="dropdown-item" asp-controller="Loan" asp-action="Index">Wypożyczone</a></li>
+                <li><a class="dropdown-item" asp-controller="Reservation" asp-action="Index">Rezerwacje</a></li>
                 <li><a class="dropdown-item" href="#">Ustawienia</a></li>
                 <li><hr class="dropdown-divider"></li>
                 <li>
@@ -37,7 +39,8 @@
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"> 
             </a>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                <li><a class="dropdown-item" href="#">Moje książki</a></li>
+                <li><a class="dropdown-item" asp-controller="Loan" asp-action="Index">Wypożyczone</a></li>
+                <li><a class="dropdown-item" asp-controller="Reservation" asp-action="Index">Rezerwacje</a></li>
                 <li><a class="dropdown-item" href="#">Ulubione</a></li>
                 <li><a class="dropdown-item" asp-area="Identity" asp-page="/Account/Manage/Index">Ustawienia</a></li>
                 <li><hr class="dropdown-divider"></li>

@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "RG1CKbiUqr/azfrgbRG613dlM65Y7UEKjIHq7d7r9/M=",
+  "Hash": "KgJOO4z/A4lse2Q+CKHxEWrSy6LY3ljuLCgcZuKnXBs=",
   "Source": "LibraryApp",
   "BasePath": "_content/LibraryApp",
   "Mode": "Default",
@@ -1103,6 +1103,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\favicon.ico"
+    },
+    {
+      "Identity": "C:\\Users\\alicj\\source\\repos\\LibraryApp\\LibraryApp\\wwwroot\\images\\1a8f9466-b1d5-4767-8fa6-59330ec9e3f6.jpg",
+      "SourceId": "LibraryApp",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\alicj\\source\\repos\\LibraryApp\\LibraryApp\\wwwroot\\",
+      "BasePath": "_content/LibraryApp",
+      "RelativePath": "images/1a8f9466-b1d5-4767-8fa6-59330ec9e3f6.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\1a8f9466-b1d5-4767-8fa6-59330ec9e3f6.jpg"
     },
     {
       "Identity": "C:\\Users\\alicj\\source\\repos\\LibraryApp\\LibraryApp\\wwwroot\\images\\527a7715-7f73-45c3-9fa0-2df8173eea07.png",

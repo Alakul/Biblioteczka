@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LibraryApp.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20220509152317_LoanReservationCreate")]
+    [Migration("20220510111717_LoanReservationCreate")]
     partial class LoanReservationCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -93,14 +93,14 @@ namespace LibraryApp.Migrations
                         {
                             Id = "0b948a1f-c552-41af-9818-77ab56a8be88",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "ce06fc41-a6bc-46f9-b82b-5af6c35ff1d9",
+                            ConcurrencyStamp = "ab34dcc3-8a21-420d-8056-bc9655396a41",
                             Email = "admin@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedUserName = "ADMIN@GMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEDyjbMniwek8TtFlxRVnb83mv/qlzeLDGHyNdEQP/Mk7lhwgwO2QfDfkLHoB2YDs7A==",
+                            PasswordHash = "AQAAAAEAACcQAAAAENY4XlXWrOZ3s2TQ8/u6rbK4khzjf/C1a+3tdSNOohG+IQXFozyzaLBqC1hCBgYRzA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "060ffc6b-a7ee-47dd-b031-4552431afa3a",
+                            SecurityStamp = "05fdb6b9-e139-444c-a720-7196d9a9731e",
                             TwoFactorEnabled = false,
                             UserName = "admin@gmail.com"
                         });
@@ -118,9 +118,11 @@ namespace LibraryApp.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("LastName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UserId")
@@ -143,18 +145,22 @@ namespace LibraryApp.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("City")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Image")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Title")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UserId")
@@ -188,6 +194,7 @@ namespace LibraryApp.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Status")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UserId")
@@ -208,6 +215,9 @@ namespace LibraryApp.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<int>("BookId")
+                        .HasColumnType("int");
+
                     b.Property<int>("CopyId")
                         .HasColumnType("int");
 
@@ -217,7 +227,12 @@ namespace LibraryApp.Migrations
                     b.Property<DateTime?>("ReturnDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("UserBorrowingId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UserId")
@@ -236,6 +251,9 @@ namespace LibraryApp.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<int>("BookId")
+                        .HasColumnType("int");
+
                     b.Property<int>("CopyId")
                         .HasColumnType("int");
 
@@ -243,6 +261,7 @@ namespace LibraryApp.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("UserBorrowingId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");

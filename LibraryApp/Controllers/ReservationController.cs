@@ -2,6 +2,7 @@
 using LibraryApp.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace LibraryApp.Controllers
 {
@@ -44,7 +45,7 @@ namespace LibraryApp.Controllers
             }
             catch
             {
-                return View();
+                return View(nameof(Index));
             }
         }
 
@@ -82,11 +83,21 @@ namespace LibraryApp.Controllers
         {
             try
             {
+                Reservation reservation = db.Reservation.Where(x => x.Id == id).Single();
+                Copy copy = db.Copy.Where(x => x.Id == reservation.CopyId).Single();
+                copy.Status = "1";
+  
+                db.Remove(db.Reservation.Where(x => x.Id == id).Single());
+                db.Copy.Update(copy);
+                db.SaveChanges();
+
+                TempData["Alert"] = "Success";
                 return RedirectToAction(nameof(Index));
             }
             catch
             {
-                return View();
+                TempData["Alert"] = "Danger";
+                return RedirectToAction(nameof(Index));
             }
         }
     }

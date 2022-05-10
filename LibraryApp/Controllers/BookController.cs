@@ -175,6 +175,39 @@ namespace LibraryApp.Controllers
             }
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Reservate(int id, IFormCollection collection)
+        {
+            Copy copy = db.Copy.Where(x => x.Id == id).Single();
+            int bookId = copy.BookId;
+
+            try
+            {
+                Reservation reservation = new Reservation
+                {
+                    Date = DateTime.Now,
+                    UserBorrowingId = User.FindFirstValue(ClaimTypes.NameIdentifier),
+                    BookId = bookId,
+                    CopyId = id,
+                };
+
+                copy.Status = "0";
+                db.Copy.Update(copy);
+                db.Reservation.Add(reservation);
+                db.SaveChanges();
+
+                TempData["Alert"] = "Success";
+                return RedirectToAction(nameof(Details), new { @id = bookId });
+            }
+            catch
+            {
+                TempData["Alert"] = "Danger";
+                return RedirectToAction(nameof(Details), new { @id = bookId });
+            }
+        }
+
+
 
 
         private BookCreateEditViewModel GetBook(int id)

@@ -11,7 +11,8 @@ namespace LibraryApp.Models
 
 
         [ForeignKey("UserBorrowingId")]
-        public string? UserBorrowingId { get; set; }
+        public string UserBorrowingId { get; set; }
+        public int BookId { get; set; }
         public int CopyId { get; set; }
     }
 }

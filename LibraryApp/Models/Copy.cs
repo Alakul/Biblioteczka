@@ -17,6 +17,6 @@ namespace LibraryApp.Models
         public Book? Book { get; set; }
 
         public int Number { get; set; }
-        public string? Status { get; set; }
+        public string Status { get; set; }
     }
 }

@@ -1,4 +1,10 @@
-﻿@model BookAuthorCopyViewModel
+﻿@using Microsoft.AspNetCore.Identity
+@using LibraryApp.Areas.Identity.Data
+
+@inject SignInManager<AppUser> SignInManager
+@inject UserManager<AppUser> UserManager
+
+@model BookAuthorCopyViewModel
 @{
      ViewData["Title"] = "O książce";
 }
@@ -30,6 +36,8 @@ O książce
 
 lista egzemplarzy
 <div class="container">
+    @if (User.IsInRole("Admin"))
+    {
         <div class="row p-2">
             <div class="col-5">
                 <a class="btn btn-primary" asp-route-id="@Model.Book.Id" asp-controller="Copy" asp-action="Create">Dodaj egzemplarz</a>
@@ -62,9 +70,10 @@ lista egzemplarzy
                     }
                 </select>
             </div>
-        </div>
+        </div>  
+    }
 
-        <ul class="list-group mt-4">
+    <ul class="list-group mt-4">
             @foreach (var Copy in @Model.Copies)
             {
                 <li class="list-group-item d-flex justify-content-between">
@@ -78,9 +87,11 @@ lista egzemplarzy
                         }
                     </div>
                     <div class="align-self-center">
-                        <a class="btn btn-outline-primary" asp-route-id="@Copy.Id" asp-controller="Copy" asp-action="Edit">Edytuj</a>
-                        <a class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">Usuń</a>
-                        <form asp-route-id="@Copy.Id" asp-controller="Copy" asp-action="Delete" method="post">
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <a class="btn btn-outline-primary" asp-route-id="@Copy.Id" asp-controller="Copy" asp-action="Edit">Edytuj</a>
+                            <a class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">Usuń</a>
+                            <form asp-route-id="@Copy.Id" asp-controller="Copy" asp-action="Delete" method="post">
                             <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
                               <div class="modal-dialog">
                                 <div class="modal-content">
@@ -98,9 +109,20 @@ lista egzemplarzy
                                 </div>
                               </div>
                             </div>
-                        </form>
+                            </form>
+                        }
+                        else if (SignInManager.IsSignedIn(User))
+                        {
+                            @if (@Copy.Status=="1")
+                            {
+                                <form asp-route-id="@Copy.Id" asp-controller="Book" asp-action="Reservate" method="post">
+                                    <button type="submit" class="btn btn-outline-primary">Zarezerwuj</button>
+                                </form> 
+                            }
+                        }        
                     </div>
                 </li>    
             }
         </ul>
+
 </div>
