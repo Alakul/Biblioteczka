@@ -8,7 +8,7 @@
     @if (User.IsInRole("Admin"))
     {
         <li class="nav-item">
-            <a id="manage" class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Admin @UserManager.GetUserName(User)</a>
+            <a id="manage" class="nav-link text-dark text-white" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Admin @UserManager.GetUserName(User)</a>
         </li>
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">

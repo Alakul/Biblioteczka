@@ -16,9 +16,17 @@ namespace LibraryApp.Controllers
         }
 
         // GET: AuthorController
-        public ActionResult Index()
+        public ActionResult Index(string searchString)
         {
             List<Author> authors = db.Author.ToList();
+
+            if (!string.IsNullOrEmpty(searchString)){
+                searchString = searchString.Trim();
+                authors = db.Author.Where(x => x.Name.Contains(searchString) || x.LastName.Contains(searchString)).ToList();
+            }
+
+            ViewBag.Sort = AppData.authorSort;
+
             return View(authors);
         }
 

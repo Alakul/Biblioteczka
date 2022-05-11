@@ -4,35 +4,50 @@
 @inject SignInManager<AppUser> SignInManager
 @model List<Copy>
 
-@foreach (var Copy in Model)
-{
-    <li class="list-group-item d-flex justify-content-between">
-        <div class="align-self-center">
-            <a class="text-decoration-none text-dark"><strong class="mb-1">@Copy.Number</strong></a>
-            @if (Copy.Status=="0"){
-                <a class="text-decoration-none text-dark">Niedostępna</a>
-            }
-            else if (Copy.Status=="1"){
-                <a class="text-decoration-none text-dark">Dostępna</a>
-            }
-        </div>
-        <div class="align-self-center">
-            @if (User.IsInRole("Admin")){
-                <a class="btn btn-outline-primary" asp-route-id="@Copy.Id" asp-controller="Copy" asp-action="Edit">Edytuj</a>
-                @if (Copy.Status == "1"){
-                    <a class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">Usuń</a>
-                    <form asp-route-id="@Copy.Id" asp-controller="Copy" asp-action="Delete" method="post">
-                        <partial name="Templates/_ModalDelete"/>
-                    </form>
-                }
-                else if (SignInManager.IsSignedIn(User)){
-                    @if (@Copy.Status == "1"){
-                        <form asp-route-id="@Copy.Id" asp-controller="Book" asp-action="Reservate" method="post">
-                            <button type="submit" class="btn btn-outline-primary">Zarezerwuj</button>
-                        </form>
+<div class="bg-white rounded shadow ps-3 pe-3 pt-1 pb-1 mt-3">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Numer</th>
+                <th scope="col">Status</th>
+                <th scope="col" class="text-end"><a class="btn btn-primary" asp-controller="Copy" asp-action="Create"><i class="bi bi-plus-lg"></i></a></th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var Copy in Model)
+            {
+                <tr>
+                    <th scope="row">@Copy.Id</th>
+                    <td><a class="text-decoration-none text-dark" asp-route-id="@Copy.Id" asp-controller="Copy" asp-action="Details">@Copy.Number</a></td>
+                    @if (Copy.Status=="0"){
+                        <td>Niedostępna</td>
                     }
-                }
+                    else if (Copy.Status=="1"){
+                        <td>Dostępna</td>
+                    }
+
+                    <td>
+                        @if (User.IsInRole("Admin")){
+                            <a class="btn btn-success mb-1" asp-route-id="@Copy.Id" asp-controller="Copy" asp-action="Edit"><i class="bi bi-pencil-square"></i></a>
+                            @if (Copy.Status == "1"){
+                                <a class="btn btn-danger mb-1" data-bs-toggle="modal" data-bs-target="#deleteModal"><i class="bi bi-trash3-fill"></i></a>
+                                <form asp-route-id="@Copy.Id" asp-controller="Copy" asp-action="Delete" method="post">
+                                    <partial name="Templates/_ModalDelete"/>
+                                </form>
+                            }
+                            else if (SignInManager.IsSignedIn(User)){
+                                @if (@Copy.Status == "1"){
+                                    <form asp-route-id="@Copy.Id" asp-controller="Book" asp-action="Reservate" method="post">
+                                        <button type="submit" class="btn btn-outline-primary">Zarezerwuj</button>
+                                    </form>
+                                }
+                            }
+                        }
+                    </td>
+                </tr>
             }
-        </div>
-    </li>    
-}
+        </tbody>
+    </table>
+</div>

@@ -4,35 +4,9 @@
 
 @{
      ViewData["Title"] = "Użytkownicy";
+     string path = "/User";
 }
 
-<div class="container">
-    <div class="row p-2">
-        <div class="col-12 d-flex justify-content-end">
-            <label class="form-label me-3 align-self-center">Kategoria</label>
-            <select class="form-control w-25">
-                <partial name="Templates/_Select" model="@ViewBag.Categories"/>
-            </select>
-        </div>
-    </div>
-    <div class="row p-2">
-        <div class="col-5">
-            <form class="d-flex">
-                <label class="form-label me-3 align-self-center">Wyszukiwanie</label> 
-                <input class="form-control me-2" type="search">
-                <button class="btn btn-outline-success" type="submit">Search</button>
-            </form>
-        </div>
-        <div class="col-7 d-flex justify-content-end">
-            <label class="form-label me-3 align-self-center">Sortowanie</label>
-            <select class="form-control w-25">
-                <partial name="Templates/_Select" model="@ViewBag.Sort"/>
-            </select>
-        </div>
-    </div>
-    
-    <ul class="list-group mt-4">
-        <partial name="Templates/_UserList" model="@Model"/>      
-    </ul>
-</div>
-
+<partial name="Templates/_Alert" model="@TempData["Alert"]?.ToString()"/>
+<partial name="Templates/_ListBar" model="@path"/>
+<partial name="Templates/_UserList" model="@Model"/>

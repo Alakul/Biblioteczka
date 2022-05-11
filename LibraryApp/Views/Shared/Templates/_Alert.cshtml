@@ -2,16 +2,18 @@
 
 @if (@Model != null)
 {
-    if (@Model == "Success")
-    {
-        <div class="alert alert-success" role="alert">
+    if (@Model == "Success"){
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
             Akcja została wykonana pomyślnie!
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     }
-    else if (@Model == "Danger")
-    {
-        <div class="alert alert-danger" role="alert">
-            Wystąpił błąd! Akcja nie została wykonana!
+    else if (@Model == "Danger"){
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>Wystąpił błąd!</strong> Akcja nie została wykonana!
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     }
 }
+
+

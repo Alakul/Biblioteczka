@@ -18,10 +18,17 @@ namespace LibraryApp.Controllers
         }
 
         // GET: BookController
-        public ActionResult Index()
+        public ActionResult Index(int sortOrder, string searchString)
         {
             BookAuthorViewModel bookAuthorViewModel = new BookAuthorViewModel();
-            bookAuthorViewModel.Books = db.Book.ToList();
+
+            if (!string.IsNullOrEmpty(searchString)){
+                searchString = searchString.Trim();
+                bookAuthorViewModel.Books = db.Book.Where(x => x.Title.Contains(searchString)).ToList();
+            }
+            else {
+                bookAuthorViewModel.Books = db.Book.ToList();
+            }
             bookAuthorViewModel.Authors = db.Author.ToList();
 
             ViewBag.Categories = AppData.bookCategories;
@@ -31,7 +38,7 @@ namespace LibraryApp.Controllers
         }
 
         // GET: BookController/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Details(int id, string searchString)
         {
             BookAuthorCopyViewModel bookAuthorCopyViewModel = new BookAuthorCopyViewModel();
             bookAuthorCopyViewModel.Book = db.Book.Where(x => x.Id == id).Single();

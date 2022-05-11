@@ -1,19 +1,34 @@
-﻿@model List<Book>
+﻿<div class="bg-white rounded shadow ps-3 pe-3 pt-1 pb-1 mt-3">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Tytuł</th>
+                <th scope="col">Zdjęcie</th>
+                <th scope="col">Autor</th>
+                <th scope="col">Kategoria</th>
+                <th scope="col" class="text-end"><a class="btn btn-primary" asp-controller="Book" asp-action="Create"><i class="bi bi-plus-lg"></i></a></th>
+            </tr>
+        </thead>
 
-@foreach (var Book in Model)
-{
-    <li class="list-group-item d-flex justify-content-between">
-        <div class="align-self-center">
-            <a class="text-decoration-none text-dark" asp-route-id="@Book.Id" asp-controller="Book" asp-action="Details"><strong class="mb-1">@Book.Title</strong></a><br>
-            <small class="small">@Book.Author.Name @Book.Author.LastName</small>
-        </div>
-        <div class="align-self-center">
-            <a class="btn btn-outline-primary" hidden asp-route-id="@Book.Id" asp-controller="Book" asp-action="Details">Egzemplarze</a>
-            <a class="btn btn-outline-primary" asp-route-id="@Book.Id" asp-controller="Book" asp-action="Edit">Edytuj</a>
-            <a class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">Usuń</a>
-            <form asp-route-id="@Book.Id" asp-controller="Book" asp-action="Delete" method="post">
-                <partial name="Templates/_ModalDelete"/>
-            </form>
-        </div>
-    </li>
-}
+        <tbody>
+            @foreach (var Book in @Model.Books)
+            {
+                <tr>
+                    <th scope="row">@Book.Id</th>
+                    <td><a class="text-decoration-none text-dark" asp-route-id="@Book.Id" asp-controller="Book" asp-action="Details">@Book.Title</a></td>
+                    <td><img src="~/images/@Book.Image" height="50"/></td>
+                    <td><a class="text-decoration-none text-dark" asp-route-id="@Book.AuthorId" asp-controller="Author" asp-action="Details">@Book.Author.Name @Book.Author.LastName</a></td>
+                    <td>Kategoria</td>
+                    <td class="text-end">
+                        <a class="btn btn-success mb-1" asp-route-id="@Book.Id" asp-controller="Book" asp-action="Edit"><i class="bi bi-pencil-square"></i></a>
+                        <a class="btn btn-danger mb-1" data-bs-toggle="modal" data-bs-target="#deleteModal"><i class="bi bi-trash3-fill"></i></a>
+                        <form asp-route-id="@Book.Id" asp-controller="Book" asp-action="Delete" method="post">
+                            <partial name="Templates/_ModalDelete"/>
+                        </form>
+                  </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

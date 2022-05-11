@@ -2,22 +2,27 @@
      ViewData["Title"] = "Zmień rolę użytkownika";
 }
 
+<partial name="Templates/_BackButton"/>
+
 <div class="col-sm-6 mx-auto">
-    <form asp-controller="User" asp-action="Role" method="post">
-        <h3 class="mb-3">Zmień rolę użytkownika</h3>
+    <partial name="Templates/_Alert" model="@ViewData["Alert"]?.ToString()"/>
+    <div class="bg-white rounded shadow p-4">
+        <form asp-controller="User" asp-action="Role" method="post">
+            <partial name="Templates/_FormHeader" model="@ViewData["Title"]"/>
 
-        <div class="mb-3">
-            <label>Użytkownik</label><br>
-            <p class="form-control">@Model.UserName</p>
-        </div>
+            <div class="mb-3">
+                <label>Użytkownik</label>
+                <p class="form-control">@Model.UserName</p>
+            </div>
 
-        <div class="mb-3">
-            <select name="Role">
-            <option value="Admin">Administrator</option>
-            <option value="User">Zwykły użytkownik</option>
-            </select>
-        </div>
+            <div class="mb-3">
+                <select name="Role">
+                <option value="Admin">Administrator</option>
+                <option value="User">Zwykły użytkownik</option>
+                </select>
+            </div>
 
-        <button class="btn btn-primary" type="submit">Zapisz</button>
-    </form>
+            <partial name="Templates/_FormButton"/>
+        </form>
+    </div>
 </div>

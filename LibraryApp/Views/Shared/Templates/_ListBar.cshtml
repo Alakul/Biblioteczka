@@ -1,0 +1,19 @@
+﻿@model string
+
+<div class="row ps-2 pe-2 pb-2">
+    <div class="col-12">
+        <label for="Search" class="col-form-label me-3">Wyszukiwanie</label>
+        <form class="d-flex" action="@Model">
+            <input id="SearchString" name="SearchString" type="text" class="form-control me-2"/>
+            <button class="btn btn-primary d-flex" type="submit"><i class="bi bi-search"></i>&nbsp;&nbsp;Szukaj</button>  
+        </form>
+    </div>
+</div>
+<div class="row p-2 mt-2 d-flex justify-content-end">
+    <div class="col-auto d-flex">
+        <label class="form-label me-3">Sortowanie</label>
+        <select class="form-control">
+            <partial name="Templates/_Select" model="@ViewBag.Sort"/>  
+        </select>
+    </div>
+</div>

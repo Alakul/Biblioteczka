@@ -2,21 +2,26 @@
      ViewData["Title"] = "Edytuj dane użytkownika";
 }
 
+<partial name="Templates/_BackButton"/>
+
 <div class="col-sm-6 mx-auto">
-    <form asp-controller="User" asp-action="Edit" method="post">
-        <h3 class="mb-3">Edytuj dane użytkownika</h3>
+    <partial name="Templates/_Alert" model="@ViewData["Alert"]?.ToString()"/>
+    <div class="bg-white rounded shadow p-4">
+        <form asp-controller="User" asp-action="Edit" method="post">
+            <partial name="Templates/_FormHeader" model="@ViewData["Title"]"/>
         
-        <div class="mb-3">
-            <label for="UserName">Nazwa</label><br>
-            <input id="UserName" name="UserName" type="text" class="form-control" minlength="3" maxlength="100" required>
-        </div>
+            <div class="mb-3">
+                <label for="UserName">Nazwa</label>
+                <input id="UserName" name="UserName" type="text" class="form-control" minlength="3" maxlength="100" required>
+            </div>
 
-        <div class="mb-3">
-            <label for="Email">Email</label><br>
-            <input id="Email" name="Email" type="text" class="form-control" minlength="3" maxlength="100" required>
-        </div>
+            <div class="mb-3">
+                <label for="Email">Email</label>
+                <input id="Email" name="Email" type="text" class="form-control" minlength="3" maxlength="100" required>
+            </div>
 
-        <button class="btn btn-primary" type="submit">Zapisz</button>
-    </form>
+            <partial name="Templates/_FormButton"/>
+        </form>
+    </div>
 </div>
 

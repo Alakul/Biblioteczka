@@ -2,20 +2,25 @@
      ViewData["Title"] = "Edytuj dane autora";
 }
 
-<div class="p-4">
-    <form asp-controller="Author" asp-action="Edit" method="post">
-        <h3>Edytuj autora</h3>
-        
-        <div class="form-group">
-            <label for="Name">Imię</label><br>
-            <input name="Name" type="text" class="form-control" minlength="3" maxlength="100" required value="@Model.Name">
-        </div>
+<partial name="Templates/_BackButton"/>
 
-        <div class="form-group">
-            <label for="LastName">Autor</label><br>
-            <input name="LastName" type="text" class="form-control" minlength="3" maxlength="100" required value="@Model.LastName">
-        </div>
+<div class="col-sm-6 mx-auto">
+    <partial name="Templates/_Alert" model="@ViewData["Alert"]?.ToString()"/>
+    <div class="bg-white rounded shadow p-4">
+        <form asp-controller="Author" asp-action="Edit" method="post">
+            <partial name="Templates/_FormHeader" model="@ViewData["Title"]"/>
         
-        <button id="save" class="btn btn-primary" type="submit">Zapisz</button>
-    </form>
+            <div class="mb-3">
+                <label for="Name">Imię</label>
+                <input name="Name" type="text" class="form-control" minlength="3" maxlength="100" required value="@Model.Name">
+            </div>
+
+            <div class="mb-3">
+                <label for="LastName">Nazwisko</label>
+                <input name="LastName" type="text" class="form-control" minlength="3" maxlength="100" required value="@Model.LastName">
+            </div>
+        
+            <partial name="Templates/_FormButton"/>
+        </form>
+    </div>
 </div>

@@ -18,10 +18,15 @@ namespace LibraryApp.Controllers
             UserManager = userManager;
         }
 
-        public ActionResult Index()
+        public ActionResult Index(string searchString)
         {
             var users = UserManager.Users.ToList();
 
+            if (!string.IsNullOrEmpty(searchString)){
+                searchString = searchString.Trim();
+                users = UserManager.Users.Where(x => x.UserName.Contains(searchString) || x.Email.Contains(searchString)).ToList();
+            }
+            
             ViewBag.Categories = AppData.userCategories;
             ViewBag.Sort = AppData.userSort;
 

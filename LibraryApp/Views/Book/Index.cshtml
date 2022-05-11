@@ -1,65 +1,24 @@
 ﻿@model BookAuthorViewModel
 @{
      ViewData["Title"] = "Książki";
+     string path = "/Book";
 }
 
+<partial name="Templates/_Alert" model="@TempData["Alert"]?.ToString()"/>
+<partial name="Templates/_ListBarCategory" model="@path"/>
 
+@if (User.IsInRole("Admin")){
+    <partial name="Templates/_BookListAdmin"/>
+}
+else {
+    <partial name="Templates/_BookList" model="@Model.Books"/>
+}
 
-<div class="container">
-    <partial name="Templates/_Alert" model="@TempData["Alert"]?.ToString()"/>
+<div class="row">
+    <div class="col-md-4">
+        <div class="">
 
-    <div class="row p-2">
-    @if (User.IsInRole("Admin")){
-        <div class="col-5">
-            <a class="btn btn-primary" asp-controller="Book" asp-action="Create">Dodaj książkę</a>
-        </div>
-        <div class="col-7 d-flex justify-content-end">
-            <label class="form-label me-3 align-self-center">Kategoria</label>
-            <select class="form-control w-25">
-                <partial name="Templates/_Select" model="@ViewBag.Categories"/>
-            </select>
-        </div>
-    }
-    else {
-        <div class="col-12 d-flex justify-content-end">
-            <label class="form-label me-3 align-self-center">Kategoria</label>
-            <select class="form-control w-25">
-                <partial name="Templates/_Select" model="@ViewBag.Categories"/>  
-            </select>
-        </div>
-    }
-
-    </div>
-    <div class="row p-2">
-        <div class="col-5">
-            <form class="d-flex">
-                <label class="form-label me-3 align-self-center">Wyszukiwanie</label> 
-                <input class="form-control me-2" type="search">
-                <button class="btn btn-outline-success" type="submit">Search</button>
-            </form>
-    </div>
-    <div class="col-7 d-flex justify-content-end">
-            <label class="form-label me-3 align-self-center">Sortowanie</label>
-            <select class="form-control w-25">
-                <partial name="Templates/_Select" model="@ViewBag.Sort"/>  
-            </select>
-        </div>
-    </div>
-
-    <ul class="list-group mt-4">
-        @if (User.IsInRole("Admin")){
-            <partial name="Templates/_BookListAdmin" model="@Model.Books"/>
-        }
-        else {
-            <partial name="Templates/_BookList" model="@Model.Books"/>
-        }
-    </ul>
-
-    <div class="row">
-        <div class="col-md-4">
-            <div class="">
-
-            </div>
         </div>
     </div>
 </div>
+

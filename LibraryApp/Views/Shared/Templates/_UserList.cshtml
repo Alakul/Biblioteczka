@@ -1,28 +1,41 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @using LibraryApp.Areas.Identity.Data
 @inject UserManager<AppUser> UserManager
-@model List<AppUser>
 
-@foreach (var user in Model)
-{
-    <li class="list-group-item d-flex justify-content-between">
-        <div class="align-self-center">
-            <a class="text-decoration-none text-dark" asp-route-id="@user.Id" asp-controller="User" asp-action="Details"><strong class="mb-1">@user.UserName</strong></a><br>
-        </div>
-        <div class="align-self-center">
-            @if (UserManager.GetUserId(User) != @user.Id)
+<div class="bg-white rounded shadow ps-3 pe-3 pt-1 pb-1 mt-3">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Login</th>
+                <th scope="col">Email</th>
+                <th scope="col" class="text-end"></th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var user in Model)
             {
-                <a class="btn btn-outline-primary" asp-route-id="@user.Id" asp-controller="User" asp-action="Role">Zarządzaj rolą</a>
-                <a class="btn btn-outline-primary" asp-route-id="@user.Id" asp-controller="User" asp-action="Edit">Edytuj</a>
-                <a class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">Usuń</a>
-                <form asp-route-id="@user.Id" asp-controller="User" asp-action="Delete" method="post">
-                    <partial name="Templates/_ModalDelete"/>
-                </form>
+                <tr>
+                    <th scope="row">@user.Id</th>
+                    <td><a class="text-decoration-none text-dark" asp-route-id="@user.Id" asp-controller="User" asp-action="Details">@user.UserName</a></td>
+                    <td>@user.Email</td>
+                    <td class="text-end">
+                    @if (UserManager.GetUserId(User) != @user.Id)
+                    {
+                        <a class="btn btn-outline-primary" asp-route-id="@user.Id" asp-controller="User" asp-action="Role">Zarządzaj rolą</a>
+                        <a class="btn btn-success mb-1" asp-route-id="@user.Id" asp-controller="User" asp-action="Edit"><i class="bi bi-pencil-square"></i></a>
+                        <a class="btn btn-danger mb-1" data-bs-toggle="modal" data-bs-target="#deleteModal"><i class="bi bi-trash3-fill"></i></a>
+                        <form asp-route-id="@user.Id" asp-controller="User" asp-action="Delete" method="post">
+                            <partial name="Templates/_ModalDelete"/>
+                        </form>
+                    }
+                    else
+                    {
+                        <a class="btn btn-outline-primary" asp-route-id="@UserManager.GetUserId(User)" asp-controller="User" asp-action="Edit">Edytuj profil</a>
+                    }
+                </tr>
             }
-            else
-            {
-                <a class="btn btn-outline-primary" asp-route-id="@UserManager.GetUserId(User)" asp-controller="User" asp-action="Edit">Edytuj profil</a>
-            }
-        </div>
-    </li>    
-}
+        </tbody>
+    </table>
+</div>

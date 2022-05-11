@@ -7,54 +7,23 @@
 @model BookAuthorCopyViewModel
 @{
      ViewData["Title"] = "O książce";
+     string path = "/Book/Details";
 }
 
 
+<partial name="Templates/_BackButton"/>
+<partial name="Templates/_Alert" model="@ViewData["Alert"]?.ToString()"/>
 
-<div class="container">
-    <partial name="Templates/_Alert" model="@ViewData["Alert"]?.ToString()"/>
 
-    O książce
-    <div>
+O książce
+<div>
         <h3>@Model.Book.Title</h3>
 
         <p>@Model.Author.Name @Model.Author.LastName</p>
 
         <img src="~/images/@Model.Book.Image" height="400" width="400"/>
-    </div>
-
-
-    @if (User.IsInRole("Admin"))
-    {
-        <div class="row p-2">
-            <div class="col-5">
-                <a class="btn btn-primary" asp-route-id="@Model.Book.Id" asp-controller="Copy" asp-action="Create">Dodaj egzemplarz</a>
-            </div>
-            <div class="col-7 d-flex justify-content-end">
-                <label class="form-label me-3 align-self-center">Kategoria</label>
-                <select class="form-control w-25">
-                    <partial name="Templates/_Select" model="@ViewBag.Categories"/>  
-                </select>
-            </div>
-        </div>
-        <div class="row p-2">
-            <div class="col-5">
-                <form class="d-flex">
-                    <label class="form-label me-3 align-self-center">Wyszukiwanie</label> 
-                    <input class="form-control me-2" type="search">
-                    <button class="btn btn-outline-success" type="submit">Search</button>
-                </form>
-            </div>
-            <div class="col-7 d-flex justify-content-end">
-                <label class="form-label me-3 align-self-center">Sortowanie</label>
-                <select class="form-control w-25">
-                    <partial name="Templates/_Select" model="@ViewBag.Sort"/>  
-                </select>
-            </div>
-        </div>  
-    }
-
-    <ul class="list-group mt-4">
-        <partial name="Templates/_CopyList" model="@Model.Copies"/>
-    </ul>
 </div>
+
+
+<partial name="Templates/_ListBarCategory" model="@path"/>
+<partial name="Templates/_CopyList" model="@Model.Copies"/>
