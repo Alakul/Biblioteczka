@@ -1,6 +1,8 @@
-﻿using LibraryApp.Data;
+﻿using LibraryApp.Areas.Identity.Data;
+using LibraryApp.Data;
 using LibraryApp.Models;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
@@ -9,15 +11,27 @@ namespace LibraryApp.Controllers
     public class LoanController : Controller
     {
         AppDbContext db;
-        public LoanController(AppDbContext context)
+        readonly UserManager<AppUser> UserManager;
+        public LoanController(AppDbContext context, UserManager<AppUser> userManager)
         {
             db = context;
+            UserManager = userManager;
         }
 
         // GET: LoanController
-        public ActionResult Index()
+        public ActionResult Index(string searchString)
         {
             List<Loan> loans = db.Loan.ToList();
+
+            if (!string.IsNullOrEmpty(searchString)){
+                searchString = searchString.Trim();
+                loans = db.Loan.Where(x => x.UserBorrowingId.Contains(searchString) || x.BookId.ToString().Contains(searchString)).ToList();
+            }
+            else {
+                loans = db.Loan.ToList();
+            }
+
+            ViewBag.Sort = AppData.reservationSort;
             return View(loans);
         }
 

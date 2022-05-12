@@ -6,24 +6,18 @@
 
 @model BookAuthorCopyViewModel
 @{
-     ViewData["Title"] = "O książce";
-     string path = "/Book/Details";
+    ViewData["Title"] = "O książce";
 }
 
-
 <partial name="Templates/_BackButton"/>
-<partial name="Templates/_Alert" model="@ViewData["Alert"]?.ToString()"/>
 
-
-O książce
-<div>
+<div class="col-sm-6 mx-auto">
         <h3>@Model.Book.Title</h3>
 
         <p>@Model.Author.Name @Model.Author.LastName</p>
 
-        <img src="~/images/@Model.Book.Image" height="400" width="400"/>
+        <img src="~/images/@Model.Book.Image" height="400" width="300"/>
 </div>
 
-
-<partial name="Templates/_ListBarCategory" model="@path"/>
+<partial name="Templates/_Alert" model="@TempData["Alert"]?.ToString()"/>
 <partial name="Templates/_CopyList" model="@Model.Copies"/>

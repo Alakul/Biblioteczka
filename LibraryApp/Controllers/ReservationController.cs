@@ -16,9 +16,20 @@ namespace LibraryApp.Controllers
         }
 
         // GET: ReservationController
-        public ActionResult Index()
+        public ActionResult Index(string searchString)
         {
             List<Reservation> reservations = db.Reservation.ToList();
+
+            if (!string.IsNullOrEmpty(searchString)){
+                searchString = searchString.Trim();
+                reservations = db.Reservation.Where(x => x.UserBorrowingId.Contains(searchString) || x.BookId.ToString().Contains(searchString)).ToList();
+            }
+            else {
+                reservations = db.Reservation.ToList();
+            }
+
+            ViewBag.Sort = AppData.reservationSort;
+
             return View(reservations);
         }
 

@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using LibraryApp.Areas.Identity.Data;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace LibraryApp.Models
@@ -15,7 +16,13 @@ namespace LibraryApp.Models
 
         [ForeignKey("UserBorrowingId")]
         public string UserBorrowingId { get; set; }
+
+
+        [ForeignKey("BookId")]
         public int BookId { get; set; }
+
+
+        [ForeignKey("CopyId")]
         public int CopyId { get; set; }
         public string Status { get; set; }
     }

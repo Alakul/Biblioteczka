@@ -15,9 +15,22 @@ namespace LibraryApp.Controllers
         }
 
         // GET: CopyController
-        public ActionResult Index()
+        public ActionResult Index(string searchString)
         {
-            return View();
+            CopyBookAuthorViewModel copyBookAuthorViewModel = new CopyBookAuthorViewModel();
+
+            if (!string.IsNullOrEmpty(searchString)){
+                searchString = searchString.Trim();
+                copyBookAuthorViewModel.Copies = db.Copy.Where(x => x.Id.ToString().Contains(searchString) || x.Number.ToString().Contains(searchString)).ToList();
+            }
+            else {
+                copyBookAuthorViewModel.Copies = db.Copy.ToList();
+            }
+            copyBookAuthorViewModel.Books = db.Book.ToList();
+            copyBookAuthorViewModel.Authors = db.Author.ToList();
+
+            ViewBag.Sort = AppData.copySort;
+            return View(copyBookAuthorViewModel);
         }
 
         // GET: CopyController/Details/5

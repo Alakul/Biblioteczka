@@ -33,8 +33,11 @@ namespace LibraryApp.Controllers
         // GET: AuthorController/Details/5
         public ActionResult Details(int id)
         {
-            Author author = db.Author.Where(x => x.Id == id).Single();
-            return View(author);
+            BookAuthorViewModel bookAuthorViewModel = new BookAuthorViewModel();
+            bookAuthorViewModel.Author = db.Author.Where(x => x.Id == id).Single();
+            bookAuthorViewModel.Books = db.Book.Where(x => x.AuthorId == id).ToList();
+
+            return View(bookAuthorViewModel);
         }
 
         // GET: AuthorController/Create

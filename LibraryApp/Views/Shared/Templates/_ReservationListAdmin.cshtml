@@ -1,23 +1,39 @@
-﻿@model List<Reservation>
+﻿<div class="bg-white rounded shadow ps-3 pe-3 pt-1 pb-1 mt-3">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Id Użytkownika</th>
+                <th scope="col">Id Książki</th>
+                <th scope="col">Id Autora</th>
+                <th scope="col">Id Egzemplarza</th>
+                <th scope="col">Data</th>
+                <th scope="col" class="text-end"></th>
+            </tr>
+        </thead>
 
-@foreach (var Reservation in Model)
-{
-    <li class="list-group-item d-flex justify-content-between">
-        <div class="align-self-center">
-            <a class="text-decoration-none text-dark" asp-route-id="@Reservation.Id" asp-controller="Book" asp-action="Details"><strong class="mb-1">@Reservation.Id</strong></a><br>
-            <small class="small">User @Reservation.UserBorrowingId</small>
-            <small class="small">Książka id @Reservation.BookId</small>
-        </div>
-        <div class="align-self-center">
-            <form asp-route-id="@Reservation.Id" asp-controller="Loan" asp-action="Create">
-                <button type="submit" class="btn btn-outline-primary">Wypożycz</button>
-            </form> 
-
-            <a class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">Usuń</a>
-
-            <form asp-route-id="@Reservation.Id" asp-controller="Reservation" asp-action="Delete" method="post">
-                <partial name="Templates/_ModalDelete"/>
-            </form>
-        </div>
-    </li>  
-}
+        <tbody>
+            @foreach (var Reservation in @Model)
+            {
+                <tr>
+                    <th scope="row">@Reservation.Id</th>
+                    <td><a class="text-decoration-none text-dark" asp-route-id="@Reservation.UserBorrowingId" asp-controller="User" asp-action="Details">@Reservation.UserBorrowingId</a></td>                
+                    <td><a class="text-decoration-none text-dark" asp-route-id="@Reservation.BookId" asp-controller="Book" asp-action="Details">@Reservation.BookId</a></td>
+                    <td><a class="text-decoration-none text-dark" asp-route-id="@Reservation.BookId" asp-controller="Author" asp-action="Details">@Reservation.BookId</a></td>
+                    <td><a class="text-decoration-none text-dark" asp-route-id="@Reservation.BookId" asp-controller="Book" asp-action="Details">@Reservation.CopyId</a></td>
+                    <td>@Reservation.Date</td>
+                    <td class="text-end">
+                        <form asp-route-id="@Reservation.Id" asp-controller="Loan" asp-action="Create" method="post">
+                            <button type="submit" class="btn btn-success mb-1">Wypożycz</button>
+                        </form>
+                        
+                        <a class="btn btn-danger mb-1" data-bs-toggle="modal" data-bs-target="#deleteModal"><i class="bi bi-trash3-fill"></i></a>
+                        <form asp-route-id="@Reservation.Id" asp-controller="Reservation" asp-action="Delete" method="post">
+                            <partial name="Templates/_ModalDelete"/>
+                        </form>
+                  </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

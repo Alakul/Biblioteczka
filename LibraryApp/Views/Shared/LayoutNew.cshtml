@@ -1,4 +1,10 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Identity
+@using LibraryApp.Areas.Identity.Data
+
+@inject SignInManager<AppUser> SignInManager
+@inject UserManager<AppUser> UserManager
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -22,7 +28,7 @@
                     <partial name="_LoginPartial.cshtml" />
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            
+                            <a class="nav-link text-white fw-bold" asp-controller="Book" asp-action="Index">Książki</a>
                         </li>
                     </ul>
                 </div>
@@ -31,6 +37,7 @@
     </header>
 
     <div id="wrapper" class="d-flex">
+        
         <aside id="sidebar-wrapper" class="border-end bg-white">
 
             <!--
@@ -47,20 +54,29 @@
             </div>
             -->
 
-            <div class="sidebar-heading border-bottom bg-light">Zarządzanie</div>
-            <div class="list-group list-group-flush">
-                <a class="list-group-item list-group-item-action list-group-item-light p-3" asp-controller="Book" asp-action="Index">Książki</a>
-                <a class="list-group-item list-group-item-action list-group-item-light p-3" asp-controller="Author" asp-action="Index">Autorzy</a>
-                <a class="list-group-item list-group-item-action list-group-item-light p-3" asp-controller="Copy" asp-action="Index">Ezgemplarze</a>
-                <a class="list-group-item list-group-item-action list-group-item-light p-3" asp-controller="Loan" asp-action="Index">Wypożyczenia</a>
-                <a class="list-group-item list-group-item-action list-group-item-light p-3" asp-controller="Reservation" asp-action="Index">Rezerwacje</a>
-                <a class="list-group-item list-group-item-action list-group-item-light p-3" asp-controller="User" asp-action="Index">Użytkownicy</a>
-            </div>
+            @if (User.IsInRole("Admin"))
+            {
+                <div class="sidebar-heading border-bottom bg-light">Zarządzanie</div>
+                <div class="list-group list-group-flush">
+                    <a class="list-group-item list-group-item-action list-group-item-light p-3" asp-controller="Book" asp-action="Index">Książki</a>
+                    <a class="list-group-item list-group-item-action list-group-item-light p-3" asp-controller="Author" asp-action="Index">Autorzy</a>
+                    <a class="list-group-item list-group-item-action list-group-item-light p-3" asp-controller="Copy" asp-action="Index">Ezgemplarze</a>
+                    <a class="list-group-item list-group-item-action list-group-item-light p-3" asp-controller="Loan" asp-action="Index">Wypożyczenia</a>
+                    <a class="list-group-item list-group-item-action list-group-item-light p-3" asp-controller="Reservation" asp-action="Index">Rezerwacje</a>
+                    <a class="list-group-item list-group-item-action list-group-item-light p-3" asp-controller="User" asp-action="Index">Użytkownicy</a>
+                </div>
+            }
         </aside>
-        <main role="main" id="page-content-wrapper" style="background-color: #F2F2F2;">
-            <div class="p-4">
+       
+        <main role="main" id="page-content-wrapper" class="p-4" style="background-color: #F2F2F2;">
+            @if (User.IsInRole("Admin")){
                 @RenderBody()
-            </div>
+            }
+            else{
+                <div class="container">
+                    @RenderBody()
+                </div>
+            }
         </main>
     </div>
 

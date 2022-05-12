@@ -1,28 +1,41 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @using LibraryApp.Areas.Identity.Data
 @inject UserManager<AppUser> UserManager
-@model List<Reservation>
 
-@foreach (var Reservation in Model)
-{
-    @if (Reservation.UserBorrowingId == @UserManager.GetUserId(User))
-    {
-        <li class="list-group-item d-flex justify-content-between">
-            <div class="align-self-center">
-                <a class="text-decoration-none text-dark" asp-route-id="@Reservation.Id" asp-controller="Book" asp-action="Details"><strong class="mb-1">@Reservation.Id</strong></a><br>
-                <small class="small">User @Reservation.UserBorrowingId</small>
-                <small class="small">Książka id @Reservation.BookId</small>
-            </div>
-            <div class="align-self-center">
-                @if (User.IsInRole("Admin")){
-                    <a class="btn btn-outline-primary" asp-route-id="@Reservation.Id" asp-controller="Loan" asp-action="Create">Wypożycz</a>
+<div class="bg-white rounded shadow ps-3 pe-3 pt-1 pb-1 mt-3">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col">Tytuł</th>
+                <th scope="col">Autor</th>
+                <th scope="col">Egzemplarz</th>
+                <th scope="col">Data</th>
+                <th scope="col" class="text-end"></th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var Reservation in @Model)
+            {
+                @if (Reservation.UserBorrowingId == @UserManager.GetUserId(User))
+                {
+                    <tr>  
+                        <td><a class="text-decoration-none text-dark" asp-route-id="@Reservation.BookId" asp-controller="Book" asp-action="Details">@Reservation.BookId</a></td>
+                        <td><a class="text-decoration-none text-dark" asp-route-id="@Reservation.BookId" asp-controller="Author" asp-action="Details"></a></td>
+                        <td><a class="text-decoration-none text-dark" asp-route-id="@Reservation.BookId" asp-controller="Book" asp-action="Details">@Reservation.CopyId</a></td>
+                        <td>@Reservation.Date</td>
+                        <td class="text-end">
+                            @if (User.IsInRole("Admin")){
+                                <a class="btn btn-success mb-1" asp-route-id="@Reservation.Id" asp-controller="Loan" asp-action="Create">Wypożycz</a>
+                            }
+                            <a class="btn btn-danger mb-1" data-bs-toggle="modal" data-bs-target="#deleteModal"><i class="bi bi-trash3-fill"></i></a>
+                            <form asp-route-id="@Reservation.Id" asp-controller="Reservation" asp-action="Delete" method="post">
+                                <partial name="Templates/_ModalDelete"/>
+                            </form>
+                        </td>
+                    </tr>
                 }
-
-                <a class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">Usuń</a>
-                <form asp-route-id="@Reservation.Id" asp-controller="Reservation" asp-action="Delete" method="post">
-                    <partial name="Templates/_ModalDelete"/>
-                </form>
-            </div>
-        </li>
-    }
-}
+            }
+        </tbody>
+    </table>
+</div>

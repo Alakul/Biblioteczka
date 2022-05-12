@@ -18,7 +18,7 @@ namespace LibraryApp.Controllers
         }
 
         // GET: BookController
-        public ActionResult Index(int sortOrder, string searchString)
+        public ActionResult Index(string searchString)
         {
             BookAuthorViewModel bookAuthorViewModel = new BookAuthorViewModel();
 
@@ -38,7 +38,7 @@ namespace LibraryApp.Controllers
         }
 
         // GET: BookController/Details/5
-        public ActionResult Details(int id, string searchString)
+        public ActionResult Details(int id)
         {
             BookAuthorCopyViewModel bookAuthorCopyViewModel = new BookAuthorCopyViewModel();
             bookAuthorCopyViewModel.Book = db.Book.Where(x => x.Id == id).Single();
@@ -124,7 +124,7 @@ namespace LibraryApp.Controllers
                 book.Year = model.Book.Year;
                 book.City = model.Book.City;
 
-                if (model.Book.Image != null)
+                if (model.File != null)
                 {
                     DeleteFile(book.Image);
                     string newFileName = UploadFile(model);

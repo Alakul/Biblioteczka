@@ -5,13 +5,9 @@
 <partial name="Templates/_BackButton"/>
 
 
-
-
-<h3>@ViewData["Title"]</h3>
-O autorze
-<div>
-
-    <h3>@Model.Name @Model.LastName</h3>
-
-    <p>@Model.Id</p>
+<div class="col-sm-6 mx-auto">
+    <h3>@ViewData["Title"]</h3>
+    <h3>@Model.Author.Name @Model.Author.LastName</h3>
 </div>
+
+<partial name="Templates/_BookListAdmin"/>

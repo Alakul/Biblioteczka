@@ -8,19 +8,17 @@
     <table class="table table-hover">
         <thead>
             <tr>
-                <th scope="col">Id</th>
                 <th scope="col">Numer</th>
                 <th scope="col">Status</th>
-                <th scope="col" class="text-end"><a class="btn btn-primary" asp-controller="Copy" asp-action="Create"><i class="bi bi-plus-lg"></i></a></th>
+                <th scope="col" class="text-end"></th>
             </tr>
         </thead>
 
         <tbody>
-            @foreach (var Copy in Model)
+            @foreach (var Copy in @Model)
             {
                 <tr>
-                    <th scope="row">@Copy.Id</th>
-                    <td><a class="text-decoration-none text-dark" asp-route-id="@Copy.Id" asp-controller="Copy" asp-action="Details">@Copy.Number</a></td>
+                    <td>@Copy.Number</td>
                     @if (Copy.Status=="0"){
                         <td>Niedostępna</td>
                     }
@@ -28,7 +26,8 @@
                         <td>Dostępna</td>
                     }
 
-                    <td>
+                    <td class="text-end">
+                       
                         @if (User.IsInRole("Admin")){
                             <a class="btn btn-success mb-1" asp-route-id="@Copy.Id" asp-controller="Copy" asp-action="Edit"><i class="bi bi-pencil-square"></i></a>
                             @if (Copy.Status == "1"){
@@ -37,13 +36,11 @@
                                     <partial name="Templates/_ModalDelete"/>
                                 </form>
                             }
-                            else if (SignInManager.IsSignedIn(User)){
-                                @if (@Copy.Status == "1"){
-                                    <form asp-route-id="@Copy.Id" asp-controller="Book" asp-action="Reservate" method="post">
-                                        <button type="submit" class="btn btn-outline-primary">Zarezerwuj</button>
-                                    </form>
-                                }
-                            }
+                        }
+                        else if (SignInManager.IsSignedIn(User) && @Copy.Status == "1"){
+                            <form asp-route-id="@Copy.Id" asp-controller="Book" asp-action="Reservate" method="post">
+                                <button type="submit" class="btn btn-primary">Rezerwuj</button>
+                            </form>
                         }
                     </td>
                 </tr>

@@ -6,18 +6,17 @@
 
 @{
     ViewData["Title"] = "Rezerwacje";
+    string path = "/Reservation";
 }
 
-Rezerwacje
-
 <partial name="Templates/_Alert" model="@TempData["Alert"]?.ToString()"/>
+<partial name="Templates/_ListBar" model="@path"/>
 
-<ul class="list-group mt-4">
-    @if (User.IsInRole("Admin")){
-        <partial name="Templates/_ReservationListAdmin" model="@Model"/>
-    }
-    else if (SignInManager.IsSignedIn(User)){
-        <partial name="Templates/_ReservationList" model="@Model"/>
-    }
-</ul>
+@if (User.IsInRole("Admin")){
+    <partial name="Templates/_ReservationListAdmin"/>
+}
+else if (SignInManager.IsSignedIn(User)){
+    <partial name="Templates/_ReservationList"/>
+}
+
             

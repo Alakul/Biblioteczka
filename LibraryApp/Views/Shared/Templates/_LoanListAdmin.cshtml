@@ -1,25 +1,43 @@
-﻿@model List<Loan>
+﻿<div class="bg-white rounded shadow ps-3 pe-3 pt-1 pb-1 mt-3">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Id Użytkownika</th>
+                <th scope="col">Id Książki</th>
+                <th scope="col">Id Autora</th>
+                <th scope="col">Id Egzemplarza</th>
+                <th scope="col">Data wypożyczenia</th>
+                <th scope="col">Data oddania</th>
+                <th scope="col" class="text-end"></th>
+            </tr>
+        </thead>
 
-@foreach (var Loan in Model)
-{
-    <li class="list-group-item d-flex justify-content-between">
-        <div class="align-self-center">
-            <a class="text-decoration-none text-dark"><strong class="mb-1">@Loan.Id</strong></a><br>
-            <small class="small">User @Loan.UserBorrowingId</small>
-            <small class="small">Książka id @Loan.BookId</small>
-        </div>
-        <div class="align-self-center">
-            <small class="small">Data wypożyczenia @Loan.LoanDate</small>
-            @if (Loan.ReturnDate==null)
+        <tbody>
+            @foreach (var Loan in @Model)
             {
-                <form asp-route-id="@Loan.Id" asp-controller="Loan" asp-action="Return">
-                    <button type="submit" class="btn btn-primary">Zatwierdź oddanie</button>
-                </form>
+                <tr>
+                    <th scope="row">@Loan.Id</th>
+                    <td><a class="text-decoration-none text-dark" asp-route-id="@Loan.UserBorrowingId" asp-controller="User" asp-action="Details">@Loan.UserBorrowingId</a></td>                
+                    <td><a class="text-decoration-none text-dark" asp-route-id="@Loan.BookId" asp-controller="Book" asp-action="Details">@Loan.BookId</a></td>
+                    <td><a class="text-decoration-none text-dark">@Loan.BookId</a></td>
+                    <td><a class="text-decoration-none text-dark" asp-route-id="@Loan.BookId" asp-controller="Book" asp-action="Details">@Loan.CopyId</a></td>
+                    <td>@Loan.LoanDate</td>
+                    <td>@Loan.ReturnDate</td>
+                    <td class="text-end">
+                        @if (Loan.ReturnDate == null){
+                            <form asp-route-id="@Loan.Id" asp-controller="Loan" asp-action="Return" method="post">
+                                <button type="submit" class="btn btn-success mb-1">Oddaj</button>
+                            </form>
+                        }
+                        
+                        <a class="btn btn-danger mb-1" data-bs-toggle="modal" data-bs-target="#deleteModal"><i class="bi bi-trash3-fill"></i></a>
+                        <form asp-route-id="@Loan.Id" asp-controller="Loan" asp-action="Delete" method="post">
+                            <partial name="Templates/_ModalDelete"/>
+                        </form>
+                  </td>
+                </tr>
             }
-            else
-            {
-                <small class="small">Data oddania @Loan.ReturnDate</small>
-            }
-        </div>
-    </li>  
-}
+        </tbody>
+    </table>
+</div>

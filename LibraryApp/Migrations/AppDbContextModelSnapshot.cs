@@ -91,14 +91,14 @@ namespace LibraryApp.Migrations
                         {
                             Id = "0b948a1f-c552-41af-9818-77ab56a8be88",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "ab34dcc3-8a21-420d-8056-bc9655396a41",
+                            ConcurrencyStamp = "6ea19925-304d-4a03-8e70-e26803dd9f7e",
                             Email = "admin@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedUserName = "ADMIN@GMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAENY4XlXWrOZ3s2TQ8/u6rbK4khzjf/C1a+3tdSNOohG+IQXFozyzaLBqC1hCBgYRzA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEBIja76xnB632jG57FlqCKM1tOvCxKXyCia3a4CsgWE2Mp0rhLaO0HIJdyUD3MpjNQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "05fdb6b9-e139-444c-a720-7196d9a9731e",
+                            SecurityStamp = "4518f76f-426f-4b18-8b9f-116c8c7964e3",
                             TwoFactorEnabled = false,
                             UserName = "admin@gmail.com"
                         });

@@ -38,5 +38,9 @@
         public static List<string> copySort = new List<string> {
             "po numerze rosnąco", "po numerze malejąco", "po dacie rosnąco", "po dacie malejąco"
         };
+
+        public static List<string> reservationSort = new List<string> {
+            "po dacie rosnąco", "po dacie malejąco"
+        };
     }
 }

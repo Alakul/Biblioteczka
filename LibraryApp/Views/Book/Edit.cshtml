@@ -43,9 +43,9 @@
                 <img id="ImagePreview" name="ImagePreview" src="~/images/@Model.Book.Image" height="250" class="ms-auto me-auto mt-4 d-block"/>
             </div>
             <script>
-                    function preview() {
-                        ImagePreview.src = URL.createObjectURL(event.target.files[0]);
-                    }
+                function preview() {
+                    ImagePreview.src = URL.createObjectURL(event.target.files[0]);
+                }
             </script>
 
             <div class="mb-3">

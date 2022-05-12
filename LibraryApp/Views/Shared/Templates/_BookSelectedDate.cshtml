@@ -1,0 +1,19 @@
+﻿<div class="row mb-md-4">
+    @for (int i=0; i< @Model.BooksDate.Count; i++)
+    {
+        <div class="col-md-6 col-lg-2">
+            <div class="card shadow-sm border-light mb-4">
+                <a class="text-decoration-none" asp-route-id="@Model.BooksDate[i].Id" asp-controller="Book" asp-action="Details">
+                    <div class="position-relative">
+                        <img src="~/images/@Model.BooksDate[i].Image" style="object-fit: cover;" height="250" class="card-img-top" alt="image">
+                    </div>
+
+                    <div class="card-body text-decoration-none text-dark">
+                        <h6 class="fw-bold">@Model.BooksDate[i].Title</h6>
+                        @Model.BooksDate[i].Author.Name @Model.BooksDate[i].Author.LastName
+                    </div>
+                </a>
+            </div>
+        </div>
+    }
+</div>

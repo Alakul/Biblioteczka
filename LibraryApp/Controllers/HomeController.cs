@@ -1,4 +1,5 @@
-﻿using LibraryApp.Models;
+﻿using LibraryApp.Data;
+using LibraryApp.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -7,15 +8,29 @@ namespace LibraryApp.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        AppDbContext db;
+        public HomeController(ILogger<HomeController> logger, AppDbContext context)
         {
             _logger = logger;
+            db = context;
         }
 
         public IActionResult Index()
         {
-            return View();
+            IndexViewModel indexViewModel = new IndexViewModel();
+            int size = 6;
+
+            if (db.Book.Count() < size){
+                indexViewModel.BooksDate = db.Book.OrderBy(x => x.Date).ToList();
+                indexViewModel.BooksYear = db.Book.OrderBy(x => x.Year).ToList();
+            }
+            else {
+                indexViewModel.BooksDate = db.Book.OrderBy(x => x.Date).Take(size).ToList();
+                indexViewModel.BooksYear = db.Book.OrderBy(x => x.Year).Take(size).ToList();
+            }
+            indexViewModel.Authors = db.Author.ToList();
+
+            return View(indexViewModel);
         }
 
         public IActionResult Privacy()

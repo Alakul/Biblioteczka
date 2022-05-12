@@ -17,8 +17,8 @@
                 <tr>
                     <th scope="row">@Book.Id</th>
                     <td><a class="text-decoration-none text-dark" asp-route-id="@Book.Id" asp-controller="Book" asp-action="Details">@Book.Title</a></td>
-                    <td><img src="~/images/@Book.Image" height="50"/></td>
-                    <td><a class="text-decoration-none text-dark" asp-route-id="@Book.AuthorId" asp-controller="Author" asp-action="Details">@Book.Author.Name @Book.Author.LastName</a></td>
+                    <td><img src="~/images/@Book.Image" style="object-fit: cover;" height="100"/></td>
+                    <td><a class="text-decoration-none text-dark">@Book.Author.Name @Book.Author.LastName</a></td>
                     <td>Kategoria</td>
                     <td class="text-end">
                         <a class="btn btn-success mb-1" asp-route-id="@Book.Id" asp-controller="Book" asp-action="Edit"><i class="bi bi-pencil-square"></i></a>
@@ -26,7 +26,7 @@
                         <form asp-route-id="@Book.Id" asp-controller="Book" asp-action="Delete" method="post">
                             <partial name="Templates/_ModalDelete"/>
                         </form>
-                  </td>
+                    </td>
                 </tr>
             }
         </tbody>
