@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using X.PagedList;
 using System.Security.Claims;
+using System.Web;
 
 namespace LibraryApp.Controllers
 {
@@ -24,10 +25,45 @@ namespace LibraryApp.Controllers
             BookAuthorViewModel bookAuthorViewModel = new BookAuthorViewModel();
             List<Book> books = db.Book.ToList();
 
-            if (!string.IsNullOrEmpty(searchString)){
-                searchString = searchString.Trim();
-                books = db.Book.Where(x => x.Title.Contains(searchString)).ToList();
+            CookieOptions options = new CookieOptions();
+
+            if (searchString == "null"){
+                if (Request.Cookies["SearchString"] != null){
+                    books = db.Book.Where(x => x.Title.Contains(Request.Cookies["SearchString"])).ToList();
+                    ViewBag.SearchString = Request.Cookies["SearchString"];
+                }
+                else {
+                    books = db.Book.ToList();
+                    ViewBag.SearchString = "";
+                }
             }
+            else if (searchString == null){
+                books = db.Book.ToList();
+                Response.Cookies.Delete("SearchString");
+                ViewBag.SearchString = "";
+            }
+            else if (searchString != "null" && searchString != null)
+            {
+                string newValue = searchString.Trim();
+                if (!string.IsNullOrEmpty(newValue)){
+                    if (newValue != Request.Cookies["SearchString"]){
+                        books = db.Book.Where(x => x.Title.Contains(newValue)).ToList();
+                        Response.Cookies.Append("SearchString", newValue, options);
+                        ViewBag.SearchString = newValue;
+                    }
+                    else {
+                        books = db.Book.Where(x => x.Title.Contains(newValue)).ToList();
+                        ViewBag.SearchString = newValue;
+                    }
+                }
+                else {
+                    books = db.Book.ToList();
+                    ViewBag.SearchString = "";
+                }
+            }
+
+
+            
             bookAuthorViewModel.Authors = db.Author.ToList();
 
             switch (sortOrder)
@@ -48,8 +84,18 @@ namespace LibraryApp.Controllers
                     books = books.OrderByDescending(x => x.Date).ToList();
                     break;
             }
-            ViewBag.SearchString = searchString;
-            ViewBag.SortOrder = sortOrder;
+            
+            
+            
+         
+            if (sortOrder != null && sortOrder != Request.Cookies["SortOrder"]){
+                Response.Cookies.Append("SortOrder", sortOrder, options);
+            }
+
+
+   
+            ViewBag.SortOrder = Request.Cookies["SortOrder"];
+
 
             int pageSize = 5;
             int pageNumber = (page ?? 1);
@@ -64,9 +110,6 @@ namespace LibraryApp.Controllers
             bookAuthorCopyViewModel.Book = db.Book.Where(x => x.Id == id).Single();
             bookAuthorCopyViewModel.Author = db.Author.Where(x => x.Id == bookAuthorCopyViewModel.Book.AuthorId).Single();
             bookAuthorCopyViewModel.Copies = db.Copy.Where(x => x.BookId == id).ToList();
-
-            ViewBag.Categories = AppData.copyCategories;
-            ViewBag.Sort = AppData.copySort;
 
             return View(bookAuthorCopyViewModel);
         }
@@ -193,12 +236,12 @@ namespace LibraryApp.Controllers
                 db.SaveChanges();
 
                 TempData["Alert"] = "Success";
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index", "Book", new { @searchString = "null" });
             }
             catch
             {
                 TempData["Alert"] = "Danger";
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index", "Book", new { @searchString = "null" });
             }
         }
 
@@ -236,6 +279,13 @@ namespace LibraryApp.Controllers
 
 
 
+
+
+        private void GetCookie()
+        {   
+            ViewBag.SearchString = Request.Cookies["SearchString"];
+            ViewBag.SortOrder = Request.Cookies["SortOrder"];
+        }
 
         private BookCreateEditViewModel GetBook(int id)
         {

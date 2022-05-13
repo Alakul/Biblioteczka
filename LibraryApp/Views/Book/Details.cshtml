@@ -9,7 +9,7 @@
     ViewData["Title"] = "O książce";
 }
 
-<partial name="Templates/_BackButton"/>
+<partial name="Templates/_BackButton" model="@Url.Action("Index", new { sortOrder = "null", searchString = "null" })"/>
 
 <div class="col-sm-6 mx-auto">
         <h3>@Model.Book.Title</h3>

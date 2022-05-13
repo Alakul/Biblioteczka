@@ -4,12 +4,14 @@
 @using X.PagedList.Web.Common;
 @using System.Web.Mvc;
 
-
-<div class="col-7 ms-auto me-auto mt-3 d-flex justify-content-center">
+<div class="page-count text-center mt-3">
+    Strona @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) z @Model.PageCount
+</div>
+<div class="col-7 ms-auto me-auto mt-2 d-flex justify-content-center">
     @Html.PagedListPager((IPagedList)@Model, page => 
     Url.Action("Index", new { page, sortOrder = ViewData["SortOrder"], searchString = ViewData["SearchString"] }), 
     new PagedListRenderOptions {
         LiElementClasses = new string[] { "page-item" },
-        PageClasses = new string[] { "page-link" }
+        PageClasses = new string[] { "page-link" },
     })
 </div>

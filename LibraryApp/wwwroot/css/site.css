@@ -65,3 +65,34 @@ body.sb-sidenav-toggled #wrapper #sidebar-wrapper {
         margin-left: -15rem;
     }
 }
+
+
+
+/* Bootstrap */
+.btn-primary {
+    background-color: #F2545B;
+    border-color: #F2545B;
+}
+.btn-primary:hover {
+    background-color: #DB4249;
+    border-color: #DB4249;
+}
+
+.page-item.active .page-link {
+    z-index: 3;
+    color: #fff;
+    background-color: #F2545B;
+    border-color: #F2545B;
+}
+.page-item.disabled .page-link {
+    color: #DB4249;
+    pointer-events: none;
+    background-color: #fff;
+    border-color: #dee2e6;
+}
+.page-item > .page-link {
+    color: black;
+}
+.page-item > .page-link:hover {
+    color: black;
+}

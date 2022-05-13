@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "uDJ31dwhqHZuRRO5btqpdr+xCFW73rmU8NvIEvSax5Q=",
+  "Hash": "BsBLg6WUYY/yARjvfBPAEi5DA4p/IeKYujtYzzeaBfo=",
   "Source": "LibraryApp",
   "BasePath": "_content/LibraryApp",
   "Mode": "Default",
@@ -1122,23 +1122,6 @@
       "OriginalItemSpec": "wwwroot\\images\\110517a3-9d2b-4242-8abc-f49aff64842b.png"
     },
     {
-      "Identity": "C:\\Users\\alicj\\source\\repos\\LibraryApp\\LibraryApp\\wwwroot\\images\\148858c7-6da9-420c-bb21-b46f668b4866.png",
-      "SourceId": "LibraryApp",
-      "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\alicj\\source\\repos\\LibraryApp\\LibraryApp\\wwwroot\\",
-      "BasePath": "_content/LibraryApp",
-      "RelativePath": "images/148858c7-6da9-420c-bb21-b46f668b4866.png",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\148858c7-6da9-420c-bb21-b46f668b4866.png"
-    },
-    {
       "Identity": "C:\\Users\\alicj\\source\\repos\\LibraryApp\\LibraryApp\\wwwroot\\images\\21e5de73-391c-4053-9f83-bd5b62db2dbe.png",
       "SourceId": "LibraryApp",
       "SourceType": "Discovered",
@@ -1154,6 +1137,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\images\\21e5de73-391c-4053-9f83-bd5b62db2dbe.png"
+    },
+    {
+      "Identity": "C:\\Users\\alicj\\source\\repos\\LibraryApp\\LibraryApp\\wwwroot\\images\\51ab3a10-4b5e-4b8a-ace3-33c12e115bc5.png",
+      "SourceId": "LibraryApp",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\alicj\\source\\repos\\LibraryApp\\LibraryApp\\wwwroot\\",
+      "BasePath": "_content/LibraryApp",
+      "RelativePath": "images/51ab3a10-4b5e-4b8a-ace3-33c12e115bc5.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\51ab3a10-4b5e-4b8a-ace3-33c12e115bc5.png"
     },
     {
       "Identity": "C:\\Users\\alicj\\source\\repos\\LibraryApp\\LibraryApp\\wwwroot\\images\\527a7715-7f73-45c3-9fa0-2df8173eea07.png",
@@ -1173,12 +1173,12 @@
       "OriginalItemSpec": "wwwroot\\images\\527a7715-7f73-45c3-9fa0-2df8173eea07.png"
     },
     {
-      "Identity": "C:\\Users\\alicj\\source\\repos\\LibraryApp\\LibraryApp\\wwwroot\\images\\70e55209-8890-452c-a0dc-e77cf1992abe.png",
+      "Identity": "C:\\Users\\alicj\\source\\repos\\LibraryApp\\LibraryApp\\wwwroot\\images\\9ab1118e-a4a3-4664-ae29-b91568aa7f9e.png",
       "SourceId": "LibraryApp",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\alicj\\source\\repos\\LibraryApp\\LibraryApp\\wwwroot\\",
       "BasePath": "_content/LibraryApp",
-      "RelativePath": "images/70e55209-8890-452c-a0dc-e77cf1992abe.png",
+      "RelativePath": "images/9ab1118e-a4a3-4664-ae29-b91568aa7f9e.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1187,15 +1187,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\70e55209-8890-452c-a0dc-e77cf1992abe.png"
+      "OriginalItemSpec": "wwwroot\\images\\9ab1118e-a4a3-4664-ae29-b91568aa7f9e.png"
     },
     {
-      "Identity": "C:\\Users\\alicj\\source\\repos\\LibraryApp\\LibraryApp\\wwwroot\\images\\da36a6b8-3a04-4ffd-8358-0d14f238cb1f.jpg",
+      "Identity": "C:\\Users\\alicj\\source\\repos\\LibraryApp\\LibraryApp\\wwwroot\\images\\b2c51610-cc3f-4076-a59f-9783c0b90399.jpg",
       "SourceId": "LibraryApp",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\alicj\\source\\repos\\LibraryApp\\LibraryApp\\wwwroot\\",
       "BasePath": "_content/LibraryApp",
-      "RelativePath": "images/da36a6b8-3a04-4ffd-8358-0d14f238cb1f.jpg",
+      "RelativePath": "images/b2c51610-cc3f-4076-a59f-9783c0b90399.jpg",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1204,7 +1204,7 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\da36a6b8-3a04-4ffd-8358-0d14f238cb1f.jpg"
+      "OriginalItemSpec": "wwwroot\\images\\b2c51610-cc3f-4076-a59f-9783c0b90399.jpg"
     },
     {
       "Identity": "C:\\Users\\alicj\\source\\repos\\LibraryApp\\LibraryApp\\wwwroot\\js\\site.js",

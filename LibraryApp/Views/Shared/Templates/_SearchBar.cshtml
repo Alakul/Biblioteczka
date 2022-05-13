@@ -4,7 +4,7 @@
     <div class="col-12">
         <label for="Search" class="form-label me-3">Wyszukiwanie</label>
         <form class="d-flex" action="@Model">
-            <input id="SearchString" name="SearchString" type="text" class="form-control me-2"/>
+            <input id="SearchString" name="SearchString" type="text" class="form-control me-2" value="@ViewData["SearchString"]"/>
             <button class="btn btn-primary d-flex" type="submit"><i class="bi bi-search"></i>&nbsp;&nbsp;Szukaj</button>  
         </form>
     </div>
