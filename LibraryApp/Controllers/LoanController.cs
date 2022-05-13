@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
+using X.PagedList;
 
 namespace LibraryApp.Controllers
 {
@@ -19,20 +20,39 @@ namespace LibraryApp.Controllers
         }
 
         // GET: LoanController
-        public ActionResult Index(string searchString)
+        public ActionResult Index(string searchString, string sortOrder, int? page)
         {
-            List<Loan> loans = db.Loan.ToList();
+            var loans = db.Loan.ToList();
 
             if (!string.IsNullOrEmpty(searchString)){
                 searchString = searchString.Trim();
-                loans = db.Loan.Where(x => x.UserBorrowingId.Contains(searchString) || x.BookId.ToString().Contains(searchString)).ToList();
-            }
-            else {
-                loans = db.Loan.ToList();
+                loans = db.Loan.Where(x => x.UserBorrowingId.Contains(searchString) || x.BookId.ToString().Contains(searchString) || x.CopyId.ToString().Contains(searchString)).ToList();
             }
 
-            ViewBag.Sort = AppData.reservationSort;
-            return View(loans);
+            switch (sortOrder)
+            {
+                case "LoanDateAsc":
+                    loans = loans.OrderBy(x => x.LoanDate).ToList();
+                    break;
+                case "LoanDateDesc":
+                    loans = loans.OrderByDescending(x => x.LoanDate).ToList();
+                    break;
+                case "ReturnDateAsc":
+                    loans = loans.OrderBy(x => x.ReturnDate).ToList();
+                    break;
+                case "ReturnDateDesc":
+                    loans = loans.OrderByDescending(x => x.ReturnDate).ToList();
+                    break;
+                default:
+                    loans = loans.OrderByDescending(x => x.LoanDate).ToList();
+                    break;
+            }
+            ViewBag.SearchString = searchString;
+            ViewBag.SortOrder = sortOrder;
+
+            int pageSize = 5;
+            int pageNumber = (page ?? 1);
+            return View(loans.ToPagedList(pageNumber, pageSize));
         }
 
         // GET: LoanController/Details/5

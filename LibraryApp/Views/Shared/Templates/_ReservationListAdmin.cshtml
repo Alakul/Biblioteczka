@@ -7,7 +7,9 @@
                 <th scope="col">Id Książki</th>
                 <th scope="col">Id Autora</th>
                 <th scope="col">Id Egzemplarza</th>
-                <th scope="col">Data</th>
+                <th scope="col">Data&nbsp;&nbsp;
+                    <a class="text-decoration-none text-dark" href="@Url.Action("Index", "Reservation", new { sortOrder = "DateAsc", searchString = ViewData["SearchString"] })"><i class="bi bi-arrow-up"></i></a>
+                    <a class="text-decoration-none text-dark" href="@Url.Action("Index", "Reservation", new { sortOrder = "DateDesc", searchString = ViewData["SearchString"] })"><i class="bi bi-arrow-down"></i></a></th>
                 <th scope="col" class="text-end"></th>
             </tr>
         </thead>

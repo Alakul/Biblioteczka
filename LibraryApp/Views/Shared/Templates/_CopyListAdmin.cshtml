@@ -8,17 +8,24 @@
         <thead>
             <tr>
                 <th scope="col">Id</th>
-                <th scope="col">Numer</th>
+                <th scope="col">Numer&nbsp;&nbsp;
+                    <a class="text-decoration-none text-dark" href="@Url.Action("Index", "Copy", new { sortOrder = "NumberAsc", searchString = ViewData["SearchString"] })"><i class="bi bi-arrow-up"></i></a>
+                    <a class="text-decoration-none text-dark" href="@Url.Action("Index", "Copy", new { sortOrder = "NumberDesc", searchString = ViewData["SearchString"] })"><i class="bi bi-arrow-down"></i></a>
+                </th>
                 <th scope="col">Id Książki</th>
                 <th scope="col">Tytuł</th>
                 <th scope="col">Autor</th>
                 <th scope="col">Status</th>
+                <th scope="col">Data&nbsp;&nbsp;
+                    <a class="text-decoration-none text-dark" href="@Url.Action("Index", "Copy", new { sortOrder = "DateAsc", searchString = ViewData["SearchString"] })"><i class="bi bi-arrow-up"></i></a>
+                    <a class="text-decoration-none text-dark" href="@Url.Action("Index", "Copy", new { sortOrder = "DateDesc", searchString = ViewData["SearchString"] })"><i class="bi bi-arrow-down"></i></a>
+                </th>
                 <th scope="col" class="text-end"></th>
             </tr>
         </thead>
 
         <tbody>
-            @foreach (var Copy in @Model.Copies)
+            @foreach (var Copy in @Model.CopyList)
             {
                 <tr>
                     <th scope="row">@Copy.Id</th>
@@ -34,6 +41,7 @@
                         <td>Dostępna</td>
                     }
 
+                    <td>@Copy.Date</td>
                     <td class="text-end">
                         <a class="btn btn-success mb-1" asp-route-id="@Copy.Id" asp-controller="Copy" asp-action="Edit"><i class="bi bi-pencil-square"></i></a>
                         @if (Copy.Status == "1"){

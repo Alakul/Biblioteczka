@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using X.PagedList;
 
 namespace LibraryApp.Controllers
 {
@@ -18,7 +19,7 @@ namespace LibraryApp.Controllers
             UserManager = userManager;
         }
 
-        public ActionResult Index(string searchString)
+        public ActionResult Index(string searchString, string sortOrder, int? page)
         {
             var users = UserManager.Users.ToList();
 
@@ -26,11 +27,25 @@ namespace LibraryApp.Controllers
                 searchString = searchString.Trim();
                 users = UserManager.Users.Where(x => x.UserName.Contains(searchString) || x.Email.Contains(searchString)).ToList();
             }
-            
-            ViewBag.Categories = AppData.userCategories;
-            ViewBag.Sort = AppData.userSort;
 
-            return View(users);
+            switch (sortOrder)
+            {
+                case "LoginAsc":
+                    users = UserManager.Users.OrderBy(x => x.UserName).ToList();
+                    break;
+                case "LoginDesc":
+                    users = UserManager.Users.OrderByDescending(x => x.UserName).ToList();
+                    break;
+                default:
+                    users = UserManager.Users.OrderByDescending(x => x.UserName).ToList();
+                    break;
+            }
+            ViewBag.SearchString = searchString;
+            ViewBag.SortOrder = sortOrder;
+
+            int pageSize = 5;
+            int pageNumber = (page ?? 1);
+            return View(users.ToPagedList(pageNumber, pageSize));
         }
 
         // GET: UserController/Details/5

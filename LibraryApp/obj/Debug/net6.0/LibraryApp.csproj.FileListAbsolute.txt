@@ -276,3 +276,17 @@ C:\Users\alicj\source\repos\LibraryApp\LibraryApp\bin\Debug\net6.0\Microsoft.Ope
 C:\Users\alicj\source\repos\LibraryApp\LibraryApp\bin\Debug\net6.0\Swashbuckle.AspNetCore.Swagger.dll
 C:\Users\alicj\source\repos\LibraryApp\LibraryApp\bin\Debug\net6.0\Swashbuckle.AspNetCore.SwaggerGen.dll
 C:\Users\alicj\source\repos\LibraryApp\LibraryApp\bin\Debug\net6.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\Users\alicj\source\repos\LibraryApp\LibraryApp\bin\Debug\net6.0\JetBrains.Annotations.dll
+C:\Users\alicj\source\repos\LibraryApp\LibraryApp\bin\Debug\net6.0\System.Web.Mvc.dll
+C:\Users\alicj\source\repos\LibraryApp\LibraryApp\bin\Debug\net6.0\System.Web.Razor.dll
+C:\Users\alicj\source\repos\LibraryApp\LibraryApp\bin\Debug\net6.0\System.Web.Helpers.dll
+C:\Users\alicj\source\repos\LibraryApp\LibraryApp\bin\Debug\net6.0\System.Web.WebPages.Deployment.dll
+C:\Users\alicj\source\repos\LibraryApp\LibraryApp\bin\Debug\net6.0\System.Web.WebPages.Razor.dll
+C:\Users\alicj\source\repos\LibraryApp\LibraryApp\bin\Debug\net6.0\System.Web.WebPages.dll
+C:\Users\alicj\source\repos\LibraryApp\LibraryApp\bin\Debug\net6.0\Microsoft.AspNetCore.JsonPatch.dll
+C:\Users\alicj\source\repos\LibraryApp\LibraryApp\bin\Debug\net6.0\Microsoft.DotNet.PlatformAbstractions.dll
+C:\Users\alicj\source\repos\LibraryApp\LibraryApp\bin\Debug\net6.0\Microsoft.Extensions.DependencyModel.dll
+C:\Users\alicj\source\repos\LibraryApp\LibraryApp\bin\Debug\net6.0\Microsoft.Web.Infrastructure.dll
+C:\Users\alicj\source\repos\LibraryApp\LibraryApp\bin\Debug\net6.0\Newtonsoft.Json.Bson.dll
+C:\Users\alicj\source\repos\LibraryApp\LibraryApp\bin\Debug\net6.0\X.PagedList.dll
+C:\Users\alicj\source\repos\LibraryApp\LibraryApp\bin\Debug\net6.0\X.PagedList.Mvc.Core.dll

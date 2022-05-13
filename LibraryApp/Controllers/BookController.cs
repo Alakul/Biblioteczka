@@ -3,6 +3,7 @@ using LibraryApp.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using X.PagedList;
 using System.Security.Claims;
 
 namespace LibraryApp.Controllers
@@ -18,22 +19,41 @@ namespace LibraryApp.Controllers
         }
 
         // GET: BookController
-        public ActionResult Index(string searchString)
+        public ActionResult Index(string searchString, string sortOrder, int? page)
         {
             BookAuthorViewModel bookAuthorViewModel = new BookAuthorViewModel();
+            List<Book> books = db.Book.ToList();
 
             if (!string.IsNullOrEmpty(searchString)){
                 searchString = searchString.Trim();
-                bookAuthorViewModel.Books = db.Book.Where(x => x.Title.Contains(searchString)).ToList();
-            }
-            else {
-                bookAuthorViewModel.Books = db.Book.ToList();
+                books = db.Book.Where(x => x.Title.Contains(searchString)).ToList();
             }
             bookAuthorViewModel.Authors = db.Author.ToList();
 
-            ViewBag.Categories = AppData.bookCategories;
-            ViewBag.Sort = AppData.bookSort;
+            switch (sortOrder)
+            {
+                case "TitleAsc":
+                    books = books.OrderBy(x => x.Title).ToList();
+                    break;
+                case "TitleDesc":
+                    books = books.OrderByDescending(x => x.Title).ToList();
+                    break;
+                case "DateAsc":
+                    books = books.OrderBy(x => x.Date).ToList();
+                    break;
+                case "DateDesc":
+                    books = books.OrderByDescending(x => x.Date).ToList();
+                    break;
+                default:
+                    books = books.OrderByDescending(x => x.Date).ToList();
+                    break;
+            }
+            ViewBag.SearchString = searchString;
+            ViewBag.SortOrder = sortOrder;
 
+            int pageSize = 5;
+            int pageNumber = (page ?? 1);
+            bookAuthorViewModel.BookList = books.ToPagedList(pageNumber, pageSize);
             return View(bookAuthorViewModel);
         }
 

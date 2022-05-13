@@ -7,7 +7,10 @@
         <thead>
             <tr>
                 <th scope="col">Id</th>
-                <th scope="col">Login</th>
+                <th scope="col">Login&nbsp;&nbsp;
+                    <a class="text-decoration-none text-dark" href="@Url.Action("Index", "User", new { sortOrder = "LoginAsc", searchString = ViewData["SearchString"] })"><i class="bi bi-arrow-up"></i></a>
+                    <a class="text-decoration-none text-dark" href="@Url.Action("Index", "User", new { sortOrder = "LoginDesc", searchString = ViewData["SearchString"] })"><i class="bi bi-arrow-down"></i></a>
+                </th>
                 <th scope="col">Email</th>
                 <th scope="col" class="text-end"></th>
             </tr>
@@ -23,14 +26,14 @@
                     <td class="text-end">
                     @if (UserManager.GetUserId(User) != @user.Id){
                         <a class="btn btn-primary mb-1" asp-route-id="@user.Id" asp-controller="User" asp-action="Role">Rola</a>
-                        <a class="btn btn-success mb-1" asp-route-id="@user.Id" asp-controller="User" asp-action="Edit"><i class="bi bi-pencil-square"></i></a>
+                        <a class="btn btn-success mb-1" href="#"><i class="bi bi-pencil-square"></i></a>
                         <a class="btn btn-danger mb-1" data-bs-toggle="modal" data-bs-target="#deleteModal"><i class="bi bi-trash3-fill"></i></a>
                         <form asp-route-id="@user.Id" asp-controller="User" asp-action="Delete" method="post">
                             <partial name="Templates/_ModalDelete"/>
                         </form>
                     }
                     else {
-                        <a class="btn btn-primary" asp-route-id="@UserManager.GetUserId(User)" asp-controller="User" asp-action="Edit">Edytuj profil</a>
+                        <a class="btn btn-primary" href="#">Edytuj profil</a>
                     }
                 </tr>
             }

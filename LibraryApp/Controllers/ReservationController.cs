@@ -3,6 +3,7 @@ using LibraryApp.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
+using X.PagedList;
 
 namespace LibraryApp.Controllers
 {
@@ -16,21 +17,33 @@ namespace LibraryApp.Controllers
         }
 
         // GET: ReservationController
-        public ActionResult Index(string searchString)
+        public ActionResult Index(string searchString, string sortOrder, int? page)
         {
-            List<Reservation> reservations = db.Reservation.ToList();
+            var reservations = db.Reservation.ToList();
 
             if (!string.IsNullOrEmpty(searchString)){
                 searchString = searchString.Trim();
                 reservations = db.Reservation.Where(x => x.UserBorrowingId.Contains(searchString) || x.BookId.ToString().Contains(searchString)).ToList();
             }
-            else {
-                reservations = db.Reservation.ToList();
+
+            switch (sortOrder)
+            {
+                case "DateAsc":
+                    reservations = reservations.OrderBy(x => x.Date).ToList();
+                    break;
+                case "DateDesc":
+                    reservations = reservations.OrderByDescending(x => x.Date).ToList();
+                    break;
+                default:
+                    reservations = reservations.OrderByDescending(x => x.Date).ToList();
+                    break;
             }
+            ViewBag.SearchString = searchString;
+            ViewBag.SortOrder = sortOrder;
 
-            ViewBag.Sort = AppData.reservationSort;
-
-            return View(reservations);
+            int pageSize = 5;
+            int pageNumber = (page ?? 1);
+            return View(reservations.ToPagedList(pageNumber, pageSize));
         }
 
         // GET: ReservationController/Details/5

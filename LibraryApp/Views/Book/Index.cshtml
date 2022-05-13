@@ -1,17 +1,17 @@
 ﻿@model BookAuthorViewModel
 @{
-     ViewData["Title"] = "Książki";
-     string path = "/Book";
+    ViewData["Title"] = "Książki";
+    string path = "/Book";
 }
 
 <partial name="Templates/_Alert" model="@TempData["Alert"]?.ToString()"/>
-<partial name="Templates/_ListBarCategory" model="@path"/>
+<partial name="Templates/_SearchBar" model="@path"/>
 
 @if (User.IsInRole("Admin")){
     <partial name="Templates/_BookListAdmin"/>
 }
 else {
-    <partial name="Templates/_BookList" model="@Model.Books"/>
+    <partial name="Templates/_BookList"/>
 }
 
 <div class="row">
@@ -22,3 +22,4 @@ else {
     </div>
 </div>
 
+<partial name="Templates/_Pagination" model="@Model.BookList"/>

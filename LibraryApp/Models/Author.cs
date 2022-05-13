@@ -1,5 +1,6 @@
 ﻿using LibraryApp.Areas.Identity.Data;
 using System.ComponentModel.DataAnnotations.Schema;
+using X.PagedList;
 
 namespace LibraryApp.Models
 {

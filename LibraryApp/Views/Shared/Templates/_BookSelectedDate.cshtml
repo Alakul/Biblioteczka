@@ -9,7 +9,12 @@
                     </div>
 
                     <div class="card-body text-decoration-none text-dark">
-                        <h6 class="fw-bold">@Model.BooksDate[i].Title</h6>
+                        @if (Model.BooksDate[i].Title.ToString().Length > 30){
+                            <h6 class="fw-bold">@(Model.BooksDate[i].Title.ToString().Substring(0,18)+ "...")</h6>
+                        }
+                        else {
+                            <h6 class="fw-bold">@Model.BooksDate[i].Title</h6>
+                        }
                         @Model.BooksDate[i].Author.Name @Model.BooksDate[i].Author.LastName
                     </div>
                 </a>

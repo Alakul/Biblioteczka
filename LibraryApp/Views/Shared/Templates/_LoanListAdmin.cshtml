@@ -7,8 +7,14 @@
                 <th scope="col">Id Książki</th>
                 <th scope="col">Id Autora</th>
                 <th scope="col">Id Egzemplarza</th>
-                <th scope="col">Data wypożyczenia</th>
-                <th scope="col">Data oddania</th>
+                <th scope="col">Data wypożyczenia&nbsp;&nbsp;
+                    <a class="text-decoration-none text-dark" href="@Url.Action("Index", "Loan", new { sortOrder = "LoanDateAsc", searchString = ViewData["SearchString"] })"><i class="bi bi-arrow-up"></i></a>
+                    <a class="text-decoration-none text-dark" href="@Url.Action("Index", "Loan", new { sortOrder = "LoanDateDesc", searchString = ViewData["SearchString"] })"><i class="bi bi-arrow-down"></i></a>
+                </th>
+                <th scope="col">Data oddania&nbsp;&nbsp;
+                    <a class="text-decoration-none text-dark" href="@Url.Action("Index", "Loan", new { sortOrder = "ReturnDateAsc", searchString = ViewData["SearchString"] })"><i class="bi bi-arrow-up"></i></a>
+                    <a class="text-decoration-none text-dark" href="@Url.Action("Index", "Loan", new { sortOrder = "ReturnDateDesc", searchString = ViewData["SearchString"] })"><i class="bi bi-arrow-down"></i></a>
+                </th>
                 <th scope="col" class="text-end"></th>
             </tr>
         </thead>
@@ -24,10 +30,10 @@
                     <td><a class="text-decoration-none text-dark" asp-route-id="@Loan.BookId" asp-controller="Book" asp-action="Details">@Loan.CopyId</a></td>
                     <td>@Loan.LoanDate</td>
                     <td>@Loan.ReturnDate</td>
-                    <td class="text-end">
+                    <td class="d-flex justify-content-end">
                         @if (Loan.ReturnDate == null){
                             <form asp-route-id="@Loan.Id" asp-controller="Loan" asp-action="Return" method="post">
-                                <button type="submit" class="btn btn-success mb-1">Oddaj</button>
+                                <button type="submit" class="btn btn-success mb-1 me-1">Oddaj</button>
                             </form>
                         }
                         

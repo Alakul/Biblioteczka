@@ -1,4 +1,6 @@
-﻿namespace LibraryApp.Models
+﻿using X.PagedList;
+
+namespace LibraryApp.Models
 {
     public class BookAuthorViewModel
     {
@@ -7,5 +9,8 @@
 
         public Book Book { get; set; }
         public Author Author { get; set; }
+
+
+        public IPagedList<Book> BookList { get; set; }
     }
 }

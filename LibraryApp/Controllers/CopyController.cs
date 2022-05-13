@@ -3,6 +3,7 @@ using LibraryApp.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
+using X.PagedList;
 
 namespace LibraryApp.Controllers
 {
@@ -15,21 +16,42 @@ namespace LibraryApp.Controllers
         }
 
         // GET: CopyController
-        public ActionResult Index(string searchString)
+        public ActionResult Index(string searchString, string sortOrder, int? page)
         {
             CopyBookAuthorViewModel copyBookAuthorViewModel = new CopyBookAuthorViewModel();
+            List<Copy> copies = db.Copy.ToList();
 
             if (!string.IsNullOrEmpty(searchString)){
                 searchString = searchString.Trim();
-                copyBookAuthorViewModel.Copies = db.Copy.Where(x => x.Id.ToString().Contains(searchString) || x.Number.ToString().Contains(searchString)).ToList();
-            }
-            else {
-                copyBookAuthorViewModel.Copies = db.Copy.ToList();
+                copies = db.Copy.Where(x => x.Id.ToString().Contains(searchString) || x.Number.ToString().Contains(searchString)).ToList();
             }
             copyBookAuthorViewModel.Books = db.Book.ToList();
             copyBookAuthorViewModel.Authors = db.Author.ToList();
 
-            ViewBag.Sort = AppData.copySort;
+            switch (sortOrder)
+            {
+                case "NumberAsc":
+                    copies = copies.OrderBy(x => x.Number).ToList();
+                    break;
+                case "NumberDesc":
+                    copies = copies.OrderByDescending(x => x.Number).ToList();
+                    break;
+                case "DateAsc":
+                    copies = copies.OrderBy(x => x.Date).ToList();
+                    break;
+                case "DateDesc":
+                    copies = copies.OrderByDescending(x => x.Date).ToList();
+                    break;
+                default:
+                    copies = copies.OrderByDescending(x => x.Date).ToList();
+                    break;
+            }
+            ViewBag.SearchString = searchString;
+            ViewBag.SortOrder = sortOrder;
+
+            int pageSize = 5;
+            int pageNumber = (page ?? 1);
+            copyBookAuthorViewModel.CopyList = copies.ToPagedList(pageNumber, pageSize);
             return View(copyBookAuthorViewModel);
         }
 

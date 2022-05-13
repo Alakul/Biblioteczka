@@ -291,14 +291,6 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXFRlbXBsYXRlc1xfSW5kZXhQYWdlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/alicj/source/repos/LibraryApp/LibraryApp/Views/Shared/Templates/_ListBar.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXFRlbXBsYXRlc1xfTGlzdEJhci5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/alicj/source/repos/LibraryApp/LibraryApp/Views/Shared/Templates/_ListBarCategory.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXFRlbXBsYXRlc1xfTGlzdEJhckNhdGVnb3J5LmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
 [C:/Users/alicj/source/repos/LibraryApp/LibraryApp/Views/Shared/Templates/_LoanList.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXFRlbXBsYXRlc1xfTG9hbkxpc3QuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
@@ -311,12 +303,20 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXFRlbXBsYXRlc1xfTW9kYWxEZWxldGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/alicj/source/repos/LibraryApp/LibraryApp/Views/Shared/Templates/_Pagination.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXFRlbXBsYXRlc1xfUGFnaW5hdGlvbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/alicj/source/repos/LibraryApp/LibraryApp/Views/Shared/Templates/_ReservationList.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXFRlbXBsYXRlc1xfUmVzZXJ2YXRpb25MaXN0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/alicj/source/repos/LibraryApp/LibraryApp/Views/Shared/Templates/_ReservationListAdmin.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXFRlbXBsYXRlc1xfUmVzZXJ2YXRpb25MaXN0QWRtaW4uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/alicj/source/repos/LibraryApp/LibraryApp/Views/Shared/Templates/_SearchBar.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXFRlbXBsYXRlc1xfU2VhcmNoQmFyLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/alicj/source/repos/LibraryApp/LibraryApp/Views/Shared/Templates/_Select.cshtml]

@@ -3,8 +3,18 @@
         <thead>
             <tr>
                 <th scope="col">Id</th>
-                <th scope="col">Imię</th>
-                <th scope="col">Nazwisko</th>
+                <th scope="col">Imię&nbsp;&nbsp;
+                    <a class="text-decoration-none text-dark" href="@Url.Action("Index", "Author", new { sortOrder = "NameAsc", searchString = ViewData["SearchString"] })"><i class="bi bi-arrow-up"></i></a>
+                    <a class="text-decoration-none text-dark" href="@Url.Action("Index", "Author", new { sortOrder = "NameDesc", searchString = ViewData["SearchString"] })"><i class="bi bi-arrow-down"></i></a>
+                </th>
+                <th scope="col">Nazwisko&nbsp;&nbsp;
+                    <a class="text-decoration-none text-dark" href="@Url.Action("Index", "Author", new { sortOrder = "LastNameAsc", searchString = ViewData["SearchString"] })"><i class="bi bi-arrow-up"></i></a>
+                    <a class="text-decoration-none text-dark" href="@Url.Action("Index", "Author", new { sortOrder = "LastNameDesc", searchString = ViewData["SearchString"] })"><i class="bi bi-arrow-down"></i></a>
+                </th>
+                <th scope="col">Data&nbsp;&nbsp;
+                    <a class="text-decoration-none text-dark" href="@Url.Action("Index", "Author", new { sortOrder = "DateAsc", searchString = ViewData["SearchString"] })"><i class="bi bi-arrow-up"></i></a>
+                    <a class="text-decoration-none text-dark" href="@Url.Action("Index", "Author", new { sortOrder = "DateDesc", searchString = ViewData["SearchString"] })"><i class="bi bi-arrow-down"></i></a>
+                </th>
                 <th scope="col" class="text-end"><a class="btn btn-primary" asp-controller="Author" asp-action="Create"><i class="bi bi-plus-lg"></i></a></th>
             </tr>
         </thead>
@@ -14,8 +24,9 @@
             {
                 <tr>
                     <th scope="row">@Author.Id</th>
-                    <td><a class="text-decoration-none text-dark" asp-route-id="@Author.Id" asp-controller="Author" asp-action="Details">@Author.Name</a></td>
-                    <td><a class="text-decoration-none text-dark" asp-route-id="@Author.Id" asp-controller="Author" asp-action="Details">@Author.LastName</a></td>
+                    <td class="col-2"><a class="text-decoration-none text-dark" asp-route-id="@Author.Id" asp-controller="Author" asp-action="Details">@Author.Name</a></td>
+                    <td class="col-2"><a class="text-decoration-none text-dark" asp-route-id="@Author.Id" asp-controller="Author" asp-action="Details">@Author.LastName</a></td>
+                    <td>@Author.Date</td>
                     <td class="text-end">
                         <a class="btn btn-success mb-1" asp-route-id="@Author.Id" asp-controller="Author" asp-action="Edit"><i class="bi bi-pencil-square"></i></a>
                         <a class="btn btn-danger mb-1" data-bs-toggle="modal" data-bs-target="#deleteModal"><i class="bi bi-trash3-fill"></i></a>

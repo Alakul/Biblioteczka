@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
+using X.PagedList;
 
 namespace LibraryApp.Controllers
 {
@@ -16,18 +17,45 @@ namespace LibraryApp.Controllers
         }
 
         // GET: AuthorController
-        public ActionResult Index(string searchString)
+        public ActionResult Index(string searchString, string sortOrder, int? page)
         {
-            List<Author> authors = db.Author.ToList();
+            var authors = db.Author.ToList();
 
             if (!string.IsNullOrEmpty(searchString)){
                 searchString = searchString.Trim();
                 authors = db.Author.Where(x => x.Name.Contains(searchString) || x.LastName.Contains(searchString)).ToList();
             }
 
-            ViewBag.Sort = AppData.authorSort;
+            switch (sortOrder)
+            {
+                case "NameAsc":
+                    authors = authors.OrderBy(x => x.Name).ToList();
+                    break;
+                case "NameDesc":
+                    authors = authors.OrderByDescending(x => x.Name).ToList();
+                    break;
+                case "LastNameAsc":
+                    authors = authors.OrderBy(x => x.LastName).ToList();
+                    break;
+                case "LastNameDesc":
+                    authors = authors.OrderByDescending(x => x.LastName).ToList();
+                    break;
+                case "DateAsc":
+                    authors = authors.OrderBy(x => x.Date).ToList();
+                    break;
+                case "DateDesc":
+                    authors = authors.OrderByDescending(x => x.Date).ToList();
+                    break;
+                default:
+                    authors = authors.OrderByDescending(x => x.Date).ToList();
+                    break;
+            }
+            ViewBag.SearchString = searchString;
+            ViewBag.SortOrder = sortOrder;
 
-            return View(authors);
+            int pageSize = 5;
+            int pageNumber = (page ?? 1);
+            return View(authors.ToPagedList(pageNumber, pageSize));
         }
 
         // GET: AuthorController/Details/5
