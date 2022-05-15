@@ -3,12 +3,12 @@
     ViewData["Title"] = "Edytuj książkę";
 }
 
-<partial name="Templates/_BackButton" model="@Url.Action("Index", new { sortOrder = "null", searchString = "null" })"/>
+<partial name="Templates/_BackButton" model="@Url.Action("Index")"/>
 
 <div class="col-sm-6 mx-auto">
     <partial name="Templates/_Alert" model="@ViewData["Alert"]?.ToString()"/>
     <div class="bg-white rounded shadow p-4">
-        <form asp-controller="Book" asp-action="Edit" method="post">
+        <form asp-controller="Book" asp-action="Edit" method="post" enctype="multipart/form-data">
             <partial name="Templates/_FormHeader" model="@ViewData["Title"]"/>
         
             <div class="mb-3">
@@ -42,6 +42,7 @@
                 <input id="File" name="File" type="file" class="form-control" onchange="preview();" minlength="3" maxlength="100" >
                 <img id="ImagePreview" name="ImagePreview" src="~/images/@Model.Book.Image" height="250" class="ms-auto me-auto mt-4 d-block"/>
             </div>
+
             <script>
                 function preview() {
                     ImagePreview.src = URL.createObjectURL(event.target.files[0]);

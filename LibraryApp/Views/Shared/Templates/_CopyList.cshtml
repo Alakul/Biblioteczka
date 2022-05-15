@@ -2,7 +2,6 @@
 @using LibraryApp.Areas.Identity.Data
 
 @inject SignInManager<AppUser> SignInManager
-@model List<Copy>
 
 <div class="bg-white rounded shadow ps-3 pe-3 pt-1 pb-1 mt-3">
     <table class="table table-hover">
@@ -10,12 +9,16 @@
             <tr>
                 <th scope="col">Numer</th>
                 <th scope="col">Status</th>
-                <th scope="col" class="text-end"></th>
+                <th scope="col" class="text-end">
+                    @if (User.IsInRole("Admin")){
+                        <a class="btn btn-primary" asp-route-id="@Model.Book.Id" asp-controller="Copy" asp-action="Create"><i class="bi bi-plus-lg"></i></a>
+                    }
+                </th>
             </tr>
         </thead>
 
         <tbody>
-            @foreach (var Copy in @Model)
+            @foreach (var Copy in @Model.Copies)
             {
                 <tr>
                     <td>@Copy.Number</td>

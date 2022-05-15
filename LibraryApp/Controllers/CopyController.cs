@@ -179,7 +179,7 @@ namespace LibraryApp.Controllers
         }
         private void GetList()
         {
-            ViewBag.Sort = AppData.copySort;
+            //ViewBag.Sort = AppData.copySort;
             ViewBag.Categories = AppData.copyCategories;
         }
     }

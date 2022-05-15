@@ -21,8 +21,6 @@ body {
 
 
 
-
-
 /* Sidebar */
 #wrapper {
     overflow-x: hidden;
@@ -77,16 +75,19 @@ body.sb-sidenav-toggled #wrapper #sidebar-wrapper {
     background-color: #DB4249;
     border-color: #DB4249;
 }
+.btn-check:focus + .btn-primary, .btn-primary:focus {
+    background-color: #F2545B;
+    border-color: #F2545B;
+}
+
+
 
 .page-item.active .page-link {
-    z-index: 3;
-    color: #fff;
     background-color: #F2545B;
     border-color: #F2545B;
 }
 .page-item.disabled .page-link {
     color: #DB4249;
-    pointer-events: none;
     background-color: #fff;
     border-color: #dee2e6;
 }
@@ -95,4 +96,19 @@ body.sb-sidenav-toggled #wrapper #sidebar-wrapper {
 }
 .page-item > .page-link:hover {
     color: black;
+}
+
+.nav-pills .nav-link.active,
+.nav-pills .show > .nav-link {
+    background-color: #F2545B;
+}
+.nav-link {
+    color: black;
+}
+.nav-link:hover, .nav-link:focus {
+    color: black;
+}
+
+.dropdown-item.active, .dropdown-item:active {
+    background-color: #F2545B;
 }

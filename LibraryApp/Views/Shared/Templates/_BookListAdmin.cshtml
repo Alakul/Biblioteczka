@@ -4,14 +4,18 @@
             <tr>
                 <th scope="col">Id</th>
                 <th scope="col">Tytuł&nbsp;&nbsp;
-                    <a class="text-decoration-none text-dark" href="@Url.Action("Index", "Book", new { sortOrder = "TitleAsc", searchString = ViewData["SearchString"] })"><i class="bi bi-arrow-up"></i></a>
-                    <a class="text-decoration-none text-dark" href="@Url.Action("Index", "Book", new { sortOrder = "TitleDesc", searchString = ViewData["SearchString"] })"><i class="bi bi-arrow-down"></i></a>
+                    <a class="text-decoration-none text-dark" href="@Url.Action("Index", "Book", new { sortOrder = "TitleAsc"})"><i class="bi bi-arrow-up"></i></a>
+                    <a class="text-decoration-none text-dark" href="@Url.Action("Index", "Book", new { sortOrder = "TitleDesc"})"><i class="bi bi-arrow-down"></i></a>
                 </th>
                 <th scope="col">Zdjęcie</th>
                 <th scope="col">Autor</th>
+                <th scope="col">Rok wydania&nbsp;&nbsp;
+                    <a class="text-decoration-none text-dark" href="@Url.Action("Index", "Book", new { sortOrder = "YearAsc"})"><i class="bi bi-arrow-up"></i></a>
+                    <a class="text-decoration-none text-dark" href="@Url.Action("Index", "Book", new { sortOrder = "YearDesc"})"><i class="bi bi-arrow-down"></i></a>
+                </th>
                 <th scope="col">Data&nbsp;&nbsp;
-                    <a class="text-decoration-none text-dark" href="@Url.Action("Index", "Book", new { sortOrder = "DateAsc", searchString = ViewData["SearchString"] })"><i class="bi bi-arrow-up"></i></a>
-                    <a class="text-decoration-none text-dark" href="@Url.Action("Index", "Book", new { sortOrder = "DateDesc", searchString = ViewData["SearchString"] })"><i class="bi bi-arrow-down"></i></a>
+                    <a class="text-decoration-none text-dark" href="@Url.Action("Index", "Book", new { sortOrder = "DateAsc"})"><i class="bi bi-arrow-up"></i></a>
+                    <a class="text-decoration-none text-dark" href="@Url.Action("Index", "Book", new { sortOrder = "DateDesc"})"><i class="bi bi-arrow-down"></i></a>
                 </th>
                 <th scope="col" class="text-end"><a class="btn btn-primary" asp-controller="Book" asp-action="Create"><i class="bi bi-plus-lg"></i></a></th>
             </tr>
@@ -25,6 +29,7 @@
                     <td class="col-3"><a class="text-decoration-none text-dark" asp-route-id="@Book.Id" asp-controller="Book" asp-action="Details">@Book.Title</a></td>
                     <td><img src="~/images/@Book.Image" style="object-fit: cover;" height="100"/></td>
                     <td class="col-2"><a class="text-decoration-none text-dark">@Book.Author.Name @Book.Author.LastName</a></td>
+                    <td>@Book.Year</td>
                     <td>@Book.Date</td>
                     <td class="text-end">
                         <a class="btn btn-success mb-1" asp-route-id="@Book.Id" asp-controller="Book" asp-action="Edit"><i class="bi bi-pencil-square"></i></a>

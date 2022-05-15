@@ -58,7 +58,7 @@
             {
                 <div class="sidebar-heading border-bottom bg-light">Zarządzanie</div>
                 <div class="list-group list-group-flush">
-                    <a class="list-group-item list-group-item-action list-group-item-light p-3" asp-route-searchString="null" asp-route-sortOrder="null" asp-controller="Book" asp-action="Index">Książki</a>
+                    <a class="list-group-item list-group-item-action list-group-item-light p-3" asp-controller="Book" asp-action="Index">Książki</a>
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" asp-controller="Author" asp-action="Index">Autorzy</a>
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" asp-controller="Copy" asp-action="Index">Ezgemplarze</a>
                     <a class="list-group-item list-group-item-action list-group-item-light p-3" asp-controller="Loan" asp-action="Index">Wypożyczenia</a>
@@ -80,9 +80,9 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2022 - LibraryApp - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+    <footer class="border-top footer text-muted" style="background-color: #FF9793;">
+        <div class="container text-center" style="height: 50px;">
+            <a class="text-decoration-none text-white">&copy; 2022 - LibraryApp by Alicja Kulig</a>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

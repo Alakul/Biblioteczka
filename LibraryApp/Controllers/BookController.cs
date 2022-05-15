@@ -20,14 +20,14 @@ namespace LibraryApp.Controllers
         }
 
         // GET: BookController
-        public ActionResult Index(string searchString, string sortOrder, int? page)
+        public ActionResult Index(string searchString, string sortOrder, int? page, string formValue)
         {
             BookAuthorViewModel bookAuthorViewModel = new BookAuthorViewModel();
             List<Book> books = db.Book.ToList();
 
             CookieOptions options = new CookieOptions();
 
-            if (searchString == "null"){
+            if (formValue == null){
                 if (Request.Cookies["SearchString"] != null){
                     books = db.Book.Where(x => x.Title.Contains(Request.Cookies["SearchString"])).ToList();
                     ViewBag.SearchString = Request.Cookies["SearchString"];
@@ -37,12 +37,12 @@ namespace LibraryApp.Controllers
                     ViewBag.SearchString = "";
                 }
             }
-            else if (searchString == null){
+            else if (searchString == null && formValue=="1"){
                 books = db.Book.ToList();
                 Response.Cookies.Delete("SearchString");
                 ViewBag.SearchString = "";
             }
-            else if (searchString != "null" && searchString != null)
+            else if (searchString != null && formValue == "1")
             {
                 string newValue = searchString.Trim();
                 if (!string.IsNullOrEmpty(newValue)){
@@ -63,39 +63,63 @@ namespace LibraryApp.Controllers
             }
 
 
-            
-            bookAuthorViewModel.Authors = db.Author.ToList();
 
-            switch (sortOrder)
-            {
-                case "TitleAsc":
-                    books = books.OrderBy(x => x.Title).ToList();
-                    break;
-                case "TitleDesc":
-                    books = books.OrderByDescending(x => x.Title).ToList();
-                    break;
-                case "DateAsc":
-                    books = books.OrderBy(x => x.Date).ToList();
-                    break;
-                case "DateDesc":
-                    books = books.OrderByDescending(x => x.Date).ToList();
-                    break;
-                default:
-                    books = books.OrderByDescending(x => x.Date).ToList();
-                    break;
+            if (sortOrder == null){
+                string sort = Request.Cookies["SortOrder"];
+                if (sort != null){
+                    switch (sort){
+                        case "TitleAsc":
+                            books = books.OrderBy(x => x.Title).ToList();
+                            break;
+                        case "TitleDesc":
+                            books = books.OrderByDescending(x => x.Title).ToList();
+                            break;
+                        case "YearAsc":
+                            books = books.OrderBy(x => x.Year).ToList();
+                            break;
+                        case "YearDesc":
+                            books = books.OrderByDescending(x => x.Year).ToList();
+                            break;
+                        case "DateAsc":
+                            books = books.OrderBy(x => x.Date).ToList();
+                            break;
+                        case "DateDesc":
+                            books = books.OrderByDescending(x => x.Date).ToList();
+                            break;
+                        default:
+                            books = books.OrderByDescending(x => x.Date).ToList();
+                            break;
+                    }
+                }
+                else {
+                    books = books.ToList();
+                }
             }
-            
-            
-            
-         
-            if (sortOrder != null && sortOrder != Request.Cookies["SortOrder"]){
+            else if (sortOrder != null){
+                switch (sortOrder){
+                    case "TitleAsc":
+                        books = books.OrderBy(x => x.Title).ToList();
+                        break;
+                    case "TitleDesc":
+                        books = books.OrderByDescending(x => x.Title).ToList();
+                        break;
+                    case "YearAsc":
+                        books = books.OrderBy(x => x.Year).ToList();
+                        break;
+                    case "YearDesc":
+                        books = books.OrderByDescending(x => x.Year).ToList();
+                        break;
+                    case "DateAsc":
+                        books = books.OrderBy(x => x.Date).ToList();
+                        break;
+                    case "DateDesc":
+                        books = books.OrderByDescending(x => x.Date).ToList();
+                        break;
+                }
                 Response.Cookies.Append("SortOrder", sortOrder, options);
             }
 
-
-   
-            ViewBag.SortOrder = Request.Cookies["SortOrder"];
-
+            bookAuthorViewModel.Authors = db.Author.ToList();
 
             int pageSize = 5;
             int pageNumber = (page ?? 1);
@@ -280,12 +304,6 @@ namespace LibraryApp.Controllers
 
 
 
-
-        private void GetCookie()
-        {   
-            ViewBag.SearchString = Request.Cookies["SearchString"];
-            ViewBag.SortOrder = Request.Cookies["SortOrder"];
-        }
 
         private BookCreateEditViewModel GetBook(int id)
         {

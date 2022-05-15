@@ -9,7 +9,7 @@
     ViewData["Title"] = "O książce";
 }
 
-<partial name="Templates/_BackButton" model="@Url.Action("Index", new { sortOrder = "null", searchString = "null" })"/>
+<partial name="Templates/_BackButton" model="@Url.Action("Index")"/>
 
 <div class="col-sm-6 mx-auto">
         <h3>@Model.Book.Title</h3>
@@ -20,4 +20,5 @@
 </div>
 
 <partial name="Templates/_Alert" model="@TempData["Alert"]?.ToString()"/>
-<partial name="Templates/_CopyList" model="@Model.Copies"/>
+
+<partial name="Templates/_CopyList"/>

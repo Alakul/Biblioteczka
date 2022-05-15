@@ -3,7 +3,7 @@
     ViewData["Title"] = "Dodaj egzemplarz";
 }
 
-<partial name="Templates/_BackButton"/>
+<partial name="Templates/_BackButton" model="@Url.Action("Index")"/>
 
 <div class="col-sm-6 mx-auto">
     <partial name="Templates/_Alert" model="@ViewData["Alert"]?.ToString()"/>
