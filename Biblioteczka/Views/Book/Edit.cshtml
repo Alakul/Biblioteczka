@@ -1,0 +1,73 @@
+﻿@model BookCreateEditViewModel
+@{
+    ViewData["Title"] = "Edytuj książkę";
+}
+
+<partial name="Templates/_BackButton"/>
+
+<div class="col-sm-6 mx-auto">
+    <partial name="Templates/_Alert" model="@ViewData["Alert"]?.ToString()"/>
+    <div class="bg-white rounded shadow p-4">
+        <form asp-controller="Book" asp-action="Edit" method="post" enctype="multipart/form-data">
+            <partial name="Templates/_FormHeader" model="@ViewData["Title"]"/>
+        
+            <div class="mb-3">
+                <label for="Title">Tytuł</label><br>
+                <input id="Title" name="Book.Title" type="text" class="form-control" minlength="3" maxlength="100" value="@Model.Book.Title" required/>
+            </div>
+
+            <div class="mb-3">
+                <label for="Author">Autor</label><br>
+                <select id="Author" name="Book.AuthorId" class="form-control">
+                    @foreach (var Author in @Model.Authors)
+                    {
+                        @if (@Author.Id == @Model.Book.AuthorId){
+                            <option value="@Author.Id" selected>@Author.Name @Author.LastName</option>
+                        }
+                        else {
+                            <option value="@Author.Id">@Author.Name @Author.LastName</option>
+                        }
+                    }
+                </select>
+            </div>
+            <script type="text/javascript">
+                $('#Author').select2({
+                   theme: "bootstrap-5",
+                   "language": {
+                       "noResults": function(){
+                           return "Nie znaleziono.";
+                       }
+                   },
+                });
+            </script>
+
+            <div class="mb-3">
+                <label for="Description">Opis</label><br>
+                <textarea id="Description" name="Book.Description" class="form-control" rows="4" minlength="3" maxlength="3000" required>@Model.Book.Description</textarea>
+            </div>
+
+            <div class="mb-3">
+                <label for="File">Obraz</label><br>
+                <input id="File" name="File" type="file" class="form-control" onchange="preview();" accept="image/jpg,image/png,image/jpeg,image/gif">
+                <img id="ImagePreview" name="ImagePreview" src="~/images/@Model.Book.Image" height="250" class="ms-auto me-auto mt-4 d-block"/>
+            </div>
+            <script>
+                function preview() {
+                    ImagePreview.src = URL.createObjectURL(event.target.files[0]);
+                }
+            </script>
+
+            <div class="mb-3">
+                <label for="Year">Rok</label><br>
+                <input id="Year" name="Book.Year" type="number" class="form-control" minlength="3" maxlength="100" value="@Model.Book.Year" required/>
+            </div>
+
+            <div class="mb-3">
+                <label for="City">Miasto</label><br>
+                <input id="City" name="Book.City" type="text" class="form-control" minlength="3" maxlength="100" value="@Model.Book.City" required/>
+            </div>
+        
+            <partial name="Templates/_FormButton"/>
+        </form>
+    </div>
+</div>

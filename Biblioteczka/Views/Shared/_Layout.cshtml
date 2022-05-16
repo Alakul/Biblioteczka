@@ -1,0 +1,99 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using Biblioteczka.Areas.Identity.Data
+
+@inject SignInManager<AppUser> SignInManager
+@inject UserManager<AppUser> UserManager
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Biblioteczka</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/Biblioteczka.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.0/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow" style="background-color: #F2545B;">
+            <div class="container-fluid">
+                <a class="navbar-brand text-white fw-bold" asp-controller="Home" asp-action="Index"><img height="20" src="~/logo/Biblioteczka.png"/></a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                    <partial name="_LoginPartial.cshtml" />
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link text-white fw-bold" asp-controller="Book" asp-action="Index">Książki</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div id="wrapper" class="d-flex">
+        
+        <aside id="sidebar-wrapper" class="border-end bg-white">
+
+            <!--
+            <div class="d-flex flex-column flex-shrink-0 p-3">
+                <a class="d-flex align-items-center mb-3 md-0 me-md-auto link-dark text-decoration-none mb-3"><span class="fs-4">Sidebar</span></a>
+                <ul class="nav nav-pills flex-column mb-auto">
+                    <li class="nav-item"><a class="nav-link active" aria-current="page" asp-controller="Book" asp-action="Index">Książki</a></li>
+                    <li class="nav-item"><a class="nav-link link-dark" asp-controller="Author" asp-action="Index">Autorzy</a></li>
+                    <li class="nav-item"><a class="nav-link link-dark" href="#">Egzemplarze</a></li>
+                    <li class="nav-item"><a class="nav-link link-dark" asp-controller="Loan" asp-action="Index">Wypożyczenie</a></li>
+                    <li class="nav-item"><a class="nav-link link-dark" asp-controller="Reservation" asp-action="Index">Rezerwacje</a></li>
+                    <li class="nav-item"><a class="nav-link link-dark" asp-controller="User" asp-action="Index">Użytkownicy</a></li>
+                </ul>
+            </div>
+            -->
+
+            @if (User.IsInRole("Admin"))
+            {
+                <div class="sidebar-heading border-bottom bg-light">Zarządzanie</div>
+                <div class="list-group list-group-flush">
+                    <a class="list-group-item list-group-item-action list-group-item-light p-3" asp-controller="Book" asp-action="Index">Książki</a>
+                    <a class="list-group-item list-group-item-action list-group-item-light p-3" asp-controller="Author" asp-action="Index">Autorzy</a>
+                    <a class="list-group-item list-group-item-action list-group-item-light p-3" asp-controller="Copy" asp-action="Index">Ezgemplarze</a>
+                    <a class="list-group-item list-group-item-action list-group-item-light p-3" asp-controller="Loan" asp-action="Index">Wypożyczenia</a>
+                    <a class="list-group-item list-group-item-action list-group-item-light p-3" asp-controller="Reservation" asp-action="Index">Rezerwacje</a>
+                    <a class="list-group-item list-group-item-action list-group-item-light p-3" asp-controller="User" asp-action="Index">Użytkownicy</a>
+                </div>
+            }
+        </aside>
+       
+        <main role="main" id="page-content-wrapper" class="p-4" style="background-color: #F2F2F2;">
+            @if (User.IsInRole("Admin")){
+                @RenderBody()
+            }
+            else{
+                <div class="container">
+                    @RenderBody()
+                </div>
+            }
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted" style="background-color: #FF9793;">
+        <div class="container text-center" style="height: 80px;">
+            <a class="text-decoration-none text-white">&copy; 2022 - Biblioteczka by Alicja Kulig</a>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,22 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using Biblioteczka.Areas.Identity.Data
+
+@inject SignInManager<AppUser> SignInManager
+@inject UserManager<AppUser> UserManager
+
+@{
+    ViewData["Title"] = "Rezerwacje";
+    string path = "/Reservation";
+}
+
+<partial name="Templates/_Alert" model="@TempData["Alert"]?.ToString()"/>
+<partial name="Templates/_SearchBar" model="@path"/>
+
+@if (User.IsInRole("Admin")){
+    <partial name="Templates/_ReservationListAdmin"/>
+}
+else if (SignInManager.IsSignedIn(User)){
+    <partial name="Templates/_ReservationList"/>
+}
+
+<partial name="Templates/_Pagination" model="@Model"/>

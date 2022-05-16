@@ -1,0 +1,58 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using Biblioteczka.Areas.Identity.Data
+
+@inject SignInManager<AppUser> SignInManager
+
+<div class="bg-white rounded shadow ps-3 pe-3 pt-1 pb-1 mt-3">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Numer&nbsp;&nbsp;
+                    <a class="text-decoration-none text-dark" href="@Url.Action("Index", "Copy", new { sortOrder = "NumberAsc", searchString = ViewData["SearchString"] })"><i class="bi bi-arrow-up"></i></a>
+                    <a class="text-decoration-none text-dark" href="@Url.Action("Index", "Copy", new { sortOrder = "NumberDesc", searchString = ViewData["SearchString"] })"><i class="bi bi-arrow-down"></i></a>
+                </th>
+                <th scope="col">Id Książki</th>
+                <th scope="col">Tytuł</th>
+                <th scope="col">Autor</th>
+                <th scope="col">Status</th>
+                <th scope="col">Data&nbsp;&nbsp;
+                    <a class="text-decoration-none text-dark" href="@Url.Action("Index", "Copy", new { sortOrder = "DateAsc", searchString = ViewData["SearchString"] })"><i class="bi bi-arrow-up"></i></a>
+                    <a class="text-decoration-none text-dark" href="@Url.Action("Index", "Copy", new { sortOrder = "DateDesc", searchString = ViewData["SearchString"] })"><i class="bi bi-arrow-down"></i></a>
+                </th>
+                <th scope="col" class="text-end"></th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var Copy in @Model.CopyList)
+            {
+                <tr>
+                    <th scope="row">@Copy.Id</th>
+                    <td>@Copy.Number</td>
+                    <td><a class="text-decoration-none text-dark" asp-route-id="@Copy.BookId" asp-controller="Book" asp-action="Details">@Copy.Book.Id</a></td>
+                    <td><a class="text-decoration-none text-dark">@Copy.Book.Title</a></td>
+                    <td>@Copy.Book.Author.Name @Copy.Book.Author.LastName</td>
+
+                    @if (Copy.Status=="0"){
+                        <td>Niedostępna</td>
+                    }
+                    else if (Copy.Status=="1"){
+                        <td>Dostępna</td>
+                    }
+
+                    <td>@Copy.Date</td>
+                    <td class="text-end">
+                        <a class="btn btn-success mb-1" asp-route-id="@Copy.Id" asp-controller="Copy" asp-action="Edit"><i class="bi bi-pencil-square"></i></a>
+                        @if (Copy.Status == "1"){
+                            <a class="btn btn-danger mb-1" data-bs-toggle="modal" data-bs-target="#deleteModal_@Copy.Id"><i class="bi bi-trash3-fill"></i></a>
+                            <form asp-route-id="@Copy.Id" asp-controller="Copy" asp-action="Delete" method="post">
+                                <partial name="Templates/_ModalDelete" model="@Copy.Id"/>
+                            </form>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
