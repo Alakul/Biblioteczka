@@ -33,9 +33,9 @@
                     <td>@Book.Date</td>
                     <td class="text-end">
                         <a class="btn btn-success mb-1" asp-route-id="@Book.Id" asp-controller="Book" asp-action="Edit"><i class="bi bi-pencil-square"></i></a>
-                        <a class="btn btn-danger mb-1" data-bs-toggle="modal" data-bs-target="#deleteModal"><i class="bi bi-trash3-fill"></i></a>
+                        <a class="btn btn-danger mb-1" data-bs-toggle="modal" data-bs-target="#deleteModal_@Book.Id"><i class="bi bi-trash3-fill"></i></a>
                         <form asp-route-id="@Book.Id" asp-controller="Book" asp-action="Delete" method="post">
-                            <partial name="Templates/_ModalDelete"/>
+                            <partial name="Templates/_ModalDelete" model="@Book.Id"/>
                         </form>
                     </td>
                 </tr>

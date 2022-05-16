@@ -27,9 +27,9 @@
                     @if (UserManager.GetUserId(User) != @user.Id){
                         <a class="btn btn-primary mb-1" asp-route-id="@user.Id" asp-controller="User" asp-action="Role">Rola</a>
                         <a class="btn btn-success mb-1" href="#"><i class="bi bi-pencil-square"></i></a>
-                        <a class="btn btn-danger mb-1" data-bs-toggle="modal" data-bs-target="#deleteModal"><i class="bi bi-trash3-fill"></i></a>
+                        <a class="btn btn-danger mb-1" data-bs-toggle="modal" data-bs-target="#deleteModal_@user.Id"><i class="bi bi-trash3-fill"></i></a>
                         <form asp-route-id="@user.Id" asp-controller="User" asp-action="Delete" method="post">
-                            <partial name="Templates/_ModalDelete"/>
+                            <partial name="Templates/_ModalDelete" model="@user.Id"/>
                         </form>
                     }
                     else {

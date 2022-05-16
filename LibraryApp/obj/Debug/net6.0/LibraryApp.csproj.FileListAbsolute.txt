@@ -262,9 +262,7 @@ C:\Users\alicj\source\repos\LibraryApp\LibraryApp\obj\Debug\net6.0\LibraryApp.Ra
 C:\Users\alicj\source\repos\LibraryApp\LibraryApp\obj\Debug\net6.0\LibraryApp.RazorAssemblyInfo.cs
 C:\Users\alicj\source\repos\LibraryApp\LibraryApp\obj\Debug\net6.0\staticwebassets.build.json
 C:\Users\alicj\source\repos\LibraryApp\LibraryApp\obj\Debug\net6.0\staticwebassets.development.json
-C:\Users\alicj\source\repos\LibraryApp\LibraryApp\obj\Debug\net6.0\scopedcss\Views\Shared\_Layout.cshtml.rz.scp.css
 C:\Users\alicj\source\repos\LibraryApp\LibraryApp\obj\Debug\net6.0\scopedcss\bundle\LibraryApp.styles.css
-C:\Users\alicj\source\repos\LibraryApp\LibraryApp\obj\Debug\net6.0\scopedcss\projectbundle\LibraryApp.bundle.scp.css
 C:\Users\alicj\source\repos\LibraryApp\LibraryApp\obj\Debug\net6.0\LibraryApp.csproj.CopyComplete
 C:\Users\alicj\source\repos\LibraryApp\LibraryApp\obj\Debug\net6.0\LibraryApp.dll
 C:\Users\alicj\source\repos\LibraryApp\LibraryApp\obj\Debug\net6.0\refint\LibraryApp.dll

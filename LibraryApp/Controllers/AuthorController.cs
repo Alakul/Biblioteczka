@@ -93,7 +93,7 @@ namespace LibraryApp.Controllers
                 db.Author.Add(author);
                 db.SaveChanges();
 
-                return RedirectToAction(nameof(Index));
+                return View();
             }
             catch
             {

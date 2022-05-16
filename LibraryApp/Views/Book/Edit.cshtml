@@ -3,7 +3,7 @@
     ViewData["Title"] = "Edytuj książkę";
 }
 
-<partial name="Templates/_BackButton" model="@Url.Action("Index")"/>
+<partial name="Templates/_BackButton"/>
 
 <div class="col-sm-6 mx-auto">
     <partial name="Templates/_Alert" model="@ViewData["Alert"]?.ToString()"/>
@@ -19,7 +19,6 @@
             <div class="mb-3">
                 <label for="Author">Autor</label><br>
                 <select id="Author" name="Book.AuthorId" class="form-control">
-                    <option value="">Wybierz autora</option>
                     @foreach (var Author in @Model.Authors)
                     {
                         @if (@Author.Id == @Model.Book.AuthorId){
@@ -31,7 +30,17 @@
                     }
                 </select>
             </div>
-        
+            <script type="text/javascript">
+                $('#Author').select2({
+                   theme: "bootstrap-5",
+                   "language": {
+                       "noResults": function(){
+                           return "Nie znaleziono.";
+                       }
+                   },
+                });
+            </script>
+
             <div class="mb-3">
                 <label for="Description">Opis</label><br>
                 <textarea id="Description" name="Book.Description" class="form-control" rows="4" minlength="3" maxlength="100" required>@Model.Book.Description</textarea>
@@ -39,10 +48,9 @@
 
             <div class="mb-3">
                 <label for="File">Obraz</label><br>
-                <input id="File" name="File" type="file" class="form-control" onchange="preview();" minlength="3" maxlength="100" >
+                <input id="File" name="File" type="file" class="form-control" onchange="preview();" accept="image/jpg,image/png,image/jpeg,image/gif">
                 <img id="ImagePreview" name="ImagePreview" src="~/images/@Model.Book.Image" height="250" class="ms-auto me-auto mt-4 d-block"/>
             </div>
-
             <script>
                 function preview() {
                     ImagePreview.src = URL.createObjectURL(event.target.files[0]);

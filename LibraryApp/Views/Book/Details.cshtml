@@ -9,16 +9,27 @@
     ViewData["Title"] = "O książce";
 }
 
-<partial name="Templates/_BackButton" model="@Url.Action("Index")"/>
+<partial name="Templates/_BackButton"/>
 
-<div class="col-sm-6 mx-auto">
-        <h3>@Model.Book.Title</h3>
+@if (User.IsInRole("Admin")){
+    <a class="btn btn-success mb-1 me-4 position-absolute end-0" asp-route-id="@Model.Book.Id" asp-controller="Book" asp-action="Edit"><i class="bi bi-pencil-square">  Edytuj</i></a>
+}
 
-        <p>@Model.Author.Name @Model.Author.LastName</p>
+<div class="col-sm-6 mx-auto bg-white rounded shadow d-flex">
+    <div class="col-4 p-3">
+        <img class="image" src="~/images/@Model.Book.Image"/>
+    </div>
+    <div class="col-8 p-3">
+        <div class="text-center">
+            <h4>@Model.Book.Title</h4>
+            <p>@Model.Author.Name @Model.Author.LastName</p>
+        </div>          
+        <p>@Model.Book.Description</p>
 
-        <img src="~/images/@Model.Book.Image" height="400" width="300"/>
+        <label>Rok wydania: @Model.Book.Year</label><br />
+        <label>Miejsce wydania: @Model.Book.City</label>
+    </div>  
 </div>
 
 <partial name="Templates/_Alert" model="@TempData["Alert"]?.ToString()"/>
-
 <partial name="Templates/_CopyList"/>

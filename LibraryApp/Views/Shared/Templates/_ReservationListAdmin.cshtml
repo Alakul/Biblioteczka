@@ -29,9 +29,9 @@
                             <button type="submit" class="btn btn-success mb-1">Wypożycz</button>
                         </form>
                         
-                        <a class="btn btn-danger mb-1" data-bs-toggle="modal" data-bs-target="#deleteModal"><i class="bi bi-trash3-fill"></i></a>
+                        <a class="btn btn-danger mb-1" data-bs-toggle="modal" data-bs-target="#deleteModal_@Reservation.Id"><i class="bi bi-trash3-fill"></i></a>
                         <form asp-route-id="@Reservation.Id" asp-controller="Reservation" asp-action="Delete" method="post">
-                            <partial name="Templates/_ModalDelete"/>
+                            <partial name="Templates/_ModalDelete" model="@Reservation.Id"/>
                         </form>
                   </td>
                 </tr>

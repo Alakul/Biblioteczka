@@ -37,9 +37,9 @@
                             </form>
                         }
                         
-                        <a class="btn btn-danger mb-1" data-bs-toggle="modal" data-bs-target="#deleteModal"><i class="bi bi-trash3-fill"></i></a>
+                        <a class="btn btn-danger mb-1" data-bs-toggle="modal" data-bs-target="#deleteModal_@Loan.Id"><i class="bi bi-trash3-fill"></i></a>
                         <form asp-route-id="@Loan.Id" asp-controller="Loan" asp-action="Delete" method="post">
-                            <partial name="Templates/_ModalDelete"/>
+                            <partial name="Templates/_ModalDelete" model="@Loan.Id"/>
                         </form>
                   </td>
                 </tr>

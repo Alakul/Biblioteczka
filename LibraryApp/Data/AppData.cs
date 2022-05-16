@@ -12,12 +12,10 @@
         };
 
 
-
         //AUTHOR
         public static List<string> authorSort = new List<string> {
             "po nazwisku rosnąco", "po nazwisku malejąco", "po dacie rosnąco", "po dacie malejąco"
         };
-
 
 
         //USER

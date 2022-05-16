@@ -20,6 +20,7 @@ namespace LibraryApp.Controllers
         }
 
         // GET: BookController
+        [HttpGet, Route("Ksiazki")]
         public ActionResult Index(string searchString, string sortOrder, int? page, string formValue)
         {
             BookAuthorViewModel bookAuthorViewModel = new BookAuthorViewModel();
@@ -62,61 +63,20 @@ namespace LibraryApp.Controllers
                 }
             }
 
-
-
             if (sortOrder == null){
                 string sort = Request.Cookies["SortOrder"];
                 if (sort != null){
-                    switch (sort){
-                        case "TitleAsc":
-                            books = books.OrderBy(x => x.Title).ToList();
-                            break;
-                        case "TitleDesc":
-                            books = books.OrderByDescending(x => x.Title).ToList();
-                            break;
-                        case "YearAsc":
-                            books = books.OrderBy(x => x.Year).ToList();
-                            break;
-                        case "YearDesc":
-                            books = books.OrderByDescending(x => x.Year).ToList();
-                            break;
-                        case "DateAsc":
-                            books = books.OrderBy(x => x.Date).ToList();
-                            break;
-                        case "DateDesc":
-                            books = books.OrderByDescending(x => x.Date).ToList();
-                            break;
-                        default:
-                            books = books.OrderByDescending(x => x.Date).ToList();
-                            break;
-                    }
+                    books = GetBooks(sort, books);
                 }
                 else {
                     books = books.ToList();
                 }
             }
             else if (sortOrder != null){
-                switch (sortOrder){
-                    case "TitleAsc":
-                        books = books.OrderBy(x => x.Title).ToList();
-                        break;
-                    case "TitleDesc":
-                        books = books.OrderByDescending(x => x.Title).ToList();
-                        break;
-                    case "YearAsc":
-                        books = books.OrderBy(x => x.Year).ToList();
-                        break;
-                    case "YearDesc":
-                        books = books.OrderByDescending(x => x.Year).ToList();
-                        break;
-                    case "DateAsc":
-                        books = books.OrderBy(x => x.Date).ToList();
-                        break;
-                    case "DateDesc":
-                        books = books.OrderByDescending(x => x.Date).ToList();
-                        break;
+                books = GetBooks(sortOrder, books);
+                if (sortOrder != null){
+                    Response.Cookies.Append("SortOrder", sortOrder, options);
                 }
-                Response.Cookies.Append("SortOrder", sortOrder, options);
             }
 
             bookAuthorViewModel.Authors = db.Author.ToList();
@@ -128,6 +88,7 @@ namespace LibraryApp.Controllers
         }
 
         // GET: BookController/Details/5
+        [HttpGet, Route("Ksiazki/{id}")]
         public ActionResult Details(int id)
         {
             BookAuthorCopyViewModel bookAuthorCopyViewModel = new BookAuthorCopyViewModel();
@@ -140,15 +101,18 @@ namespace LibraryApp.Controllers
 
         // GET: BookController/Create
         [Authorize(Roles = "Admin")]
+        [HttpGet, Route("Ksiazki/Dodaj")]
         public ActionResult Create()
         {
             return View(GetAuthors());
         }
 
         // POST: BookController/Create
+        
         [Authorize(Roles = "Admin")]
-        [HttpPost]
         [ValidateAntiForgeryToken]
+        [HttpPost, Route("Ksiazki/Dodaj")]
+        [HttpPost]
         public ActionResult Create(BookCreateEditViewModel model)
         {
             try {
@@ -188,6 +152,7 @@ namespace LibraryApp.Controllers
 
         // GET: BookController/Edit/5
         [Authorize(Roles = "Admin")]
+        [HttpGet, Route("Ksiazki/Edytuj/{id}")]
         public ActionResult Edit(int id)
         {
             return View(GetBook(id));
@@ -195,8 +160,9 @@ namespace LibraryApp.Controllers
 
         // POST: BookController/Edit/5
         [Authorize(Roles = "Admin")]
-        [HttpPost]
         [ValidateAntiForgeryToken]
+        [HttpPost, Route("Ksiazki/Edytuj/{id}")]
+        [HttpPost]
         public ActionResult Edit(int id, BookCreateEditViewModel model)
         {
             try
@@ -205,11 +171,11 @@ namespace LibraryApp.Controllers
                 book.UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
                 book.Date = DateTime.Now;
 
-                book.Title = model.Book.Title;
+                book.Title = model.Book.Title.Trim();
                 book.AuthorId = model.Book.AuthorId;
-                book.Description = model.Book.Description;
+                book.Description = model.Book.Description.Trim();
                 book.Year = model.Book.Year;
-                book.City = model.Book.City;
+                book.City = model.Book.City.Trim();
 
                 if (model.File != null)
                 {
@@ -260,12 +226,12 @@ namespace LibraryApp.Controllers
                 db.SaveChanges();
 
                 TempData["Alert"] = "Success";
-                return RedirectToAction("Index", "Book", new { @searchString = "null" });
+                return RedirectToAction("Index");
             }
             catch
             {
                 TempData["Alert"] = "Danger";
-                return RedirectToAction("Index", "Book", new { @searchString = "null" });
+                return RedirectToAction("Index");
             }
         }
 
@@ -303,7 +269,34 @@ namespace LibraryApp.Controllers
 
 
 
-
+        private List<Book> GetBooks(string sort, List<Book> books)
+        {
+            switch (sort)
+            {
+                case "TitleAsc":
+                    books = books.OrderBy(x => x.Title).ToList();
+                    break;
+                case "TitleDesc":
+                    books = books.OrderByDescending(x => x.Title).ToList();
+                    break;
+                case "YearAsc":
+                    books = books.OrderBy(x => x.Year).ToList();
+                    break;
+                case "YearDesc":
+                    books = books.OrderByDescending(x => x.Year).ToList();
+                    break;
+                case "DateAsc":
+                    books = books.OrderBy(x => x.Date).ToList();
+                    break;
+                case "DateDesc":
+                    books = books.OrderByDescending(x => x.Date).ToList();
+                    break;
+                default:
+                    books = books.OrderByDescending(x => x.Date).ToList();
+                    break;
+            }
+            return books;
+        }
 
         private BookCreateEditViewModel GetBook(int id)
         {
