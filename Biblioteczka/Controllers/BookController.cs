@@ -20,7 +20,6 @@ namespace Biblioteczka.Controllers
         }
 
         // GET: BookController
-        [HttpGet, Route("Ksiazki")]
         public ActionResult Index(string searchString, string sortOrder, int? page, string formValue)
         {
             BookAuthorViewModel bookAuthorViewModel = new BookAuthorViewModel();
@@ -88,7 +87,6 @@ namespace Biblioteczka.Controllers
         }
 
         // GET: BookController/Details/5
-        [HttpGet, Route("Ksiazki/Szczegoly/{id}")]
         public ActionResult Details(int id)
         {
             BookAuthorCopyViewModel bookAuthorCopyViewModel = new BookAuthorCopyViewModel();
@@ -111,7 +109,6 @@ namespace Biblioteczka.Controllers
         
         [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
-        [HttpPost, Route("Ksiazki/Dodaj")]
         [HttpPost]
         public ActionResult Create(BookCreateEditViewModel model)
         {
@@ -152,7 +149,6 @@ namespace Biblioteczka.Controllers
 
         // GET: BookController/Edit/5
         [Authorize(Roles = "Admin")]
-        [HttpGet, Route("Ksiazki/Edytuj/{id}")]
         public ActionResult Edit(int id)
         {
             return View(GetBook(id));
@@ -161,7 +157,6 @@ namespace Biblioteczka.Controllers
         // POST: BookController/Edit/5
         [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
-        [HttpPost, Route("Ksiazki/Edytuj/{id}")]
         [HttpPost]
         public ActionResult Edit(int id, BookCreateEditViewModel model)
         {
