@@ -34,10 +34,10 @@ Project is created with:
 	Update-Database
 	```
 
-<a name="admin"/>	
-## Admin Account
-<p>Email: admin@gmail.com</p>
-<p>Password: 12345678</p>
+<a name="admin"></a>
+## Admin Account</br>
+Email: admin@gmail.com</br>
+Password: 12345678
 
 	
 ## Features
