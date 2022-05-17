@@ -7,7 +7,7 @@ Biblioteczka is a web app written with ASP.NET Core. It was created to manage bo
 ## Table of contents
 * [Technology](#technology)
 * [Installation](#installation)
-* [Admin Account](#admin account)
+* [Admin Account](#admin)
 * [Features](#features)
 * [Screenshots](#screenshots)
 
@@ -34,9 +34,10 @@ Project is created with:
 	Update-Database
 	```
 
+<a name="admin"/>	
 ## Admin Account
-Email: admin@gmail.com
-Password: 12345678
+<p>Email: admin@gmail.com</p>
+<p>Password: 12345678</p>
 
 	
 ## Features
