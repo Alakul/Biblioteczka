@@ -24,8 +24,8 @@
             {
                 <tr>
                     <th scope="row">@Author.Id</th>
-                    <td class="col-2"><a class="text-decoration-none text-dark" asp-route-id="@Author.Id" asp-controller="Author" asp-action="Details">@Author.Name</a></td>
-                    <td class="col-2"><a class="text-decoration-none text-dark" asp-route-id="@Author.Id" asp-controller="Author" asp-action="Details">@Author.LastName</a></td>
+                    <td class="col-2"><a class="text-decoration-none text-dark">@Author.Name</a></td>
+                    <td class="col-2"><a class="text-decoration-none text-dark">@Author.LastName</a></td>
                     <td>@Author.Date</td>
                     <td class="text-end">
                         <a class="btn btn-success mb-1" asp-route-id="@Author.Id" asp-controller="Author" asp-action="Edit"><i class="bi bi-pencil-square"></i></a>

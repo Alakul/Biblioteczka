@@ -42,11 +42,13 @@
         </nav>
     </header>
 
-    <div id="wrapper" class="d-flex">
-        
+    <div>
+
+        <!--
+            <div id="wrapper" class="d-flex">
         <aside id="sidebar-wrapper" class="border-end bg-white">
 
-            <!--
+            
             <div class="d-flex flex-column flex-shrink-0 p-3">
                 <a class="d-flex align-items-center mb-3 md-0 me-md-auto link-dark text-decoration-none mb-3"><span class="fs-4">Sidebar</span></a>
                 <ul class="nav nav-pills flex-column mb-auto">
@@ -58,7 +60,7 @@
                     <li class="nav-item"><a class="nav-link link-dark" asp-controller="User" asp-action="Index">Użytkownicy</a></li>
                 </ul>
             </div>
-            -->
+            
 
             @if (User.IsInRole("Admin"))
             {
@@ -73,10 +75,12 @@
                 </div>
             }
         </aside>
-       
+        -->
         <main role="main" id="page-content-wrapper" class="p-4" style="background-color: #F2F2F2;">
             @if (User.IsInRole("Admin")){
-                @RenderBody()
+                <div class="container-fluid">
+                    @RenderBody()
+                </div>
             }
             else{
                 <div class="container">
