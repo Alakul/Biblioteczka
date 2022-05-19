@@ -3,3 +3,12 @@
 
 // Write your JavaScript code.
 
+$(document).ready(function () {
+    var url = window.location.href;
+    $('a.sidebar-item').each(function () {
+        if (this.href == url) {
+            $(this).addClass('active');
+            return false; // exit the loop
+        }
+    });
+});

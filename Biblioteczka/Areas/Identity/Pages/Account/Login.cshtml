@@ -1,47 +1,45 @@
 ﻿@page
 @model LoginModel
-
 @{
-    ViewData["Title"] = "Logowanie";
+	ViewData["Title"] = "Logowanie";
 }
 
-<div class="col-sm-6 mx-auto">
-    <div class="bg-white rounded shadow p-4">
-        <form id="account" method="post">
-            <h1>@ViewData["Title"]</h1>
-            <h4>Użyj lokalnego konta do zalogowania.</h4>
-            <hr />
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="mb-3">
-                <label asp-for="Input.Email">Email</label>
-                <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" />
-                <span asp-validation-for="Input.Email" class="text-danger"></span>
-            </div>
-            <div class="mb-3">
-                <label asp-for="Input.Password">Hasło</label>
-                <input asp-for="Input.Password" class="form-control" autocomplete="current-password" aria-required="true" />
-                <span asp-validation-for="Input.Password" class="text-danger"></span>
-            </div>
-            <div class="mb-3">
-                <div class="checkbox">
-                    <label asp-for="Input.RememberMe"><input class="form-check-input" asp-for="Input.RememberMe"/>&nbsp;&nbsp;Zapamiętaj</label>
-                </div>
-            </div>
-            <div>
-                <button id="login-submit" type="submit" class="w-100 btn btn-lg btn-primary mb-4">Zaloguj się</button>
-            </div>
-            <div class="text-center">
-                <p>
-                    <a id="forgot-password" asp-page="./ForgotPassword">Zapomniałeś hasła?</a>
-                </p>
-                <p>
-                    <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Utwórz nowe konto</a>
-                </p>
-            </div>
-        </form>
-    </div>
+<div class="col-md-6 col-sm-10 col-12 mx-auto bg-white rounded shadow p-4">
+	<form id="account" method="post">
+		<h1>@ViewData["Title"]</h1>
+		<h4>Użyj lokalnego konta do zalogowania.</h4>
+		<hr />
+		<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+		<div class="mb-3">
+			<label asp-for="Input.Email">Email</label>
+			<input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" />
+			<span asp-validation-for="Input.Email" class="text-danger"></span>
+		</div>
+		<div class="mb-3">
+			<label asp-for="Input.Password">Hasło</label>
+			<input asp-for="Input.Password" class="form-control" autocomplete="current-password" aria-required="true" />
+			<span asp-validation-for="Input.Password" class="text-danger"></span>
+		</div>
+		<div class="mb-3">
+			<div class="checkbox">
+				<label asp-for="Input.RememberMe"><input class="form-check-input" asp-for="Input.RememberMe" />&nbsp;&nbsp;Zapamiętaj</label>
+			</div>
+		</div>
+		<div>
+			<button id="login-submit" type="submit" class="w-100 btn btn-lg btn-primary mb-4">Zaloguj się</button>
+		</div>
+		<div class="text-center">
+			<p>
+				<a id="forgot-password" asp-page="./ForgotPassword">Zapomniałeś hasła?</a>
+			</p>
+			<p>
+				<a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Utwórz nowe konto</a>
+			</p>
+		</div>
+	</form>
 </div>
 
+
 @section Scripts {
-    <partial name="_ValidationScriptsPartial" />
+	<partial name="_ValidationScriptsPartial" />
 }

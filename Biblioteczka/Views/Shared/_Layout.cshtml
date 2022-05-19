@@ -42,53 +42,39 @@
         </nav>
     </header>
 
-    <div>
-
-        <!--
-            <div id="wrapper" class="d-flex">
-        <aside id="sidebar-wrapper" class="border-end bg-white">
-
-            
-            <div class="d-flex flex-column flex-shrink-0 p-3">
-                <a class="d-flex align-items-center mb-3 md-0 me-md-auto link-dark text-decoration-none mb-3"><span class="fs-4">Sidebar</span></a>
-                <ul class="nav nav-pills flex-column mb-auto">
-                    <li class="nav-item"><a class="nav-link active" aria-current="page" asp-controller="Book" asp-action="Index">Książki</a></li>
-                    <li class="nav-item"><a class="nav-link link-dark" asp-controller="Author" asp-action="Index">Autorzy</a></li>
-                    <li class="nav-item"><a class="nav-link link-dark" href="#">Egzemplarze</a></li>
-                    <li class="nav-item"><a class="nav-link link-dark" asp-controller="Loan" asp-action="Index">Wypożyczenie</a></li>
-                    <li class="nav-item"><a class="nav-link link-dark" asp-controller="Reservation" asp-action="Index">Rezerwacje</a></li>
-                    <li class="nav-item"><a class="nav-link link-dark" asp-controller="User" asp-action="Index">Użytkownicy</a></li>
-                </ul>
-            </div>
-            
-
-            @if (User.IsInRole("Admin"))
-            {
+    
+    @if (User.IsInRole("Admin")) {
+        <div id="wrapper" class="d-flex">
+            <aside id="sidebar-wrapper" class="border-end bg-white">
                 <div class="sidebar-heading border-bottom bg-light">Zarządzanie</div>
                 <div class="list-group list-group-flush">
-                    <a class="list-group-item list-group-item-action list-group-item-light p-3" asp-controller="Book" asp-action="Index">Książki</a>
-                    <a class="list-group-item list-group-item-action list-group-item-light p-3" asp-controller="Author" asp-action="Index">Autorzy</a>
-                    <a class="list-group-item list-group-item-action list-group-item-light p-3" asp-controller="Copy" asp-action="Index">Ezgemplarze</a>
-                    <a class="list-group-item list-group-item-action list-group-item-light p-3" asp-controller="Loan" asp-action="Index">Wypożyczenia</a>
-                    <a class="list-group-item list-group-item-action list-group-item-light p-3" asp-controller="Reservation" asp-action="Index">Rezerwacje</a>
-                    <a class="list-group-item list-group-item-action list-group-item-light p-3" asp-controller="User" asp-action="Index">Użytkownicy</a>
+                    <a class="sidebar-item list-group-item list-group-item-action p-3" asp-controller="Book" asp-action="Index"><i class="bi bi-book"></i><label class="ms-3">Książki</label></a>
+                    <a class="sidebar-item list-group-item list-group-item-action p-3" asp-controller="Author" asp-action="Index"><i class="bi bi-pen"></i><label class="ms-3">Autorzy</label></a>
+                    <a class="sidebar-item list-group-item list-group-item-action p-3" asp-controller="Copy" asp-action="Index"><i class="bi bi-bookshelf"></i><label class="ms-3">Ezgemplarze</label></a>
+                    <a class="sidebar-item list-group-item list-group-item-action p-3" asp-controller="Loan" asp-action="Index"><i class="bi bi-bookmark-check"></i><label class="ms-3">Wypożyczenia</label></a>
+                    <a class="sidebar-item list-group-item list-group-item-action p-3" asp-controller="Reservation" asp-action="Index"><i class="bi bi-calendar2-check"></i><label class="ms-3">Rezerwacje</label></a>
+                    <a class="sidebar-item list-group-item list-group-item-action p-3" asp-controller="User" asp-action="Index"><i class="bi bi-people"></i><label class="ms-3">Użytkownicy</label></a>
+                    <a class="sidebar-item list-group-item list-group-item-action p-3" asp-area="Identity" asp-page="/Account/Manage/Index"><i class="bi bi-gear-wide"></i><label class="ms-3">Ustawienia</label></a>
                 </div>
-            }
-        </aside>
-        -->
-        <main role="main" id="page-content-wrapper" class="p-4" style="background-color: #F2F2F2;">
-            @if (User.IsInRole("Admin")){
-                <div class="container-fluid">
+            </aside>
+        
+            <main role="main" id="page-content-wrapper">
+                <div id="page-title">
+                    <h6 class="m-0">@ViewData["Title"]</h6>
+                </div>
+                <div class="container-fluid p-4">
                     @RenderBody()
                 </div>
-            }
-            else{
-                <div class="container">
-                    @RenderBody()
-                </div>
-            }
+            </main>
+        </div>
+    }
+    else {
+        <main role="main" class="p-4">
+            <div class="container">
+                @RenderBody()
+            </div>
         </main>
-    </div>
+    }
 
     <footer class="border-top footer text-muted" style="background-color: #FF9793;">
         <div class="container text-center" style="height: 80px;">
