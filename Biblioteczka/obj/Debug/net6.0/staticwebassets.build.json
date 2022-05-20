@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "caAN5ncZSzL53WDlRgPJn+nmsH4TPqyck45sjc+7yBM=",
+  "Hash": "eLWNOoO0tnNFPSTonPTMoM9oQIFuDZ9+x79Q4aAOZ/M=",
   "Source": "Biblioteczka",
   "BasePath": "_content/Biblioteczka",
   "Mode": "Default",
@@ -1324,6 +1324,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\images\\b1e1d3f9-d488-4ab2-a480-4be0d6afba01.jpg"
+    },
+    {
+      "Identity": "C:\\Users\\alicj\\source\\repos\\ASP.NET Core - Biblioteczka\\Biblioteczka\\wwwroot\\images\\c3e0d6d7-d039-4f37-a7de-508925596bf4.jpg",
+      "SourceId": "Biblioteczka",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\alicj\\source\\repos\\ASP.NET Core - Biblioteczka\\Biblioteczka\\wwwroot\\",
+      "BasePath": "_content/Biblioteczka",
+      "RelativePath": "images/c3e0d6d7-d039-4f37-a7de-508925596bf4.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\c3e0d6d7-d039-4f37-a7de-508925596bf4.jpg"
     },
     {
       "Identity": "C:\\Users\\alicj\\source\\repos\\ASP.NET Core - Biblioteczka\\Biblioteczka\\wwwroot\\images\\c7afe05f-4fa7-4ae1-bba0-8a20f57374e1.jpg",

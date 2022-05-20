@@ -6,12 +6,13 @@ using Microsoft.AspNetCore.Mvc;
 using X.PagedList;
 using System.Security.Claims;
 using System.Web;
+using System.Collections.ObjectModel;
 
 namespace Biblioteczka.Controllers
 {
     public class BookController : Controller
     {
-        AppDbContext db;
+        private AppDbContext db;
         private readonly IWebHostEnvironment webHostEnvironment;
         public BookController(AppDbContext context, IWebHostEnvironment hostEnvironment)
         {
@@ -23,64 +24,12 @@ namespace Biblioteczka.Controllers
         public ActionResult Index(string searchString, string sortOrder, int? page, string formValue)
         {
             BookAuthorViewModel bookAuthorViewModel = new BookAuthorViewModel();
-            List<Book> books = db.Book.ToList();
+            List<BookAuthorViewModel> books = GetBookList();
 
-            CookieOptions options = new CookieOptions();
+            books = SearchBooks(formValue, searchString, books);
+            books = SortBooks(sortOrder, books);
 
-            if (formValue == null){
-                if (Request.Cookies["SearchString"] != null){
-                    books = db.Book.Where(x => x.Title.Contains(Request.Cookies["SearchString"])).ToList();
-                    ViewBag.SearchString = Request.Cookies["SearchString"];
-                }
-                else {
-                    books = db.Book.ToList();
-                    ViewBag.SearchString = "";
-                }
-            }
-            else if (searchString == null && formValue=="1"){
-                books = db.Book.ToList();
-                Response.Cookies.Delete("SearchString");
-                ViewBag.SearchString = "";
-            }
-            else if (searchString != null && formValue == "1")
-            {
-                string newValue = searchString.Trim();
-                if (!string.IsNullOrEmpty(newValue)){
-                    if (newValue != Request.Cookies["SearchString"]){
-                        books = db.Book.Where(x => x.Title.Contains(newValue)).ToList();
-                        Response.Cookies.Append("SearchString", newValue, options);
-                        ViewBag.SearchString = newValue;
-                    }
-                    else {
-                        books = db.Book.Where(x => x.Title.Contains(newValue)).ToList();
-                        ViewBag.SearchString = newValue;
-                    }
-                }
-                else {
-                    books = db.Book.ToList();
-                    ViewBag.SearchString = "";
-                }
-            }
-
-            if (sortOrder == null){
-                string sort = Request.Cookies["SortOrder"];
-                if (sort != null){
-                    books = GetBooks(sort, books);
-                }
-                else {
-                    books = books.ToList();
-                }
-            }
-            else if (sortOrder != null){
-                books = GetBooks(sortOrder, books);
-                if (sortOrder != null){
-                    Response.Cookies.Append("SortOrder", sortOrder, options);
-                }
-            }
-
-            bookAuthorViewModel.Authors = db.Author.ToList();
-
-            int pageSize = 5;
+            int pageSize = 20;
             int pageNumber = (page ?? 1);
             bookAuthorViewModel.BookList = books.ToPagedList(pageNumber, pageSize);
             return View(bookAuthorViewModel);
@@ -99,7 +48,6 @@ namespace Biblioteczka.Controllers
 
         // GET: BookController/Create
         [Authorize(Roles = "Admin")]
-        [HttpGet, Route("Ksiazki/Dodaj")]
         public ActionResult Create()
         {
             return View(GetAuthors());
@@ -264,35 +212,127 @@ namespace Biblioteczka.Controllers
 
 
 
-        private List<Book> GetBooks(string sort, List<Book> books)
+
+
+
+        private List<BookAuthorViewModel> GetBookList()
+        {
+            List<BookAuthorViewModel> books = db.Book
+                .Join(db.Author, z => z.AuthorId, k => k.Id, (z, k) => new { Book = z, Author = k })
+                .Select(s => new BookAuthorViewModel
+                {
+                    Book = s.Book,
+                    Author = s.Author,
+                })
+                .ToList();
+
+            return books;
+        }
+
+        //SEARCH
+        private List<BookAuthorViewModel> SearchBooks(string formValue, string searchString, List<BookAuthorViewModel> books)
+        {
+            CookieOptions options = new CookieOptions();
+            string cookie = Request.Cookies["SearchStringBook"];
+
+            if (formValue == null){
+                if (cookie != null){
+                    books = books.Where(x => x.Book.Title.ToLower().Contains(cookie.ToLower()) || 
+                        x.Author.Name.ToLower().Contains(cookie.ToLower()) || 
+                        x.Author.LastName.ToLower().Contains(cookie.ToLower())).ToList();
+                    ViewBag.SearchString = cookie;
+                }
+                else {
+                    books = GetBookList();
+                    ViewBag.SearchString = "";
+                }
+            }
+            else if (searchString == null && formValue == "1"){
+                books = GetBookList();
+                Response.Cookies.Delete("SearchStringBook");
+                ViewBag.SearchString = "";
+            }
+            else if (searchString != null && formValue == "1"){
+                string newValue = searchString.Trim();
+                if (!string.IsNullOrEmpty(newValue)){
+                    if (newValue != cookie){
+                        Response.Cookies.Append("SearchStringBook", newValue, options);
+                    }
+                    books = books.Where(x => x.Book.Title.ToLower().Contains(newValue.ToLower()) || 
+                        x.Author.Name.ToLower().Contains(newValue.ToLower()) || 
+                        x.Author.LastName.ToLower().Contains(newValue.ToLower())).ToList();
+                    ViewBag.SearchString = newValue;
+                }
+                else {
+                    books = GetBookList();
+                    ViewBag.SearchString = "";
+                }
+            }
+
+            return books;
+        }
+
+        //SORT
+        private List<BookAuthorViewModel> SortBooks(string sortOrder, List<BookAuthorViewModel> books)
+        {
+            CookieOptions options = new CookieOptions();
+
+            if (sortOrder == null){
+                string cookie = Request.Cookies["SortOrderBook"];
+                if (cookie != null){
+                    books = GetBooks(cookie, books);
+                }
+                else {
+                    books = GetBookList();
+                }
+            }
+            else if (sortOrder != null){
+                books = GetBooks(sortOrder, books);
+                if (sortOrder != null){
+                    Response.Cookies.Append("SortOrderBook", sortOrder, options);
+                }
+            }
+
+            return books;
+        }
+
+        //SWITCH
+        private List<BookAuthorViewModel> GetBooks(string sort, List<BookAuthorViewModel> books)
         {
             switch (sort)
             {
                 case "TitleAsc":
-                    books = books.OrderBy(x => x.Title).ToList();
+                    books = books.OrderBy(x => x.Book.Title).ToList();
                     break;
                 case "TitleDesc":
-                    books = books.OrderByDescending(x => x.Title).ToList();
+                    books = books.OrderByDescending(x => x.Book.Title).ToList();
+                    break;
+                case "LastNameAsc":
+                    books = books.OrderBy(x => x.Author.LastName).ToList();
+                    break;
+                case "LastNameDesc":
+                    books = books.OrderByDescending(x => x.Author.LastName).ToList();
                     break;
                 case "YearAsc":
-                    books = books.OrderBy(x => x.Year).ToList();
+                    books = books.OrderBy(x => x.Book.Year).ToList();
                     break;
                 case "YearDesc":
-                    books = books.OrderByDescending(x => x.Year).ToList();
+                    books = books.OrderByDescending(x => x.Book.Year).ToList();
                     break;
                 case "DateAsc":
-                    books = books.OrderBy(x => x.Date).ToList();
+                    books = books.OrderBy(x => x.Book.Date).ToList();
                     break;
                 case "DateDesc":
-                    books = books.OrderByDescending(x => x.Date).ToList();
+                    books = books.OrderByDescending(x => x.Book.Date).ToList();
                     break;
                 default:
-                    books = books.OrderByDescending(x => x.Date).ToList();
+                    books = books.OrderByDescending(x => x.Book.Date).ToList();
                     break;
             }
             return books;
         }
 
+        //VIEWMODEL
         private BookCreateEditViewModel GetBook(int id)
         {
             Book book = db.Book.Where(x => x.Id == id).Single();
@@ -311,6 +351,7 @@ namespace Biblioteczka.Controllers
             return bookCreateEditViewModel;
         }
 
+        //FILE
         private string UploadFile(BookCreateEditViewModel model)
         {
             string fileName = null;

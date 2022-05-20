@@ -7,13 +7,11 @@
 <ul class="navbar-nav">
     @if (User.IsInRole("Admin"))
     {
-        <li class="nav-item">
-            <a id="manage" class="nav-link text-white fw-bold" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Admin @UserManager.GetUserName(User)</a>
-        </li>
         <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <a class="nav-link dropdown-toggle text-white fw-bold" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Admin @UserManager.GetUserName(User)
             </a>
-            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+            <ul id="nav-dropdown" class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                 <li><a class="dropdown-item" asp-controller="Book" asp-action="Index">Książki</a></li>
                 <li><a class="dropdown-item" asp-controller="Author" asp-action="Index">Autorzy</a></li>
                 <li><a class="dropdown-item" asp-controller="User" asp-action="Index">Użytkownicy</a></li>

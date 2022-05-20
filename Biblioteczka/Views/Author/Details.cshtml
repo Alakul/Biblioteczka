@@ -1,11 +1,27 @@
-﻿@{
+﻿@model BookAuthorViewModel
+@{
      ViewData["Title"] = "O autorze";
 }
 
 <partial name="Templates/_BackButton"/>
 
+@if (User.IsInRole("Admin")){
+    <a class="btn btn-success mb-1 me-4 position-absolute end-0" asp-route-id="@Model.Author.Id" asp-controller="Author" asp-action="Edit"><i class="bi bi-pencil-square"><label class="ms-2">Edytuj</label></i></a>
+}
 
-<div class="col-sm-6 mx-auto">
-    <h3>@ViewData["Title"]</h3>
-    <h3>@Model.Author.Name @Model.Author.LastName</h3>
+<div class="col-sm-6 mx-auto bg-white rounded shadow d-flex">
+    <div class="col-12 p-3">
+        <div class="text-center">
+            <h4>@Model.Author.Name @Model.Author.LastName</h4>
+        </div>
+    </div>  
 </div>
+
+@if (User.IsInRole("Admin")){
+    <partial name="Templates/_BookListAdmin"/>
+}
+else {
+    <partial name="Templates/_BookList"/>
+}
+
+<partial name="Templates/_PaginationDetails" model="@Model.BookList"/>

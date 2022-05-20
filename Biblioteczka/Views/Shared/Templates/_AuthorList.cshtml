@@ -3,15 +3,15 @@
         <thead>
             <tr>
                 <th scope="col">Id</th>
-                <th scope="col">Imię&nbsp;&nbsp;
+                <th scope="col"><label class="me-2">Imię</label>
                     <a class="text-decoration-none text-dark" href="@Url.Action("Index", "Author", new { sortOrder = "NameAsc", searchString = ViewData["SearchString"] })"><i class="bi bi-arrow-up"></i></a>
                     <a class="text-decoration-none text-dark" href="@Url.Action("Index", "Author", new { sortOrder = "NameDesc", searchString = ViewData["SearchString"] })"><i class="bi bi-arrow-down"></i></a>
                 </th>
-                <th scope="col">Nazwisko&nbsp;&nbsp;
+                <th scope="col"><label class="me-2">Nazwisko</label>
                     <a class="text-decoration-none text-dark" href="@Url.Action("Index", "Author", new { sortOrder = "LastNameAsc", searchString = ViewData["SearchString"] })"><i class="bi bi-arrow-up"></i></a>
                     <a class="text-decoration-none text-dark" href="@Url.Action("Index", "Author", new { sortOrder = "LastNameDesc", searchString = ViewData["SearchString"] })"><i class="bi bi-arrow-down"></i></a>
                 </th>
-                <th scope="col">Data&nbsp;&nbsp;
+                <th scope="col"><label class="me-2">Data dodania</label>
                     <a class="text-decoration-none text-dark" href="@Url.Action("Index", "Author", new { sortOrder = "DateAsc", searchString = ViewData["SearchString"] })"><i class="bi bi-arrow-up"></i></a>
                     <a class="text-decoration-none text-dark" href="@Url.Action("Index", "Author", new { sortOrder = "DateDesc", searchString = ViewData["SearchString"] })"><i class="bi bi-arrow-down"></i></a>
                 </th>
@@ -24,9 +24,9 @@
             {
                 <tr>
                     <th scope="row">@Author.Id</th>
-                    <td class="col-2"><a class="text-decoration-none text-dark">@Author.Name</a></td>
-                    <td class="col-2"><a class="text-decoration-none text-dark">@Author.LastName</a></td>
-                    <td>@Author.Date</td>
+                    <td class="col-2"><a class="text-decoration-none text-dark" asp-route-id="@Author.Id" asp-controller="Author" asp-action="Details">@Author.Name</a></td>
+                    <td class="col-2"><a class="text-decoration-none text-dark" asp-route-id="@Author.Id" asp-controller="Author" asp-action="Details">@Author.LastName</a></td>
+                    <td>@Author.Date.ToString("dd/MM/yyyy HH:mm")</td>
                     <td class="text-end">
                         <a class="btn btn-success mb-1" asp-route-id="@Author.Id" asp-controller="Author" asp-action="Edit"><i class="bi bi-pencil-square"></i></a>
                         <a class="btn btn-danger mb-1" data-bs-toggle="modal" data-bs-target="#deleteModal_@Author.Id"><i class="bi bi-trash3-fill"></i></a>

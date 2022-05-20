@@ -26,17 +26,19 @@
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow" style="background-color: #F2545B;">
             <div class="container-fluid">
                 <a class="navbar-brand text-white fw-bold" asp-controller="Home" asp-action="Index"><img height="20" src="~/logo/Biblioteczka.png"/></a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                <button class="navbar-toggler text-white" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                     <partial name="_LoginPartial.cshtml" />
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-white fw-bold" asp-controller="Book" asp-action="Index">Książki</a>
-                        </li>
-                    </ul>
+                    @if (!User.IsInRole("Admin")){
+                        <ul class="navbar-nav flex-grow-1">
+                            <li class="nav-item">
+                                <a class="nav-link text-white fw-bold" asp-controller="Book" asp-action="Index">Książki</a>
+                            </li>
+                        </ul>
+                    }
                 </div>
             </div>
         </nav>
@@ -58,7 +60,7 @@
                 </div>
             </aside>
         
-            <main role="main" id="page-content-wrapper">
+            <main id="page-content-wrapper" role="main">
                 <div id="page-title">
                     <h6 class="m-0">@ViewData["Title"]</h6>
                 </div>
@@ -69,7 +71,7 @@
         </div>
     }
     else {
-        <main role="main" class="p-4">
+        <main role="main" class="p-md-4 p-2">
             <div class="container">
                 @RenderBody()
             </div>
