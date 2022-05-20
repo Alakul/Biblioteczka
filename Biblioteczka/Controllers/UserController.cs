@@ -1,5 +1,6 @@
 ﻿using Biblioteczka.Areas.Identity.Data;
 using Biblioteczka.Data;
+using Biblioteczka.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -11,37 +12,21 @@ namespace Biblioteczka.Controllers
     [Authorize(Roles = "Admin")]
     public class UserController : Controller
     {
+        private AppDbContext db;
         readonly UserManager<AppUser> UserManager;
         // GET: UserController
 
-        public UserController(UserManager<AppUser> userManager)
+        public UserController(AppDbContext context,UserManager<AppUser> userManager)
         {
+            db = context;
             UserManager = userManager;
         }
 
-        public ActionResult Index(string searchString, string sortOrder, int? page)
+        public ActionResult Index(string searchString, string sortOrder, int? page, string formValue)
         {
-            var users = UserManager.Users.ToList();
-
-            if (!string.IsNullOrEmpty(searchString)){
-                searchString = searchString.Trim();
-                users = UserManager.Users.Where(x => x.UserName.Contains(searchString) || x.Email.Contains(searchString)).ToList();
-            }
-
-            switch (sortOrder)
-            {
-                case "LoginAsc":
-                    users = UserManager.Users.OrderBy(x => x.UserName).ToList();
-                    break;
-                case "LoginDesc":
-                    users = UserManager.Users.OrderByDescending(x => x.UserName).ToList();
-                    break;
-                default:
-                    users = UserManager.Users.OrderByDescending(x => x.UserName).ToList();
-                    break;
-            }
-            ViewBag.SearchString = searchString;
-            ViewBag.SortOrder = sortOrder;
+            List<AppUser> users = db.Users.ToList();
+            users = SearchUsers(formValue, searchString, users);
+            users = SortUsers(sortOrder, users);
 
             int pageSize = 5;
             int pageNumber = (page ?? 1);
@@ -154,6 +139,101 @@ namespace Biblioteczka.Controllers
             {
                 return View();
             }
+        }
+
+
+
+
+
+        //SEARCH
+        private List<AppUser> SearchUsers(string formValue, string searchString, List<AppUser> users)
+        {
+            CookieOptions options = new CookieOptions();
+            string cookieName = "SearchStringUser";
+            string cookie = Request.Cookies[cookieName];
+
+            if (formValue == null){
+                if (cookie != null){
+                    users = users.Where(x => x.UserName.ToLower().Contains(cookie.ToLower()) ||
+                        x.Email.ToLower().Contains(cookie.ToLower())).ToList();
+                    ViewBag.SearchString = cookie;
+                }
+                else {
+                    users = UserManager.Users.ToList();
+                    ViewBag.SearchString = "";
+                }
+            }
+            else if (searchString == null && formValue == "1"){
+                users = UserManager.Users.ToList();
+                Response.Cookies.Delete(cookieName);
+                ViewBag.SearchString = "";
+            }
+            else if (searchString != null && formValue == "1"){
+                string newValue = searchString.Trim();
+                if (!string.IsNullOrEmpty(newValue)){
+                    if (newValue != cookie){
+                        Response.Cookies.Append(cookieName, newValue, options);
+                    }
+                    users = users.Where(x => x.UserName.ToLower().Contains(newValue.ToLower()) ||
+                        x.Email.ToLower().Contains(newValue.ToLower())).ToList();
+                    ViewBag.SearchString = newValue;
+                }
+                else {
+                    users = UserManager.Users.ToList();
+                    ViewBag.SearchString = "";
+                }
+            }
+
+            return users;
+        }
+
+        //SORT
+        private List<AppUser> SortUsers(string sortOrder, List<AppUser> users)
+        {
+            CookieOptions options = new CookieOptions();
+            string cookieName = "SortOrderUser";
+
+            if (sortOrder == null){
+                string cookie = Request.Cookies[cookieName];
+                if (cookie != null){
+                    users = GetUsers(cookie, users);
+                }
+                else {
+                    users = UserManager.Users.ToList();
+                }
+            }
+            else if (sortOrder != null){
+                users = GetUsers(sortOrder, users);
+                if (sortOrder != null){
+                    Response.Cookies.Append(cookieName, sortOrder, options);
+                }
+            }
+
+            return users;
+        }
+
+        //SWITCH
+        private List<AppUser> GetUsers(string sort, List<AppUser> users)
+        {
+            switch (sort)
+            {
+                case "UserNameAsc":
+                    users = UserManager.Users.OrderBy(x => x.UserName).ToList();
+                    break;
+                case "UserNameDesc":
+                    users = UserManager.Users.OrderByDescending(x => x.UserName).ToList();
+                    break;
+                case "EmailAsc":
+                    users = UserManager.Users.OrderBy(x => x.Email).ToList();
+                    break;
+                case "EmailDesc":
+                    users = UserManager.Users.OrderByDescending(x => x.Email).ToList();
+                    break;
+                default:
+                    users = UserManager.Users.OrderBy(x => x.UserName).ToList();
+                    break;
+            }
+            return users;
         }
     }
 }

@@ -4,16 +4,16 @@
             <tr>
                 <th scope="col">Id</th>
                 <th scope="col"><label class="me-2">Imię</label>
-                    <a class="text-decoration-none text-dark" href="@Url.Action("Index", "Author", new { sortOrder = "NameAsc", searchString = ViewData["SearchString"] })"><i class="bi bi-arrow-up"></i></a>
-                    <a class="text-decoration-none text-dark" href="@Url.Action("Index", "Author", new { sortOrder = "NameDesc", searchString = ViewData["SearchString"] })"><i class="bi bi-arrow-down"></i></a>
+                    <a class="text-decoration-none text-dark" href="@Url.Action("Index", "Author", new { sortOrder = "NameAsc" })"><i class="bi bi-arrow-up"></i></a>
+                    <a class="text-decoration-none text-dark" href="@Url.Action("Index", "Author", new { sortOrder = "NameDesc" })"><i class="bi bi-arrow-down"></i></a>
                 </th>
                 <th scope="col"><label class="me-2">Nazwisko</label>
-                    <a class="text-decoration-none text-dark" href="@Url.Action("Index", "Author", new { sortOrder = "LastNameAsc", searchString = ViewData["SearchString"] })"><i class="bi bi-arrow-up"></i></a>
-                    <a class="text-decoration-none text-dark" href="@Url.Action("Index", "Author", new { sortOrder = "LastNameDesc", searchString = ViewData["SearchString"] })"><i class="bi bi-arrow-down"></i></a>
+                    <a class="text-decoration-none text-dark" href="@Url.Action("Index", "Author", new { sortOrder = "LastNameAsc" })"><i class="bi bi-arrow-up"></i></a>
+                    <a class="text-decoration-none text-dark" href="@Url.Action("Index", "Author", new { sortOrder = "LastNameDesc" })"><i class="bi bi-arrow-down"></i></a>
                 </th>
                 <th scope="col"><label class="me-2">Data dodania</label>
-                    <a class="text-decoration-none text-dark" href="@Url.Action("Index", "Author", new { sortOrder = "DateAsc", searchString = ViewData["SearchString"] })"><i class="bi bi-arrow-up"></i></a>
-                    <a class="text-decoration-none text-dark" href="@Url.Action("Index", "Author", new { sortOrder = "DateDesc", searchString = ViewData["SearchString"] })"><i class="bi bi-arrow-down"></i></a>
+                    <a class="text-decoration-none text-dark" href="@Url.Action("Index", "Author", new { sortOrder = "DateAsc" })"><i class="bi bi-arrow-up"></i></a>
+                    <a class="text-decoration-none text-dark" href="@Url.Action("Index", "Author", new { sortOrder = "DateDesc" })"><i class="bi bi-arrow-down"></i></a>
                 </th>
                 <th scope="col" class="text-end"><a class="btn btn-primary" asp-controller="Author" asp-action="Create"><i class="bi bi-plus-lg"></i></a></th>
             </tr>

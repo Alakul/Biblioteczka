@@ -21,9 +21,8 @@ namespace Biblioteczka.Models
         public string Description { get; set; }
         public string Image { get; set; }
 
+
         public int Year { get; set; }
         public string City { get; set; }
-
-        public List<Copy>? Copies { get; set; }
     }
 }

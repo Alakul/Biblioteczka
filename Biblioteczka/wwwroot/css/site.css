@@ -37,7 +37,6 @@ a.sidebar-item.active {
 #page-title {
     background-color: white;
     border-bottom: 1px solid rgba(0, 0, 0, 0.125);
-    visibility: visible;
     padding: 6px 6px 6px 10px;
 }
 #nav-dropdown {
@@ -88,10 +87,6 @@ body.sb-sidenav-toggled #wrapper #sidebar-wrapper {
 
     body.sb-sidenav-toggled #wrapper #sidebar-wrapper {
         margin-left: -15rem;
-    }
-
-    #page-title {
-        display: none;
     }
 }
 

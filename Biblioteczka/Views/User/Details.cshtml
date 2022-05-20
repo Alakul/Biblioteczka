@@ -4,9 +4,11 @@
 
 <partial name="Templates/_BackButton"/>
 
-user details
-<div>
-    <h3>@Model.UserName</h3>
-
-    <p>@Model.Id</p>
+<div class="col-sm-6 mx-auto bg-white rounded shadow d-flex">
+    <div class="col-12 p-3">
+        <div class="text-center">
+            <h4>@Model.UserName</h4>
+            <p>Id: @Model.Id</p>
+        </div>
+    </div>  
 </div>

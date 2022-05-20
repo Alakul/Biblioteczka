@@ -7,11 +7,14 @@
         <thead>
             <tr>
                 <th scope="col">Id</th>
-                <th scope="col">Login&nbsp;&nbsp;
-                    <a class="text-decoration-none text-dark" href="@Url.Action("Index", "User", new { sortOrder = "LoginAsc", searchString = ViewData["SearchString"] })"><i class="bi bi-arrow-up"></i></a>
-                    <a class="text-decoration-none text-dark" href="@Url.Action("Index", "User", new { sortOrder = "LoginDesc", searchString = ViewData["SearchString"] })"><i class="bi bi-arrow-down"></i></a>
+                <th scope="col"><label class="me-2">Login</label>
+                    <a class="text-decoration-none text-dark" href="@Url.Action("Index", "User", new { sortOrder = "UserNameAsc" })"><i class="bi bi-arrow-up"></i></a>
+                    <a class="text-decoration-none text-dark" href="@Url.Action("Index", "User", new { sortOrder = "UserNameDesc" })"><i class="bi bi-arrow-down"></i></a>
                 </th>
-                <th scope="col">Email</th>
+                <th scope="col"><label class="me-2">Email</label>
+                    <a class="text-decoration-none text-dark" href="@Url.Action("Index", "User", new { sortOrder = "EmailAsc" })"><i class="bi bi-arrow-up"></i></a>
+                    <a class="text-decoration-none text-dark" href="@Url.Action("Index", "User", new { sortOrder = "EmailDesc" })"><i class="bi bi-arrow-down"></i></a>
+                </th>
                 <th scope="col" class="text-end"></th>
             </tr>
         </thead>

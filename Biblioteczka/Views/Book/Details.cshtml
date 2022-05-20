@@ -4,7 +4,7 @@
 @inject SignInManager<AppUser> SignInManager
 @inject UserManager<AppUser> UserManager
 
-@model BookAuthorCopyViewModel
+@model BookViewModel
 @{
     ViewData["Title"] = "O książce";
 }
@@ -33,3 +33,5 @@
 
 <partial name="Templates/_Alert" model="@TempData["Alert"]?.ToString()"/>
 <partial name="Templates/_CopyList"/>
+
+<partial name="Templates/_PaginationDetails" model="@Model.CopyList"/>

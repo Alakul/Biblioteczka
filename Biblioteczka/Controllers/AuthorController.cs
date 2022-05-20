@@ -23,7 +23,7 @@ namespace Biblioteczka.Controllers
             authors = SearchAuthors(formValue, searchString, authors);
             authors = SortAuthors(sortOrder, authors);
 
-            int pageSize = 5;
+            int pageSize = 20;
             int pageNumber = (page ?? 1);
             return View(authors.ToPagedList(pageNumber, pageSize));
         }
@@ -31,11 +31,11 @@ namespace Biblioteczka.Controllers
         // GET: AuthorController/Details/5
         public ActionResult Details(int id, int? page)
         {
-            BookAuthorViewModel bookAuthorViewModel = new BookAuthorViewModel();
-            List<BookAuthorViewModel> books = db.Book
+            BookViewModel bookAuthorViewModel = new BookViewModel();
+            List<BookViewModel> books = db.Book
                 .Join(db.Author, z => z.AuthorId, k => k.Id, (z, k) => new { Book = z, Author = k })
                 .Where(x => x.Book.AuthorId==id)
-                .Select(s => new BookAuthorViewModel
+                .Select(s => new BookViewModel
                 {
                     Book = s.Book,
                     Author = s.Author,
@@ -43,7 +43,7 @@ namespace Biblioteczka.Controllers
                 .ToList();
 
             bookAuthorViewModel.Author = db.Author.Where(x => x.Id == id).Single();
-            ViewBag.AuthorId = id;
+            ViewBag.Id = id;
 
             int pageSize = 10;
             int pageNumber = (page ?? 1);

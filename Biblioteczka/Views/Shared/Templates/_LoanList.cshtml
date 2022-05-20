@@ -8,30 +8,43 @@
     <table class="table table-hover">
         <thead>
             <tr>
-                <th scope="col">Id Książki</th>
-                <th scope="col">Id Autora</th>
-                <th scope="col">Id Egzemplarza</th>
-                <th scope="col">Data wypożyczenia&nbsp;&nbsp;
-                    <a class="text-decoration-none text-dark" href="@Url.Action("Index", "Loan", new { sortOrder = "LoanDateAsc", searchString = ViewData["SearchString"] })"><i class="bi bi-arrow-up"></i></a>
-                    <a class="text-decoration-none text-dark" href="@Url.Action("Index", "Loan", new { sortOrder = "LoanDateDesc", searchString = ViewData["SearchString"] })"><i class="bi bi-arrow-down"></i></a>
+                <th scope="col"><label class="me-2">Tytuł</label>
+                    <a class="text-decoration-none text-dark" href="@Url.Action("Index", "Loan", new { sortOrder = "TitleAsc" })"><i class="bi bi-arrow-up"></i></a>
+                    <a class="text-decoration-none text-dark" href="@Url.Action("Index", "Loan", new { sortOrder = "TitleDesc" })"><i class="bi bi-arrow-down"></i></a>
                 </th>
-                <th scope="col">Data oddania&nbsp;&nbsp;
-                    <a class="text-decoration-none text-dark" href="@Url.Action("Index", "Loan", new { sortOrder = "ReturnDateAsc", searchString = ViewData["SearchString"] })"><i class="bi bi-arrow-up"></i></a>
-                    <a class="text-decoration-none text-dark" href="@Url.Action("Index", "Loan", new { sortOrder = "ReturnDateDesc", searchString = ViewData["SearchString"] })"><i class="bi bi-arrow-down"></i></a>
+                <th scope="col"><label class="me-2">Okładka</label></th>
+                <th scope="col"><label class="me-2">Autor</label>
+                    <a class="text-decoration-none text-dark" href="@Url.Action("Index", "Loan", new { sortOrder = "LastNameAsc" })"><i class="bi bi-arrow-up"></i></a>
+                    <a class="text-decoration-none text-dark" href="@Url.Action("Index", "Loan", new { sortOrder = "LastNameDesc" })"><i class="bi bi-arrow-down"></i></a>
+                </th>
+                <th scope="col"><label class="me-2">Numer ezgemplarza</label>
+                    <a class="text-decoration-none text-dark" href="@Url.Action("Index", "Loan", new { sortOrder = "NumberAsc" })"><i class="bi bi-arrow-up"></i></a>
+                    <a class="text-decoration-none text-dark" href="@Url.Action("Index", "Loan", new { sortOrder = "NumberDesc" })"><i class="bi bi-arrow-down"></i></a>
+                </th>
+                <th scope="col"><label class="me-2">Data wypożyczenia</label>
+                    <a class="text-decoration-none text-dark" href="@Url.Action("Index", "Loan", new { sortOrder = "LoanDateAsc" })"><i class="bi bi-arrow-up"></i></a>
+                    <a class="text-decoration-none text-dark" href="@Url.Action("Index", "Loan", new { sortOrder = "LoanDateDesc" })"><i class="bi bi-arrow-down"></i></a>
+                </th>
+                <th scope="col"><label class="me-2">Data oddania</label>
+                    <a class="text-decoration-none text-dark" href="@Url.Action("Index", "Loan", new { sortOrder = "ReturnDateAsc" })"><i class="bi bi-arrow-up"></i></a>
+                    <a class="text-decoration-none text-dark" href="@Url.Action("Index", "Loan", new { sortOrder = "ReturnDateDesc" })"><i class="bi bi-arrow-down"></i></a>
                 </th>
             </tr>
         </thead>
 
         <tbody>
-            @foreach (var Loan in @Model)
+            @foreach (var List in @Model.LoanList)
             {
-                <tr>       
-                    <td><a class="text-decoration-none text-dark" asp-route-id="@Loan.BookId" asp-controller="Book" asp-action="Details">@Loan.BookId</a></td>
-                    <td><a class="text-decoration-none text-dark">@Loan.BookId</a></td>
-                    <td><a class="text-decoration-none text-dark" asp-route-id="@Loan.BookId" asp-controller="Book" asp-action="Details">@Loan.CopyId</a></td>
-                    <td>@Loan.LoanDate</td>
-                    <td>@Loan.ReturnDate</td>
-                </tr>
+                @if (List.Loan.UserBorrowingId == @UserManager.GetUserId(User)){
+                    <tr>       
+                        <td><a class="text-decoration-none text-dark" asp-route-id="@List.Loan.BookId" asp-controller="Book" asp-action="Details">@List.Book.Title</a></td>
+                        <td><img src="~/images/@List.Book.Image" style="object-fit: cover;" height="100"/></td>
+                        <td><a class="text-decoration-none text-dark" asp-route-id="@List.Author.Id" asp-controller="Author" asp-action="Details">@List.Author.Name @List.Author.LastName</a></td>
+                        <td><a class="text-decoration-none text-dark" asp-route-id="@List.Loan.BookId" asp-controller="Book" asp-action="Details">@List.Copy.Number</a></td>
+                        <td>@List.Loan.LoanDate</td>
+                        <td>@List.Loan.ReturnDate</td>
+                    </tr>
+                }           
             }
         </tbody>
     </table>

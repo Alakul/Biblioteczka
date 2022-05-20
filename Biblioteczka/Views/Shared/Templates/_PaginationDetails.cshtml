@@ -9,7 +9,7 @@
 </div>
 <div class="col-7 ms-auto me-auto mt-2 d-flex justify-content-center">
     @Html.PagedListPager((IPagedList)@Model, page => 
-    Url.Action("Details", new { page, id = ViewData["AuthorId"], sortOrder = ViewData["SortOrder"], searchString = ViewData["SearchString"] }), 
+    Url.Action("Details", new { page, id = ViewData["Id"], sortOrder = ViewData["SortOrder"], searchString = ViewData["SearchString"] }), 
     new PagedListRenderOptions {
         LiElementClasses = new string[] { "page-item" },
         PageClasses = new string[] { "page-link" },

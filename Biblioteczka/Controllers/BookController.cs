@@ -23,8 +23,8 @@ namespace Biblioteczka.Controllers
         // GET: BookController
         public ActionResult Index(string searchString, string sortOrder, int? page, string formValue)
         {
-            BookAuthorViewModel bookAuthorViewModel = new BookAuthorViewModel();
-            List<BookAuthorViewModel> books = GetBookList();
+            BookViewModel bookAuthorViewModel = new BookViewModel();
+            List<BookViewModel> books = GetBookList();
 
             books = SearchBooks(formValue, searchString, books);
             books = SortBooks(sortOrder, books);
@@ -36,14 +36,19 @@ namespace Biblioteczka.Controllers
         }
 
         // GET: BookController/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Details(int id, int? page)
         {
-            BookAuthorCopyViewModel bookAuthorCopyViewModel = new BookAuthorCopyViewModel();
-            bookAuthorCopyViewModel.Book = db.Book.Where(x => x.Id == id).Single();
-            bookAuthorCopyViewModel.Author = db.Author.Where(x => x.Id == bookAuthorCopyViewModel.Book.AuthorId).Single();
-            bookAuthorCopyViewModel.Copies = db.Copy.Where(x => x.BookId == id).ToList();
+            List<Copy> copies = db.Copy.Where(x => x.BookId == id).ToList();
+            BookViewModel bookAuthorViewModel = new BookViewModel();
+            bookAuthorViewModel.Book = db.Book.Where(x => x.Id == id).Single();
+            bookAuthorViewModel.Author = db.Author.Where(x => x.Id == bookAuthorViewModel.Book.AuthorId).Single();
+            ViewBag.Id = id;
 
-            return View(bookAuthorCopyViewModel);
+            int pageSize = 10;
+            int pageNumber = (page ?? 1);
+            bookAuthorViewModel.CopyList = copies.ToPagedList(pageNumber, pageSize);
+
+            return View(bookAuthorViewModel);
         }
 
         // GET: BookController/Create
@@ -69,12 +74,12 @@ namespace Biblioteczka.Controllers
                         UserId = User.FindFirstValue(ClaimTypes.NameIdentifier),
                         Date = DateTime.Now,
 
-                        Title = model.Book.Title,
+                        Title = model.Book.Title.Trim(),
                         AuthorId = model.Book.AuthorId,
-                        Description = model.Book.Description,
+                        Description = model.Book.Description.Trim(),
                         Image = newFileName,
                         Year = model.Book.Year,
-                        City = model.Book.City
+                        City = model.Book.City.Trim()
                     };
 
                     db.Book.Add(book);
@@ -215,11 +220,11 @@ namespace Biblioteczka.Controllers
 
 
 
-        private List<BookAuthorViewModel> GetBookList()
+        private List<BookViewModel> GetBookList()
         {
-            List<BookAuthorViewModel> books = db.Book
+            List<BookViewModel> books = db.Book
                 .Join(db.Author, z => z.AuthorId, k => k.Id, (z, k) => new { Book = z, Author = k })
-                .Select(s => new BookAuthorViewModel
+                .Select(s => new BookViewModel
                 {
                     Book = s.Book,
                     Author = s.Author,
@@ -230,7 +235,7 @@ namespace Biblioteczka.Controllers
         }
 
         //SEARCH
-        private List<BookAuthorViewModel> SearchBooks(string formValue, string searchString, List<BookAuthorViewModel> books)
+        private List<BookViewModel> SearchBooks(string formValue, string searchString, List<BookViewModel> books)
         {
             CookieOptions options = new CookieOptions();
             string cookie = Request.Cookies["SearchStringBook"];
@@ -273,7 +278,7 @@ namespace Biblioteczka.Controllers
         }
 
         //SORT
-        private List<BookAuthorViewModel> SortBooks(string sortOrder, List<BookAuthorViewModel> books)
+        private List<BookViewModel> SortBooks(string sortOrder, List<BookViewModel> books)
         {
             CookieOptions options = new CookieOptions();
 
@@ -297,7 +302,7 @@ namespace Biblioteczka.Controllers
         }
 
         //SWITCH
-        private List<BookAuthorViewModel> GetBooks(string sort, List<BookAuthorViewModel> books)
+        private List<BookViewModel> GetBooks(string sort, List<BookViewModel> books)
         {
             switch (sort)
             {

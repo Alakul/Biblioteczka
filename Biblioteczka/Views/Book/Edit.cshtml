@@ -13,7 +13,7 @@
         
             <div class="mb-3">
                 <label for="Title">Tytuł</label><br>
-                <input id="Title" name="Book.Title" type="text" class="form-control" minlength="3" maxlength="100" value="@Model.Book.Title" required/>
+                <input id="Title" name="Book.Title" type="text" class="form-control" minlength="2" maxlength="100" value="@Model.Book.Title" required/>
             </div>
 
             <div class="mb-3">
@@ -48,23 +48,18 @@
 
             <div class="mb-3">
                 <label for="File">Obraz</label><br>
-                <input id="File" name="File" type="file" class="form-control" onchange="preview();" accept="image/jpg,image/png,image/jpeg,image/gif">
+                <input id="File" name="File" type="file" class="form-control" onchange="preview(this);" accept="image/jpg,image/png,image/jpeg,image/gif">
                 <img id="ImagePreview" name="ImagePreview" src="~/images/@Model.Book.Image" height="250" class="ms-auto me-auto mt-4 d-block"/>
             </div>
-            <script>
-                function preview() {
-                    ImagePreview.src = URL.createObjectURL(event.target.files[0]);
-                }
-            </script>
 
             <div class="mb-3">
                 <label for="Year">Rok</label><br>
-                <input id="Year" name="Book.Year" type="number" class="form-control" minlength="3" maxlength="100" value="@Model.Book.Year" required/>
+                <input id="Year" name="Book.Year" type="number" class="form-control" oninput="InpuNumber(this);"  maxlength="4" value="@Model.Book.Year" required/>
             </div>
 
             <div class="mb-3">
                 <label for="City">Miasto</label><br>
-                <input id="City" name="Book.City" type="text" class="form-control" minlength="3" maxlength="100" value="@Model.Book.City" required/>
+                <input id="City" name="Book.City" type="text" class="form-control" minlength="2" maxlength="100" value="@Model.Book.City" required/>
             </div>
         
             <partial name="Templates/_FormButton"/>

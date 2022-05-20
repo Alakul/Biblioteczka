@@ -16,40 +16,15 @@ namespace Biblioteczka.Controllers
         }
 
         // GET: CopyController
-        public ActionResult Index(string searchString, string sortOrder, int? page)
+        public ActionResult Index(string searchString, string sortOrder, int? page, string formValue)
         {
-            CopyBookAuthorViewModel copyBookAuthorViewModel = new CopyBookAuthorViewModel();
-            List<Copy> copies = db.Copy.ToList();
+            CopyViewModel copyBookAuthorViewModel = new CopyViewModel();
+            List<CopyViewModel> copies = GetCopyList();
 
-            if (!string.IsNullOrEmpty(searchString)){
-                searchString = searchString.Trim();
-                copies = db.Copy.Where(x => x.Id.ToString().Contains(searchString) || x.Number.ToString().Contains(searchString)).ToList();
-            }
-            copyBookAuthorViewModel.Books = db.Book.ToList();
-            copyBookAuthorViewModel.Authors = db.Author.ToList();
+            copies = SearchCopies(formValue, searchString, copies);
+            copies = SortCopies(sortOrder, copies);
 
-            switch (sortOrder)
-            {
-                case "NumberAsc":
-                    copies = copies.OrderBy(x => x.Number).ToList();
-                    break;
-                case "NumberDesc":
-                    copies = copies.OrderByDescending(x => x.Number).ToList();
-                    break;
-                case "DateAsc":
-                    copies = copies.OrderBy(x => x.Date).ToList();
-                    break;
-                case "DateDesc":
-                    copies = copies.OrderByDescending(x => x.Date).ToList();
-                    break;
-                default:
-                    copies = copies.OrderByDescending(x => x.Date).ToList();
-                    break;
-            }
-            ViewBag.SearchString = searchString;
-            ViewBag.SortOrder = sortOrder;
-
-            int pageSize = 5;
+            int pageSize = 20;
             int pageNumber = (page ?? 1);
             copyBookAuthorViewModel.CopyList = copies.ToPagedList(pageNumber, pageSize);
             return View(copyBookAuthorViewModel);
@@ -103,13 +78,13 @@ namespace Biblioteczka.Controllers
         // GET: CopyController/Edit/5
         public ActionResult Edit(int id)
         {
-            GetList();
             Copy copy = db.Copy.Where(x => x.Id == id).Single();
 
             CopyCreateEditViewModel copyViewModel = new CopyCreateEditViewModel();
             copyViewModel.BookId = copy.BookId;
             copyViewModel.Copy = copy;
 
+            GetList();
             return View(copyViewModel);
         }
 
@@ -156,12 +131,12 @@ namespace Biblioteczka.Controllers
             Copy copy = db.Copy.Where(x => x.Id == id).Single();
 
             try
-            { 
+            {
                 db.Remove(copy);
                 db.SaveChanges();
 
                 TempData["Alert"] = "Success";
-                return RedirectToAction("Details","Book", new { @id = copy.BookId });
+                return RedirectToAction("Details", "Book", new { @id = copy.BookId });
             }
             catch
             {
@@ -170,6 +145,134 @@ namespace Biblioteczka.Controllers
             }
         }
 
+
+
+        private List<CopyViewModel> GetCopyList()
+        {
+            List<CopyViewModel> copies = db.Book
+                .Join(db.Copy, a => a.Id, b => b.BookId, (a, b) => new { book = a, copy = b })
+                .Join(db.Author, joined => joined.book.AuthorId, author => author.Id,
+                (joined, author) => new CopyViewModel
+                {
+                    Book = joined.book,
+                    Copy = joined.copy,
+                    Author = author,
+                })
+                .ToList();
+
+            return copies;
+        }
+
+        //SEARCH
+        private List<CopyViewModel> SearchCopies(string formValue, string searchString, List<CopyViewModel> copies)
+        {
+            CookieOptions options = new CookieOptions();
+            string cookie = Request.Cookies["SearchStringCopy"];
+
+            if (formValue == null)
+            {
+                if (cookie != null)
+                {
+                    copies = copies.Where(x => x.Copy.Number.ToString().ToLower().Contains(cookie.ToLower()) || x.Book.Title.ToLower().Contains(cookie.ToLower()) ||
+                        x.Author.Name.ToLower().Contains(cookie.ToLower()) ||
+                        x.Author.LastName.ToLower().Contains(cookie.ToLower())).ToList();
+                    ViewBag.SearchString = cookie;
+                }
+                else
+                {
+                    copies = GetCopyList();
+                    ViewBag.SearchString = "";
+                }
+            }
+            else if (searchString == null && formValue == "1")
+            {
+                copies = GetCopyList();
+                Response.Cookies.Delete("SearchStringCopy");
+                ViewBag.SearchString = "";
+            }
+            else if (searchString != null && formValue == "1")
+            {
+                string newValue = searchString.Trim();
+                if (!string.IsNullOrEmpty(newValue))
+                {
+                    if (newValue != cookie)
+                    {
+                        Response.Cookies.Append("SearchStringCopy", newValue, options);
+                    }
+                    copies = copies.Where(x => x.Copy.Number.ToString().ToLower().Contains(newValue.ToLower()) || x.Book.Title.ToLower().Contains(newValue.ToLower()) ||
+                        x.Author.Name.ToLower().Contains(newValue.ToLower()) ||
+                        x.Author.LastName.ToLower().Contains(newValue.ToLower())).ToList();
+                    ViewBag.SearchString = newValue;
+                }
+                else
+                {
+                    copies = GetCopyList();
+                    ViewBag.SearchString = "";
+                }
+            }
+
+            return copies;
+        }
+
+        //SORT
+        private List<CopyViewModel> SortCopies(string sortOrder, List<CopyViewModel> copies)
+        {
+            CookieOptions options = new CookieOptions();
+
+            if (sortOrder == null){
+                string cookie = Request.Cookies["SortOrderCopy"];
+                if (cookie != null){
+                    copies = GetCopies(cookie, copies);
+                }
+                else {
+                    copies = GetCopyList();
+                }
+            }
+            else if (sortOrder != null){
+                copies = GetCopies(sortOrder, copies);
+                if (sortOrder != null){
+                    Response.Cookies.Append("SortOrderCopy", sortOrder, options);
+                }
+            }
+
+            return copies;
+        }
+
+        //SWITCH
+        private List<CopyViewModel> GetCopies(string sort, List<CopyViewModel> copies)
+        {
+            switch (sort)
+            {
+                case "NumberAsc":
+                    copies = copies.OrderBy(x => x.Copy.Number).ToList();
+                    break;
+                case "NumberDesc":
+                    copies = copies.OrderByDescending(x => x.Copy.Number).ToList();
+                    break;
+                case "TitleAsc":
+                    copies = copies.OrderBy(x => x.Book.Title).ToList();
+                    break;
+                case "TitleDesc":
+                    copies = copies.OrderByDescending(x => x.Book.Title).ToList();
+                    break;
+                case "LastNameAsc":
+                    copies = copies.OrderBy(x => x.Author.LastName).ToList();
+                    break;
+                case "LastNameDesc":
+                    copies = copies.OrderByDescending(x => x.Author.LastName).ToList();
+                    break;
+                case "DateAsc":
+                    copies = copies.OrderBy(x => x.Copy.Date).ToList();
+                    break;
+                case "DateDesc":
+                    copies = copies.OrderByDescending(x => x.Copy.Date).ToList();
+                    break;
+                default:
+                    copies = copies.OrderByDescending(x => x.Copy.Date).ToList();
+                    break;
+            }
+            return copies;
+        }
 
         private CopyCreateEditViewModel GetBook(int id)
         {
@@ -180,7 +283,6 @@ namespace Biblioteczka.Controllers
         }
         private void GetList()
         {
-            //ViewBag.Sort = AppData.copySort;
             ViewBag.Categories = AppData.copyCategories;
         }
     }
