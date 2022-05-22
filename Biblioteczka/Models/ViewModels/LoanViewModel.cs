@@ -1,7 +1,7 @@
 ﻿using Biblioteczka.Areas.Identity.Data;
 using X.PagedList;
 
-namespace Biblioteczka.Models.ViewModels
+namespace Biblioteczka.Models
 {
     public class LoanViewModel
     {

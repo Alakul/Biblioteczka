@@ -7,7 +7,7 @@ namespace Biblioteczka.Controllers
 {
     public class HomeController : Controller
     {
-        AppDbContext db;
+        private readonly AppDbContext db;
         public HomeController(AppDbContext context)
         {
             db = context;
@@ -41,5 +41,9 @@ namespace Biblioteczka.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+
+
+
     }
 }

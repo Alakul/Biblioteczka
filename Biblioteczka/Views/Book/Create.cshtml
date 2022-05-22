@@ -6,7 +6,7 @@
 <partial name="Templates/_BackButton"/>
 
 <div class="col-sm-6 mx-auto">
-    <partial name="Templates/_Alert" model="@ViewData["Alert"]?.ToString()"/>
+    <partial name="Templates/_Alert" model="@TempData["Alert"]?.ToString()"/>
     <div class="bg-white rounded shadow p-4">
         <form asp-controller="Book" asp-action="Create" method="post" enctype="multipart/form-data">
             <partial name="Templates/_FormHeader" model="@ViewData["Title"]"/>

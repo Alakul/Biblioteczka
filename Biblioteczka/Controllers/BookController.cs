@@ -12,7 +12,7 @@ namespace Biblioteczka.Controllers
 {
     public class BookController : Controller
     {
-        private AppDbContext db;
+        private readonly AppDbContext db;
         private readonly IWebHostEnvironment webHostEnvironment;
         public BookController(AppDbContext context, IWebHostEnvironment hostEnvironment)
         {
@@ -26,8 +26,12 @@ namespace Biblioteczka.Controllers
             BookViewModel bookAuthorViewModel = new BookViewModel();
             List<BookViewModel> books = GetBookList();
 
-            books = SearchBooks(formValue, searchString, books);
-            books = SortBooks(sortOrder, books);
+            HttpContextAccessor httpContextAccessor = new HttpContextAccessor();
+            AppMethods appMethods = new AppMethods();
+            var tuple = appMethods.Search(httpContextAccessor, books, "SearchStringBook", formValue, searchString);
+            books = tuple.Item1;
+            ViewBag.SearchString = tuple.Item2;
+            books = appMethods.Sort(httpContextAccessor, books, "SortOrderBook", sortOrder);
 
             int pageSize = 20;
             int pageNumber = (page ?? 1);
@@ -44,10 +48,9 @@ namespace Biblioteczka.Controllers
             bookAuthorViewModel.Author = db.Author.Where(x => x.Id == bookAuthorViewModel.Book.AuthorId).Single();
             ViewBag.Id = id;
 
-            int pageSize = 10;
+            int pageSize = 1;
             int pageNumber = (page ?? 1);
-            bookAuthorViewModel.CopyList = copies.ToPagedList(pageNumber, pageSize);
-
+            bookAuthorViewModel.CopyList = copies.ToPagedList(pageNumber, pageSize);         
             return View(bookAuthorViewModel);
         }
 
@@ -66,7 +69,8 @@ namespace Biblioteczka.Controllers
         public ActionResult Create(BookCreateEditViewModel model)
         {
             try {
-                string newFileName = UploadFile(model);
+                AppMethods appMethods = new AppMethods();
+                string newFileName = appMethods.UploadFile(webHostEnvironment, model, "images");
                 if (newFileName != null)
                 {
                     Book book = new Book
@@ -85,18 +89,18 @@ namespace Biblioteczka.Controllers
                     db.Book.Add(book);
                     db.SaveChanges();
 
-                    ViewData["Alert"] = "Success";
-                    return View(GetAuthors());
+                    TempData["Alert"] = "Success";
+                    return RedirectToAction(nameof(Create));
                 }
                 else
                 {
-                    ViewData["Alert"] = "Danger";
-                    return View(GetAuthors());
+                    TempData["Alert"] = "Danger";
+                    return RedirectToAction(nameof(Create));
                 }
             }
             catch {
-                ViewData["Alert"] = "Danger";
-                return View(GetAuthors());
+                TempData["Alert"] = "Danger";
+                return RedirectToAction(nameof(Create));
             }
         }
 
@@ -104,13 +108,20 @@ namespace Biblioteczka.Controllers
         [Authorize(Roles = "Admin")]
         public ActionResult Edit(int id)
         {
-            return View(GetBook(id));
+            Book book = db.Book.Where(x => x.Id == id).Single();
+
+            BookCreateEditViewModel bookCreateEditViewModel = new BookCreateEditViewModel();
+            bookCreateEditViewModel.Book = book;
+            bookCreateEditViewModel.Authors = db.Author.ToList();
+
+            return View(bookCreateEditViewModel);
         }
 
         // POST: BookController/Edit/5
         [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
         [HttpPost]
+        [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
         public ActionResult Edit(int id, BookCreateEditViewModel model)
         {
             try
@@ -127,21 +138,23 @@ namespace Biblioteczka.Controllers
 
                 if (model.File != null)
                 {
-                    DeleteFile(book.Image);
-                    string newFileName = UploadFile(model);
+                    AppMethods appMethods = new AppMethods();
+                    appMethods.DeleteFile(webHostEnvironment, book.Image, "images");
+                    string newFileName = appMethods.UploadFile(webHostEnvironment, model, "images");
                     book.Image = newFileName;
                 }
 
                 db.Book.Update(book);
                 db.SaveChanges();
 
-                ViewData["Alert"] = "Success";
-                return View(GetBook(id));
+                TempData["Alert"] = "Success";
+                return RedirectToAction(nameof(Edit));
+                
             }
             catch
             {
-                ViewData["Alert"] = "Danger";
-                return View(GetBook(id));
+                TempData["Alert"] = "Danger";
+                return RedirectToAction(nameof(Edit));
             }
         }
 
@@ -168,18 +181,20 @@ namespace Biblioteczka.Controllers
             {
                 Book book = db.Book.Where(x => x.Id == id).Single();
                 string fileName = book.Image;
-                DeleteFile(fileName);
+
+                AppMethods appMethods = new AppMethods();
+                appMethods.DeleteFile(webHostEnvironment, fileName, "images");
 
                 db.Remove(db.Book.Where(x => x.Id == id).Single());
                 db.SaveChanges();
 
                 TempData["Alert"] = "Success";
-                return RedirectToAction("Index");
+                return RedirectToAction(nameof(Index));
             }
             catch
             {
                 TempData["Alert"] = "Danger";
-                return RedirectToAction("Index");
+                return RedirectToAction(nameof(Index));
             }
         }
 
@@ -217,8 +232,7 @@ namespace Biblioteczka.Controllers
 
 
 
-
-
+        
 
         private List<BookViewModel> GetBookList()
         {
@@ -234,157 +248,12 @@ namespace Biblioteczka.Controllers
             return books;
         }
 
-        //SEARCH
-        private List<BookViewModel> SearchBooks(string formValue, string searchString, List<BookViewModel> books)
-        {
-            CookieOptions options = new CookieOptions();
-            string cookie = Request.Cookies["SearchStringBook"];
-
-            if (formValue == null){
-                if (cookie != null){
-                    books = books.Where(x => x.Book.Title.ToLower().Contains(cookie.ToLower()) || 
-                        x.Author.Name.ToLower().Contains(cookie.ToLower()) || 
-                        x.Author.LastName.ToLower().Contains(cookie.ToLower())).ToList();
-                    ViewBag.SearchString = cookie;
-                }
-                else {
-                    books = GetBookList();
-                    ViewBag.SearchString = "";
-                }
-            }
-            else if (searchString == null && formValue == "1"){
-                books = GetBookList();
-                Response.Cookies.Delete("SearchStringBook");
-                ViewBag.SearchString = "";
-            }
-            else if (searchString != null && formValue == "1"){
-                string newValue = searchString.Trim();
-                if (!string.IsNullOrEmpty(newValue)){
-                    if (newValue != cookie){
-                        Response.Cookies.Append("SearchStringBook", newValue, options);
-                    }
-                    books = books.Where(x => x.Book.Title.ToLower().Contains(newValue.ToLower()) || 
-                        x.Author.Name.ToLower().Contains(newValue.ToLower()) || 
-                        x.Author.LastName.ToLower().Contains(newValue.ToLower())).ToList();
-                    ViewBag.SearchString = newValue;
-                }
-                else {
-                    books = GetBookList();
-                    ViewBag.SearchString = "";
-                }
-            }
-
-            return books;
-        }
-
-        //SORT
-        private List<BookViewModel> SortBooks(string sortOrder, List<BookViewModel> books)
-        {
-            CookieOptions options = new CookieOptions();
-
-            if (sortOrder == null){
-                string cookie = Request.Cookies["SortOrderBook"];
-                if (cookie != null){
-                    books = GetBooks(cookie, books);
-                }
-                else {
-                    books = GetBookList();
-                }
-            }
-            else if (sortOrder != null){
-                books = GetBooks(sortOrder, books);
-                if (sortOrder != null){
-                    Response.Cookies.Append("SortOrderBook", sortOrder, options);
-                }
-            }
-
-            return books;
-        }
-
-        //SWITCH
-        private List<BookViewModel> GetBooks(string sort, List<BookViewModel> books)
-        {
-            switch (sort)
-            {
-                case "TitleAsc":
-                    books = books.OrderBy(x => x.Book.Title).ToList();
-                    break;
-                case "TitleDesc":
-                    books = books.OrderByDescending(x => x.Book.Title).ToList();
-                    break;
-                case "LastNameAsc":
-                    books = books.OrderBy(x => x.Author.LastName).ToList();
-                    break;
-                case "LastNameDesc":
-                    books = books.OrderByDescending(x => x.Author.LastName).ToList();
-                    break;
-                case "YearAsc":
-                    books = books.OrderBy(x => x.Book.Year).ToList();
-                    break;
-                case "YearDesc":
-                    books = books.OrderByDescending(x => x.Book.Year).ToList();
-                    break;
-                case "DateAsc":
-                    books = books.OrderBy(x => x.Book.Date).ToList();
-                    break;
-                case "DateDesc":
-                    books = books.OrderByDescending(x => x.Book.Date).ToList();
-                    break;
-                default:
-                    books = books.OrderByDescending(x => x.Book.Date).ToList();
-                    break;
-            }
-            return books;
-        }
-
-        //VIEWMODEL
-        private BookCreateEditViewModel GetBook(int id)
-        {
-            Book book = db.Book.Where(x => x.Id == id).Single();
-
-            BookCreateEditViewModel bookCreateEditViewModel = new BookCreateEditViewModel();
-            bookCreateEditViewModel.Book = book;
-            bookCreateEditViewModel.Authors = db.Author.ToList();
-
-            return bookCreateEditViewModel;
-        }
         private BookCreateEditViewModel GetAuthors()
         {
             BookCreateEditViewModel bookCreateEditViewModel = new BookCreateEditViewModel();
             bookCreateEditViewModel.Authors = db.Author.ToList();
 
             return bookCreateEditViewModel;
-        }
-
-        //FILE
-        private string UploadFile(BookCreateEditViewModel model)
-        {
-            string fileName = null;
-
-            if (model.File != null)
-            {
-                string destinationFolder = Path.Combine(webHostEnvironment.WebRootPath, "images");
-                Directory.CreateDirectory(destinationFolder);
-
-                string fileExtension = model.File.FileName;
-                fileName = Guid.NewGuid().ToString() + fileExtension.Substring(fileExtension.LastIndexOf('.'));
-                string filePath = Path.Combine(destinationFolder, fileName);
-                using (var stream = System.IO.File.Create(filePath))
-                {
-                    model.File.CopyTo(stream);
-                }
-            }
-            return fileName;
-        }
-
-        private void DeleteFile(string newFileName)
-        {
-            string destinationFolder = Path.Combine(webHostEnvironment.WebRootPath, "images");
-            string filePath = Path.Combine(destinationFolder, newFileName);
-
-            if (System.IO.File.Exists(filePath)){
-                System.IO.File.Delete(filePath);
-            }
         }
     }
 }

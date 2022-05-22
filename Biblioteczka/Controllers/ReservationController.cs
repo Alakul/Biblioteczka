@@ -1,6 +1,5 @@
 ﻿using Biblioteczka.Data;
 using Biblioteczka.Models;
-using Biblioteczka.Models.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
@@ -11,7 +10,7 @@ namespace Biblioteczka.Controllers
     public class ReservationController : Controller
     {
 
-        AppDbContext db;
+        private readonly AppDbContext db;
         public ReservationController(AppDbContext context)
         {
             db = context;
@@ -23,8 +22,12 @@ namespace Biblioteczka.Controllers
             ReservationViewModel reservationViewModel = new ReservationViewModel();
             List<ReservationViewModel> reservations = GetReservationList();
 
-            reservations = SearchReservations(formValue, searchString, reservations);
-            reservations = SortReservations(sortOrder, reservations);
+            HttpContextAccessor httpContextAccessor = new HttpContextAccessor();
+            AppMethods appMethods = new AppMethods();
+            var tuple = appMethods.Search(httpContextAccessor, reservations, "SearchStringReservation", formValue, searchString);
+            reservations = tuple.Item1;
+            ViewBag.SearchString = tuple.Item2;
+            reservations = appMethods.Sort(httpContextAccessor, reservations, "SortOrderReservation", sortOrder);
 
             int pageSize = 20;
             int pageNumber = (page ?? 1);
@@ -133,121 +136,6 @@ namespace Biblioteczka.Controllers
                 })
                 .ToList();
 
-            return reservations;
-        }
-
-        //SEARCH
-        private List<ReservationViewModel> SearchReservations(string formValue, string searchString, List<ReservationViewModel> reservations)
-        {
-            CookieOptions options = new CookieOptions();
-            string cookieName = "SearchStringReservation";
-            string cookie = Request.Cookies[cookieName];
-
-            if (formValue == null)
-            {
-                if (cookie != null){
-                    reservations = reservations.Where(x => x.Copy.Number.ToString().ToLower().Contains(cookie.ToLower()) ||
-                        x.User.UserName.ToLower().Contains(cookie.ToLower()) ||
-                        x.Book.Title.ToLower().Contains(cookie.ToLower()) ||
-                        x.Author.LastName.ToLower().Contains(cookie.ToLower())).ToList();
-                    ViewBag.SearchString = cookie;
-                }
-                else {
-                    reservations = GetReservationList();
-                    ViewBag.SearchString = "";
-                }
-            }
-            else if (searchString == null && formValue == "1"){
-                reservations = GetReservationList();
-                Response.Cookies.Delete(cookieName);
-                ViewBag.SearchString = "";
-            }
-            else if (searchString != null && formValue == "1"){
-                string newValue = searchString.Trim();
-                if (!string.IsNullOrEmpty(newValue)){
-                    if (newValue != cookie){
-                        Response.Cookies.Append(cookieName, newValue, options);
-                    }
-                    reservations = reservations.Where(x => x.Copy.Number.ToString().ToLower().Contains(newValue.ToLower()) ||
-                        x.User.UserName.ToLower().Contains(newValue.ToLower()) ||
-                        x.Book.Title.ToLower().Contains(newValue.ToLower()) ||
-                        x.Author.LastName.ToLower().Contains(newValue.ToLower())).ToList();
-                    ViewBag.SearchString = newValue;
-                }
-                else
-                {
-                    reservations = GetReservationList();
-                    ViewBag.SearchString = "";
-                }
-            }
-
-            return reservations;
-        }
-
-        //SORT
-        private List<ReservationViewModel> SortReservations(string sortOrder, List<ReservationViewModel> reservations)
-        {
-            CookieOptions options = new CookieOptions();
-            string cookieName = "SortOrderReservation";
-
-            if (sortOrder == null){
-                string cookie = Request.Cookies[cookieName];
-                if (cookie != null){
-                    reservations = GetReservations(cookie, reservations);
-                }
-                else {
-                    reservations = GetReservationList();
-                }
-            }
-            else if (sortOrder != null){
-                reservations = GetReservations(sortOrder, reservations);
-                if (sortOrder != null){
-                    Response.Cookies.Append(cookieName, sortOrder, options);
-                }
-            }
-
-            return reservations;
-        }
-
-        //SWITCH
-        private List<ReservationViewModel> GetReservations(string sort, List<ReservationViewModel> reservations)
-        {
-            switch (sort)
-            {
-                case "UserNameAsc":
-                    reservations = reservations.OrderBy(x => x.User.UserName).ToList();
-                    break;
-                case "UserNameDesc":
-                    reservations = reservations.OrderByDescending(x => x.User.UserName).ToList();
-                    break;
-                case "TitleAsc":
-                    reservations = reservations.OrderBy(x => x.Book.Title).ToList();
-                    break;
-                case "TitleDesc":
-                    reservations = reservations.OrderByDescending(x => x.Book.Title).ToList();
-                    break;
-                case "LastNameAsc":
-                    reservations = reservations.OrderBy(x => x.Author.LastName).ToList();
-                    break;
-                case "LastNameDesc":
-                    reservations = reservations.OrderByDescending(x => x.Author.LastName).ToList();
-                    break;
-                case "NumberAsc":
-                    reservations = reservations.OrderBy(x => x.Copy.Number).ToList();
-                    break;
-                case "NumberDesc":
-                    reservations = reservations.OrderByDescending(x => x.Copy.Number).ToList();
-                    break;
-                case "DateAsc":
-                    reservations = reservations.OrderBy(x => x.Copy.Date).ToList();
-                    break;
-                case "DateDesc":
-                    reservations = reservations.OrderByDescending(x => x.Copy.Date).ToList();
-                    break;
-                default:
-                    reservations = reservations.OrderByDescending(x => x.Copy.Date).ToList();
-                    break;
-            }
             return reservations;
         }
     }

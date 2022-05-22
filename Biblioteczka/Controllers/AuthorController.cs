@@ -10,7 +10,7 @@ namespace Biblioteczka.Controllers
 {
     public class AuthorController : Controller
     {
-        private AppDbContext db;
+        private readonly AppDbContext db;
         public AuthorController(AppDbContext context)
         {
             db = context;
@@ -20,8 +20,13 @@ namespace Biblioteczka.Controllers
         public ActionResult Index(string searchString, string sortOrder, int? page, string formValue)
         {
             List<Author> authors = db.Author.ToList();
-            authors = SearchAuthors(formValue, searchString, authors);
-            authors = SortAuthors(sortOrder, authors);
+
+            HttpContextAccessor httpContextAccessor = new HttpContextAccessor();
+            AppMethods appMethods = new AppMethods();
+            var tuple = appMethods.Search(httpContextAccessor, authors, "SearchStringAuthor", formValue, searchString);
+            authors = tuple.Item1;
+            ViewBag.SearchString = tuple.Item2;
+            authors = appMethods.Sort(httpContextAccessor, authors, "SortOrderAuthor", sortOrder);
 
             int pageSize = 20;
             int pageNumber = (page ?? 1);
@@ -76,11 +81,13 @@ namespace Biblioteczka.Controllers
                 db.Author.Add(author);
                 db.SaveChanges();
 
-                return View();
+                TempData["Alert"] = "Success";
+                return RedirectToAction(nameof(Create));
             }
             catch
             {
-                return View();
+                TempData["Alert"] = "Danger";
+                return RedirectToAction(nameof(Create));
             }
         }
 
@@ -111,11 +118,13 @@ namespace Biblioteczka.Controllers
                 db.Author.Update(author);
                 db.SaveChanges();
 
-                return RedirectToAction(nameof(Index));
+                TempData["Alert"] = "Success";
+                return RedirectToAction(nameof(Edit));
             }
             catch
             {
-                return View();
+                TempData["Alert"] = "Danger";
+                return RedirectToAction(nameof(Edit));
             }
         }
 
@@ -145,116 +154,14 @@ namespace Biblioteczka.Controllers
                 db.Remove(db.Author.Where(x => x.Id == id).Single());
                 db.SaveChanges();
 
+                TempData["Alert"] = "Success";
                 return RedirectToAction(nameof(Index));
             }
             catch
             {
+                TempData["Alert"] = "Danger";
                 return RedirectToAction(nameof(Index));
             }
-        }
-
-
-
-
-
-
-
-
-
-
-        private List<Author> SearchAuthors(string formValue, string searchString, List<Author> authors)
-        {
-            CookieOptions options = new CookieOptions();
-            string cookie = Request.Cookies["SearchStringAuthor"];
-
-            if (formValue == null){
-                if (cookie != null){
-                    authors = authors.Where(x => x.Name.ToLower().Contains(cookie.ToLower()) ||
-                        x.LastName.ToLower().Contains(cookie.ToLower())).ToList();
-                    ViewBag.SearchString = cookie;
-                }
-                else {
-                    authors = db.Author.ToList();
-                    ViewBag.SearchString = "";
-                }
-            }
-            else if (searchString == null && formValue == "1"){
-                authors = db.Author.ToList();
-                Response.Cookies.Delete("SearchStringAuthor");
-                ViewBag.SearchString = "";
-            }
-            else if (searchString != null && formValue == "1"){
-                string newValue = searchString.Trim();
-                if (!string.IsNullOrEmpty(newValue)){
-                    if (newValue != cookie){
-                        Response.Cookies.Append("SearchStringAuthor", newValue, options);
-                    }
-                    authors = authors.Where(x => x.Name.ToLower().Contains(newValue.ToLower()) ||
-                        x.LastName.ToLower().Contains(newValue.ToLower())).ToList();
-                    ViewBag.SearchString = newValue;
-                }
-                else
-                {
-                    authors = db.Author.ToList();
-                    ViewBag.SearchString = "";
-                }
-            }
-
-            return authors;
-        }
-
-        //SORT
-        private List<Author> SortAuthors(string sortOrder, List<Author> authors)
-        {
-            CookieOptions options = new CookieOptions();
-
-            if (sortOrder == null){
-                string cookie = Request.Cookies["SortOrderAuthor"];
-                if (cookie != null){
-                    authors = GetAuthors(cookie, authors);
-                }
-                else{
-                    authors = db.Author.ToList();
-                }
-            }
-            else if (sortOrder != null){
-                authors = GetAuthors(sortOrder, authors);
-                if (sortOrder != null)
-                {
-                    Response.Cookies.Append("SortOrderAuthor", sortOrder, options);
-                }
-            }
-
-            return authors;
-        }
-
-        private List<Author> GetAuthors(string sort, List<Author> authors)
-        {
-            switch (sort)
-            {
-                case "NameAsc":
-                    authors = authors.OrderBy(x => x.Name).ToList();
-                    break;
-                case "NameDesc":
-                    authors = authors.OrderByDescending(x => x.Name).ToList();
-                    break;
-                case "LastNameAsc":
-                    authors = authors.OrderBy(x => x.LastName).ToList();
-                    break;
-                case "LastNameDesc":
-                    authors = authors.OrderByDescending(x => x.LastName).ToList();
-                    break;
-                case "DateAsc":
-                    authors = authors.OrderBy(x => x.Date).ToList();
-                    break;
-                case "DateDesc":
-                    authors = authors.OrderByDescending(x => x.Date).ToList();
-                    break;
-                default:
-                    authors = authors.OrderByDescending(x => x.Date).ToList();
-                    break;
-            }
-            return authors;
         }
     }
 }

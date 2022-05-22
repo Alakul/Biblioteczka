@@ -1,6 +1,5 @@
 ﻿using Biblioteczka.Areas.Identity.Data;
 using Biblioteczka.Data;
-using Biblioteczka.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -12,8 +11,8 @@ namespace Biblioteczka.Controllers
     [Authorize(Roles = "Admin")]
     public class UserController : Controller
     {
-        private AppDbContext db;
-        readonly UserManager<AppUser> UserManager;
+        private readonly AppDbContext db;
+        private readonly UserManager<AppUser> UserManager;
         // GET: UserController
 
         public UserController(AppDbContext context,UserManager<AppUser> userManager)
@@ -98,10 +97,12 @@ namespace Biblioteczka.Controllers
                 AppUser appUser = await UserManager.FindByIdAsync(id);
                 await UserManager.DeleteAsync(appUser);
 
+                TempData["Alert"] = "Success";
                 return RedirectToAction(nameof(Index));
             }
             catch
             {
+                TempData["Alert"] = "Danger";
                 return RedirectToAction(nameof(Index));
             }
         }
@@ -133,11 +134,13 @@ namespace Biblioteczka.Controllers
                     await UserManager.RemoveFromRoleAsync(appUser, "Admin");
                 }
 
+                TempData["Alert"] = "Success";
                 return RedirectToAction(nameof(Index));
             }
             catch
             {
-                return View();
+                TempData["Alert"] = "Danger";
+                return RedirectToAction(nameof(Index));
             }
         }
 
@@ -197,9 +200,6 @@ namespace Biblioteczka.Controllers
                 string cookie = Request.Cookies[cookieName];
                 if (cookie != null){
                     users = GetUsers(cookie, users);
-                }
-                else {
-                    users = UserManager.Users.ToList();
                 }
             }
             else if (sortOrder != null){
