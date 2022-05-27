@@ -28,6 +28,7 @@ public class AppDbContext : IdentityDbContext<AppUser>
         // Add your customizations after calling base.OnModelCreating(builder);
 
         SeedAdmin(builder);
+        SeedRoles(builder);
     }
 
     private void SeedAdmin(ModelBuilder builder)
@@ -36,7 +37,7 @@ public class AppDbContext : IdentityDbContext<AppUser>
         {
             Id = "14976c8a-e19b-4982-b395-ab0dca5efa99",
             Name = "Admin",
-            NormalizedName = "Admin",
+            NormalizedName = "ADMIN",
             ConcurrencyStamp = "1"
         };
         builder.Entity<IdentityRole>().HasData(identityRole);
@@ -57,5 +58,23 @@ public class AppDbContext : IdentityDbContext<AppUser>
             RoleId = identityRole.Id,
             UserId = identityUser.Id
         });
+    }
+
+    private void SeedRoles(ModelBuilder builder)
+    {
+        builder.Entity<IdentityRole>().HasData(
+            new IdentityRole {
+                Id = "14976c8a-e19e-4982-b395-ab0dca5efa98",
+                Name = "User",
+                NormalizedName = "USER",
+                ConcurrencyStamp = "1"
+            },
+            new IdentityRole {
+                Id = "14936c8a-e19e-4982-b395-ab0dca5efa97",
+                Name = "Librarian",
+                NormalizedName = "LIBRARIAN",
+                ConcurrencyStamp = "1"
+            }
+        );
     }
 }

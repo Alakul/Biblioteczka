@@ -1,5 +1,6 @@
 ﻿using Biblioteczka.Areas.Identity.Data;
 using Biblioteczka.Data;
+using Biblioteczka.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -25,13 +26,28 @@ namespace Biblioteczka.Controllers
 
         public ActionResult Index(string searchString, string sortOrder, int? page, string formValue)
         {
+            /*
             List<AppUser> users = db.Users.ToList();
+            users = SearchUsers(formValue, searchString, users);
+            users = SortUsers(sortOrder, users);
+            */
+            UserViewModel userViewModel = new UserViewModel();
+            List<UserViewModel> users = db.Users.Join(db.UserRoles, x => x.Id, y => y.UserId, (x, y) => new { Users = x, UserRoles = y })
+                .Join(db.Roles, joined => joined.UserRoles.RoleId, b => b.Id,
+                (joined, roles) => new UserViewModel
+                {
+                    User = joined.Users,
+                    Role = roles,
+                })
+                .ToList();
+
             users = SearchUsers(formValue, searchString, users);
             users = SortUsers(sortOrder, users);
 
             int pageSize = 5;
             int pageNumber = (page ?? 1);
-            return View(users.ToPagedList(pageNumber, pageSize));
+            userViewModel.UserList = users.ToPagedList(pageNumber, pageSize);
+            return View(userViewModel);
         }
 
         // GET: UserController/Details/5
@@ -133,23 +149,34 @@ namespace Biblioteczka.Controllers
             try
             {
                 AppUser appUser = await UserManager.FindByIdAsync(id);
-                var result = await UserManager.IsInRoleAsync(appUser, role);
 
-                if (collection["Role"] == role && result==false){
-                    await UserManager.AddToRoleAsync(appUser, role);
+                if (await UserManager.IsInRoleAsync(appUser, collection["Role"]) == false)
+                {
+                    var currentRoles = await UserManager.GetRolesAsync(appUser);
+                    if (currentRoles != null){
+                        var resultDelete = await UserManager.RemoveFromRolesAsync(appUser, currentRoles);
+                    }
 
+                    var resultAdd = await UserManager.AddToRoleAsync(appUser, collection["Role"]);
+                    if (resultAdd.Succeeded){
+                        TempData["Alert"] = "Success";
+                        return RedirectToAction(nameof(Role));
+                    }
+                    else {
+                        TempData["Alert"] = "Danger";
+                        return RedirectToAction(nameof(Role));
+                    }
                 }
-                else if (collection["Role"] == "User" && result==true){
-                    await UserManager.RemoveFromRoleAsync(appUser, role);
-                }
-
-                TempData["Alert"] = "Success";
-                return RedirectToAction(nameof(Index));
+                else
+                {
+                    TempData["Alert"] = "Success";
+                    return RedirectToAction(nameof(Role));
+                }    
             }
             catch
             {
                 TempData["Alert"] = "Danger";
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Role));
             }
         }
 
@@ -158,7 +185,7 @@ namespace Biblioteczka.Controllers
 
 
         //SEARCH
-        private List<AppUser> SearchUsers(string formValue, string searchString, List<AppUser> users)
+        private List<UserViewModel> SearchUsers(string formValue, string searchString, List<UserViewModel> users)
         {
             CookieOptions options = new CookieOptions();
             string cookieName = "SearchStringUser";
@@ -166,17 +193,17 @@ namespace Biblioteczka.Controllers
 
             if (formValue == null){
                 if (cookie != null){
-                    users = users.Where(x => x.UserName.ToLower().Contains(cookie.ToLower()) ||
-                        x.Email.ToLower().Contains(cookie.ToLower())).ToList();
+                    users = users.Where(x => x.User.UserName.ToLower().Contains(cookie.ToLower()) ||
+                        x.User.Email.ToLower().Contains(cookie.ToLower())).ToList();
                     ViewBag.SearchString = cookie;
                 }
                 else {
-                    users = UserManager.Users.ToList();
+                    users = users.ToList();
                     ViewBag.SearchString = "";
                 }
             }
             else if (searchString == null && formValue == "1"){
-                users = UserManager.Users.ToList();
+                users = users.ToList();
                 Response.Cookies.Delete(cookieName);
                 ViewBag.SearchString = "";
             }
@@ -186,12 +213,12 @@ namespace Biblioteczka.Controllers
                     if (newValue != cookie){
                         Response.Cookies.Append(cookieName, newValue, options);
                     }
-                    users = users.Where(x => x.UserName.ToLower().Contains(newValue.ToLower()) ||
-                        x.Email.ToLower().Contains(newValue.ToLower())).ToList();
+                    users = users.Where(x => x.User.UserName.ToLower().Contains(newValue.ToLower()) ||
+                        x.User.Email.ToLower().Contains(newValue.ToLower())).ToList();
                     ViewBag.SearchString = newValue;
                 }
                 else {
-                    users = UserManager.Users.ToList();
+                    users = users.ToList();
                     ViewBag.SearchString = "";
                 }
             }
@@ -200,7 +227,7 @@ namespace Biblioteczka.Controllers
         }
 
         //SORT
-        private List<AppUser> SortUsers(string sortOrder, List<AppUser> users)
+        private List<UserViewModel> SortUsers(string sortOrder, List<UserViewModel> users)
         {
             CookieOptions options = new CookieOptions();
             string cookieName = "SortOrderUser";
@@ -222,24 +249,24 @@ namespace Biblioteczka.Controllers
         }
 
         //SWITCH
-        private List<AppUser> GetUsers(string sort, List<AppUser> users)
+        private List<UserViewModel> GetUsers(string sort, List<UserViewModel> users)
         {
             switch (sort)
             {
                 case "UserNameAsc":
-                    users = UserManager.Users.OrderBy(x => x.UserName).ToList();
+                    users = users.OrderBy(x => x.User.UserName).ToList();
                     break;
                 case "UserNameDesc":
-                    users = UserManager.Users.OrderByDescending(x => x.UserName).ToList();
+                    users = users.OrderByDescending(x => x.User.UserName).ToList();
                     break;
                 case "EmailAsc":
-                    users = UserManager.Users.OrderBy(x => x.Email).ToList();
+                    users = users.OrderBy(x => x.User.Email).ToList();
                     break;
                 case "EmailDesc":
-                    users = UserManager.Users.OrderByDescending(x => x.Email).ToList();
+                    users = users.OrderByDescending(x => x.User.Email).ToList();
                     break;
                 default:
-                    users = UserManager.Users.OrderBy(x => x.UserName).ToList();
+                    users = users.OrderBy(x => x.User.UserName).ToList();
                     break;
             }
             return users;

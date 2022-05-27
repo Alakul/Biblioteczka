@@ -3,10 +3,10 @@
 @using X.PagedList
 
 @inject UserManager<AppUser> UserManager
-
+@model UserViewModel
 @{
      ViewData["Title"] = "Użytkownicy";
-     Tuple<IPagedList<AppUser>, string, string> paginationData = new Tuple<IPagedList<AppUser>, string, string>(@Model, "Uzytkownicy", "Index");
+     Tuple<IPagedList<UserViewModel>, string, string> paginationData = new Tuple<IPagedList<UserViewModel>, string, string>(@Model.UserList, "Uzytkownicy", "Index");
 }
 
 <partial name="Templates/_Alert" model="@TempData["Alert"]?.ToString()"/>

@@ -15,24 +15,38 @@
                     <a class="text-decoration-none text-dark" href="@Url.Action("Index", "User", new { sortOrder = "EmailAsc" })"><i class="bi bi-arrow-up"></i></a>
                     <a class="text-decoration-none text-dark" href="@Url.Action("Index", "User", new { sortOrder = "EmailDesc" })"><i class="bi bi-arrow-down"></i></a>
                 </th>
+                <th scope="col"><label class="me-2">Role</label>
+                    <a class="text-decoration-none text-dark" href="@Url.Action("Index", "User", new { sortOrder = "EmailAsc" })"><i class="bi bi-arrow-up"></i></a>
+                    <a class="text-decoration-none text-dark" href="@Url.Action("Index", "User", new { sortOrder = "EmailDesc" })"><i class="bi bi-arrow-down"></i></a>
+                </th>
                 <th scope="col" class="text-end"></th>
             </tr>
         </thead>
 
         <tbody>
-            @foreach (var user in Model)
+            @foreach (var user in Model.UserList)
             {
                 <tr>
-                    <th scope="row">@user.Id</th>
-                    <td><a class="text-decoration-none text-dark" asp-route-id="@user.Id" asp-controller="User" asp-action="Details">@user.UserName</a></td>
-                    <td>@user.Email</td>
+                    <th scope="row">@user.User.Id</th>
+                    <td><a class="text-decoration-none text-dark" asp-route-id="@user.User.Id" asp-controller="User" asp-action="Details">@user.User.UserName</a></td>
+                    <td>@user.User.Email</td>
+                    
+                    @if (user.Role.Name == "Admin"){
+                        <td>Administrator</td>
+                    }
+                    else if (user.Role.Name == "Librarian"){
+                        <td>Bibliotekarz</td>
+                    }
+                    else if (user.Role.Name == "User"){
+                        <td>Użytkownik</td>
+                    }
                     <td class="text-end">
-                    @if (UserManager.GetUserId(User) != @user.Id){
-                        <a class="btn btn-primary mb-1" asp-route-id="@user.Id" asp-controller="User" asp-action="Role">Rola</a>
+                    @if (UserManager.GetUserId(User) != @user.User.Id){
+                        <a class="btn btn-primary mb-1" asp-route-id="@user.User.Id" asp-controller="User" asp-action="Role">Rola</a>
                         <a class="btn btn-success mb-1" href="#"><i class="bi bi-pencil-square"></i></a>
-                        <a class="btn btn-danger mb-1" data-bs-toggle="modal" data-bs-target="#deleteModal_@user.Id"><i class="bi bi-trash3-fill"></i></a>
-                        <form asp-route-id="@user.Id" asp-controller="User" asp-action="Delete" method="post">
-                            <partial name="Templates/_ModalDelete" model="@user.Id"/>
+                        <a class="btn btn-danger mb-1" data-bs-toggle="modal" data-bs-target="#deleteModal_@user.User.Id"><i class="bi bi-trash3-fill"></i></a>
+                        <form asp-route-id="@user.User.Id" asp-controller="User" asp-action="Delete" method="post">
+                            <partial name="Templates/_ModalDelete" model="@user.User.Id"/>
                         </form>
                     }
                     else {
