@@ -17,6 +17,14 @@ builder.Services.AddDefaultIdentity<AppUser>(options => options.SignIn.RequireCo
 builder.Services.AddControllersWithViews();
 builder.Services.AddSession();
 
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.AccessDeniedPath = "/BrakDostepu";
+    options.LoginPath = "/Logowanie";
+    options.SlidingExpiration = true;
+});
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

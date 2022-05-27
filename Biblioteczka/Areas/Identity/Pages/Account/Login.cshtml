@@ -1,4 +1,4 @@
-﻿@page
+﻿@page "/Logowanie"
 @model LoginModel
 @{
 	ViewData["Title"] = "Logowanie";
@@ -12,12 +12,15 @@
 		<div asp-validation-summary="ModelOnly" class="text-danger"></div>
 		<div class="mb-3">
 			<label asp-for="Input.Email">Email</label>
-			<input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" />
+			<input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" 
+				data-val-email="Pole Email nie jest prawidłowym adresem email." 
+				data-val-required="Pole Email jest wymagane."/>
 			<span asp-validation-for="Input.Email" class="text-danger"></span>
 		</div>
 		<div class="mb-3">
 			<label asp-for="Input.Password">Hasło</label>
-			<input asp-for="Input.Password" class="form-control" autocomplete="current-password" aria-required="true" />
+			<input asp-for="Input.Password" class="form-control" autocomplete="current-password" aria-required="true" 
+				data-val-required="Pole Hasło jest wymagane."/>
 			<span asp-validation-for="Input.Password" class="text-danger"></span>
 		</div>
 		<div class="mb-3">

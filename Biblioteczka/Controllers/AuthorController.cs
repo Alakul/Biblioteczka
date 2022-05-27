@@ -8,8 +8,10 @@ using X.PagedList;
 
 namespace Biblioteczka.Controllers
 {
+    [Route("Autorzy")]
     public class AuthorController : Controller
     {
+        private const string role = "Admin";
         private readonly AppDbContext db;
         public AuthorController(AppDbContext context)
         {
@@ -17,23 +19,24 @@ namespace Biblioteczka.Controllers
         }
 
         // GET: AuthorController
+        [Authorize(Roles = role)]
         public ActionResult Index(string searchString, string sortOrder, int? page, string formValue)
         {
             List<Author> authors = db.Author.ToList();
 
             HttpContextAccessor httpContextAccessor = new HttpContextAccessor();
-            AppMethods appMethods = new AppMethods();
-            var tuple = appMethods.Search(httpContextAccessor, authors, "SearchStringAuthor", formValue, searchString);
+            var tuple = AppMethods.Search(httpContextAccessor, authors, "SearchStringAuthor", formValue, searchString);
             authors = tuple.Item1;
             ViewBag.SearchString = tuple.Item2;
-            authors = appMethods.Sort(httpContextAccessor, authors, "SortOrderAuthor", sortOrder);
+            authors = AppMethods.Sort(httpContextAccessor, authors, "SortOrderAuthor", sortOrder);
 
-            int pageSize = 20;
+            int pageSize = 30;
             int pageNumber = (page ?? 1);
             return View(authors.ToPagedList(pageNumber, pageSize));
         }
 
         // GET: AuthorController/Details/5
+        [Route("Szczegoly/{id}")]
         public ActionResult Details(int id, int? page)
         {
             BookViewModel bookAuthorViewModel = new BookViewModel();
@@ -57,16 +60,18 @@ namespace Biblioteczka.Controllers
         }
 
         // GET: AuthorController/Create
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = role)]
+        [Route("Dodaj")]
         public ActionResult Create()
         {
             return View();
         }
 
         // POST: AuthorController/Create
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = role)]
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Route("Dodaj")]
         public ActionResult Create(IFormCollection collection)
         {
             try
@@ -92,7 +97,8 @@ namespace Biblioteczka.Controllers
         }
 
         // GET: AuthorController/Edit/5
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = role)]
+        [Route("Edytuj/{id}")]
         public ActionResult Edit(int id)
         {
             Author author = db.Author.Where(x => x.Id == id).Single();
@@ -100,9 +106,10 @@ namespace Biblioteczka.Controllers
         }
 
         // POST: AuthorController/Edit/5
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = role)]
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Route("Edytuj/{id}")]
         public ActionResult Edit(int id, IFormCollection collection)
         {
             try
@@ -129,6 +136,7 @@ namespace Biblioteczka.Controllers
         }
 
         // GET: AuthorController/Delete/5
+        [Route("Usun/{id}")]
         public ActionResult Delete(int id)
         {
             try
@@ -139,14 +147,13 @@ namespace Biblioteczka.Controllers
             {
                 return View();
             }
-
-            
         }
 
         // POST: AuthorController/Delete/5
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = role)]
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Route("Usun/{id}")]
         public ActionResult Delete(int id, IFormCollection collection)
         {
             try

@@ -5,9 +5,9 @@ using static Biblioteczka.Data.SortEnum;
 
 namespace Biblioteczka.Data
 {
-    public class AppMethods
+    public static class AppMethods
     {
-        public Tuple<List<T>,string> Search<T>(IHttpContextAccessor httpContextAccessor, List<T> elements, string cookieName, string formValue, string searchString)
+        public static Tuple<List<T>,string> Search<T>(IHttpContextAccessor httpContextAccessor, List<T> elements, string cookieName, string formValue, string searchString)
         {
             string cookie = httpContextAccessor.HttpContext.Request.Cookies[cookieName];
             string viewSearchString = "";
@@ -45,7 +45,7 @@ namespace Biblioteczka.Data
             return Tuple.Create(elements, viewSearchString);
         }
 
-        private List<T> GetElementsSearch<T>(List<T> elements, string cookie)
+        private static List<T> GetElementsSearch<T>(List<T> elements, string cookie)
         {
             List<T> genericList = new List<T>();
 
@@ -97,7 +97,7 @@ namespace Biblioteczka.Data
             return genericList;
         }
 
-        public List<T> Sort<T>(IHttpContextAccessor httpContextAccessor, List<T> elements, string cookieName, string sortOrder)
+        public static List<T> Sort<T>(IHttpContextAccessor httpContextAccessor, List<T> elements, string cookieName, string sortOrder)
         {
             string cookie = httpContextAccessor.HttpContext.Request.Cookies[cookieName];
 
@@ -115,7 +115,7 @@ namespace Biblioteczka.Data
 
             return elements;
         }
-        private List<T> GetElementsSort<T>(List<T> elements, SortValues sort)
+        private static List<T> GetElementsSort<T>(List<T> elements, SortValues sort)
         {
             List<T> genericList = new List<T>();
 
@@ -200,9 +200,11 @@ namespace Biblioteczka.Data
             SortValues.LastNameDesc => elements = elements.OrderByDescending(x => x.Author.LastName).ToList(),
             SortValues.NumberAsc => elements = elements.OrderBy(x => x.Copy.Number).ToList(),
             SortValues.NumberDesc => elements = elements.OrderByDescending(x => x.Copy.Number).ToList(),
-            SortValues.DateAsc => elements = elements.OrderBy(x => x.Copy.Date).ToList(),
-            SortValues.DateDesc => elements = elements.OrderByDescending(x => x.Copy.Date).ToList(),
-            _ => elements = elements.OrderByDescending(x => x.Copy.Date).ToList(),
+            SortValues.LoanDateAsc => elements = elements.OrderBy(x => x.Loan.LoanDate).ToList(),
+            SortValues.LoanDateDesc => elements = elements.OrderByDescending(x => x.Loan.LoanDate).ToList(),
+            SortValues.ReturnDateAsc => elements = elements.OrderBy(x => x.Loan.ReturnDate).ToList(),
+            SortValues.ReturnDateDesc => elements = elements.OrderByDescending(x => x.Loan.ReturnDate).ToList(),
+            _ => elements = elements.OrderByDescending(x => x.Loan.LoanDate).ToList(),
         };
 
         public static List<ReservationViewModel> SortElementsReservation(List<ReservationViewModel> elements, SortValues sortValues) =>
@@ -221,11 +223,8 @@ namespace Biblioteczka.Data
             _ => elements = elements.OrderByDescending(x => x.Copy.Date).ToList(),
         };
 
-
-
-
-
-        public string UploadFile(IWebHostEnvironment webHostEnvironment, BookCreateEditViewModel model, string folderName)
+        //FILE
+        public static string UploadFile(IWebHostEnvironment webHostEnvironment, BookCreateEditViewModel model, string folderName)
         {
             string fileName = null;
             if (model.File != null){
@@ -243,7 +242,7 @@ namespace Biblioteczka.Data
             return fileName;
         }
 
-        public void DeleteFile(IWebHostEnvironment webHostEnvironment, string newFileName, string folderName)
+        public static void DeleteFile(IWebHostEnvironment webHostEnvironment, string newFileName, string folderName)
         {
             string destinationFolder = Path.Combine(webHostEnvironment.WebRootPath, folderName);
             string filePath = Path.Combine(destinationFolder, newFileName);

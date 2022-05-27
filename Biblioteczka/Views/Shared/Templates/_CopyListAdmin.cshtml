@@ -52,7 +52,7 @@
                         <a class="btn btn-success mb-1" asp-route-id="@List.Copy.Id" asp-controller="Copy" asp-action="Edit"><i class="bi bi-pencil-square"></i></a>
                         @if (List.Copy.Status == "1"){
                             <a class="btn btn-danger mb-1" data-bs-toggle="modal" data-bs-target="#deleteModal_@List.Copy.Id"><i class="bi bi-trash3-fill"></i></a>
-                            <form asp-route-id="@List.Copy.Id" asp-controller="Copy" asp-action="Delete" method="post">
+                            <form asp-route-id="@List.Copy.Id" asp-route-pageIndex="1" asp-controller="Copy" asp-action="Delete" method="post">
                                 <partial name="Templates/_ModalDelete" model="@List.Copy.Id"/>
                             </form>
                         }

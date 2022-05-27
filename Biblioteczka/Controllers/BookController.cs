@@ -10,8 +10,10 @@ using System.Collections.ObjectModel;
 
 namespace Biblioteczka.Controllers
 {
+    [Route("Ksiazki")]
     public class BookController : Controller
     {
+        private const string role = "Admin";
         private readonly AppDbContext db;
         private readonly IWebHostEnvironment webHostEnvironment;
         public BookController(AppDbContext context, IWebHostEnvironment hostEnvironment)
@@ -27,11 +29,10 @@ namespace Biblioteczka.Controllers
             List<BookViewModel> books = GetBookList();
 
             HttpContextAccessor httpContextAccessor = new HttpContextAccessor();
-            AppMethods appMethods = new AppMethods();
-            var tuple = appMethods.Search(httpContextAccessor, books, "SearchStringBook", formValue, searchString);
+            var tuple = AppMethods.Search(httpContextAccessor, books, "SearchStringBook", formValue, searchString);
             books = tuple.Item1;
             ViewBag.SearchString = tuple.Item2;
-            books = appMethods.Sort(httpContextAccessor, books, "SortOrderBook", sortOrder);
+            books = AppMethods.Sort(httpContextAccessor, books, "SortOrderBook", sortOrder);
 
             int pageSize = 20;
             int pageNumber = (page ?? 1);
@@ -40,22 +41,24 @@ namespace Biblioteczka.Controllers
         }
 
         // GET: BookController/Details/5
+        [Route("Szczegoly/{id}")]
         public ActionResult Details(int id, int? page)
         {
             List<Copy> copies = db.Copy.Where(x => x.BookId == id).ToList();
-            BookViewModel bookAuthorViewModel = new BookViewModel();
-            bookAuthorViewModel.Book = db.Book.Where(x => x.Id == id).Single();
-            bookAuthorViewModel.Author = db.Author.Where(x => x.Id == bookAuthorViewModel.Book.AuthorId).Single();
+            BookViewModel bookViewModel = new BookViewModel();
+            bookViewModel.Book = db.Book.Where(x => x.Id == id).Single();
+            bookViewModel.Author = db.Author.Where(x => x.Id == bookViewModel.Book.AuthorId).Single();
             ViewBag.Id = id;
 
-            int pageSize = 1;
+            int pageSize = 10;
             int pageNumber = (page ?? 1);
-            bookAuthorViewModel.CopyList = copies.ToPagedList(pageNumber, pageSize);         
-            return View(bookAuthorViewModel);
+            bookViewModel.CopyList = copies.ToPagedList(pageNumber, pageSize);         
+            return View(bookViewModel);
         }
 
         // GET: BookController/Create
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = role)]
+        [Route("Dodaj")]
         public ActionResult Create()
         {
             return View(GetAuthors());
@@ -63,14 +66,14 @@ namespace Biblioteczka.Controllers
 
         // POST: BookController/Create
         
-        [Authorize(Roles = "Admin")]
-        [ValidateAntiForgeryToken]
+        [Authorize(Roles = role)]
         [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Route("Dodaj")]
         public ActionResult Create(BookCreateEditViewModel model)
         {
             try {
-                AppMethods appMethods = new AppMethods();
-                string newFileName = appMethods.UploadFile(webHostEnvironment, model, "images");
+                string newFileName = AppMethods.UploadFile(webHostEnvironment, model, "images");
                 if (newFileName != null)
                 {
                     Book book = new Book
@@ -105,7 +108,8 @@ namespace Biblioteczka.Controllers
         }
 
         // GET: BookController/Edit/5
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = role)]
+        [Route("Edytuj/{id}")]
         public ActionResult Edit(int id)
         {
             Book book = db.Book.Where(x => x.Id == id).Single();
@@ -118,10 +122,10 @@ namespace Biblioteczka.Controllers
         }
 
         // POST: BookController/Edit/5
-        [Authorize(Roles = "Admin")]
-        [ValidateAntiForgeryToken]
+        [Authorize(Roles = role)]
         [HttpPost]
-        [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
+        [ValidateAntiForgeryToken]
+        [Route("Edytuj/{id}")]
         public ActionResult Edit(int id, BookCreateEditViewModel model)
         {
             try
@@ -138,9 +142,8 @@ namespace Biblioteczka.Controllers
 
                 if (model.File != null)
                 {
-                    AppMethods appMethods = new AppMethods();
-                    appMethods.DeleteFile(webHostEnvironment, book.Image, "images");
-                    string newFileName = appMethods.UploadFile(webHostEnvironment, model, "images");
+                    AppMethods.DeleteFile(webHostEnvironment, book.Image, "images");
+                    string newFileName = AppMethods.UploadFile(webHostEnvironment, model, "images");
                     book.Image = newFileName;
                 }
 
@@ -159,6 +162,7 @@ namespace Biblioteczka.Controllers
         }
 
         // GET: BookController/Delete/5
+        [Route("Usun/{id}")]
         public ActionResult Delete(int id)
         {
             try
@@ -172,9 +176,10 @@ namespace Biblioteczka.Controllers
         }
 
         // POST: BookController/Delete/5
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = role)]
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Route("Usun/{id}")]
         public ActionResult Delete(int id, IFormCollection collection)
         {
             try
@@ -182,8 +187,7 @@ namespace Biblioteczka.Controllers
                 Book book = db.Book.Where(x => x.Id == id).Single();
                 string fileName = book.Image;
 
-                AppMethods appMethods = new AppMethods();
-                appMethods.DeleteFile(webHostEnvironment, fileName, "images");
+                AppMethods.DeleteFile(webHostEnvironment, fileName, "images");
 
                 db.Remove(db.Book.Where(x => x.Id == id).Single());
                 db.SaveChanges();
@@ -200,6 +204,7 @@ namespace Biblioteczka.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Route("Rezerwuj/{id}")]
         public ActionResult Reservate(int id, IFormCollection collection)
         {
             Copy copy = db.Copy.Where(x => x.Id == id).Single();
@@ -230,10 +235,7 @@ namespace Biblioteczka.Controllers
             }
         }
 
-
-
-        
-
+        //GET
         private List<BookViewModel> GetBookList()
         {
             List<BookViewModel> books = db.Book

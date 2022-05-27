@@ -1,12 +1,14 @@
-﻿@model CopyViewModel
+﻿@using X.PagedList
+@model CopyViewModel
 @{
     ViewData["Title"] = "Egzemplarze";
-    string path = "/Copy";
+    Tuple<IPagedList<CopyViewModel>, string, string> paginationData = new Tuple<IPagedList<CopyViewModel>, string, string>(@Model.CopyList, "Egzemplarze", "Index");
 }
 
 <partial name="Templates/_Alert" model="@TempData["Alert"]?.ToString()"/>
-<partial name="Templates/_SearchBar" model="@path"/>
+<partial name="Templates/_SearchBar" model="@Url.Action("Index")"/>
 <partial name="Templates/_CopyListAdmin"/>
-<partial name="Templates/_Pagination" model="@Model.CopyList"/>
+
+<partial name="Templates/_Pagination" model="@paginationData"/>
 
 

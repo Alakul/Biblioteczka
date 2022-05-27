@@ -1,13 +1,16 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @using Biblioteczka.Areas.Identity.Data
+@using X.PagedList
+
 @inject UserManager<AppUser> UserManager
 
 @{
      ViewData["Title"] = "Użytkownicy";
+     Tuple<IPagedList<AppUser>, string, string> paginationData = new Tuple<IPagedList<AppUser>, string, string>(@Model, "Uzytkownicy", "Index");
 }
 
 <partial name="Templates/_Alert" model="@TempData["Alert"]?.ToString()"/>
 <partial name="Templates/_SearchBar" model="@Url.Action("Index")"/>
 
 <partial name="Templates/_UserList" model="@Model"/>
-<partial name="Templates/_Pagination" model="@Model"/>
+<partial name="Templates/_Pagination" model="@paginationData"/>

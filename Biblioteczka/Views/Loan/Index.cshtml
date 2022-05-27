@@ -1,16 +1,17 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @using Biblioteczka.Areas.Identity.Data
+@using X.PagedList
 
 @inject SignInManager<AppUser> SignInManager
 @inject UserManager<AppUser> UserManager
 
 @{
     ViewData["Title"] = "Wypożyczone";
-    string path = "/Loan";
+    Tuple<IPagedList<LoanViewModel>, string, string> paginationData = new Tuple<IPagedList<LoanViewModel>, string, string>(@Model.LoanList, "Wypozyczone", "Index");
 }
 
 <partial name="Templates/_Alert" model="@TempData["Alert"]?.ToString()"/>
-<partial name="Templates/_SearchBar" model="@path"/>
+<partial name="Templates/_SearchBar" model="@Url.Action("Index")"/>
 
 @if (User.IsInRole("Admin")){
     <partial name="Templates/_LoanListAdmin"/>
@@ -19,4 +20,4 @@ else if (SignInManager.IsSignedIn(User)){
     <partial name="Templates/_LoanList"/>
 }
 
-<partial name="Templates/_Pagination" model="@Model.LoanList"/>
+<partial name="Templates/_Pagination" model="@paginationData"/>

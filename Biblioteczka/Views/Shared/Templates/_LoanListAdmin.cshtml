@@ -44,10 +44,10 @@
                     <td><a class="text-decoration-none text-dark" asp-route-id="@List.Loan.BookId" asp-controller="Book" asp-action="Details">@List.Copy.Number</a></td>
                     <td>@List.Loan.LoanDate</td>
                     <td>@List.Loan.ReturnDate</td>
-                    <td class="d-flex justify-content-end">
+                    <td class="text-end">
                         @if (List.Loan.ReturnDate == null){
                             <form asp-route-id="@List.Loan.Id" asp-controller="Loan" asp-action="Return" method="post">
-                                <button type="submit" class="btn btn-success mb-1 me-1">Oddaj</button>
+                                <button type="submit" class="btn btn-success mb-1">Oddaj</button>
                             </form>
                         }
                         

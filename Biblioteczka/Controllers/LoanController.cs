@@ -1,6 +1,7 @@
 ﻿using Biblioteczka.Areas.Identity.Data;
 using Biblioteczka.Data;
 using Biblioteczka.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -9,8 +10,10 @@ using X.PagedList;
 
 namespace Biblioteczka.Controllers
 {
+    [Route("Wypozyczone")]
     public class LoanController : Controller
     {
+        private const string role = "Admin";
         private readonly AppDbContext db;
         private readonly UserManager<AppUser> UserManager;
         public LoanController(AppDbContext context, UserManager<AppUser> userManager)
@@ -22,16 +25,14 @@ namespace Biblioteczka.Controllers
         // GET: LoanController
         public ActionResult Index(string searchString, string sortOrder, int? page, string formValue)
         {
-
             LoanViewModel loanViewModel = new LoanViewModel();
             List<LoanViewModel> loans = GetLoanList();
 
             HttpContextAccessor httpContextAccessor = new HttpContextAccessor();
-            AppMethods appMethods = new AppMethods();
-            var tuple = appMethods.Search(httpContextAccessor, loans, "SearchStringLoan", formValue, searchString);
+            var tuple = AppMethods.Search(httpContextAccessor, loans, "SearchStringLoan", formValue, searchString);
             loans = tuple.Item1;
             ViewBag.SearchString = tuple.Item2;
-            loans = appMethods.Sort(httpContextAccessor, loans, "SortOrderLoan", sortOrder);
+            loans = AppMethods.Sort(httpContextAccessor, loans, "SortOrderLoan", sortOrder);
 
             int pageSize = 20;
             int pageNumber = (page ?? 1);
@@ -40,20 +41,24 @@ namespace Biblioteczka.Controllers
         }
 
         // GET: LoanController/Details/5
+        [Route("Szczegoly/{id}")]
         public ActionResult Details(int id)
         {
             return View();
         }
 
         // GET: LoanController/Create
+        [Route("Dodaj")]
         public ActionResult Create()
         {
             return View();
         }
 
         // POST: LoanController/Create
+        [Authorize(Roles = role)]
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Route("Dodaj")]
         public ActionResult Create(int id, IFormCollection collection)
         {
             try
@@ -85,6 +90,7 @@ namespace Biblioteczka.Controllers
         }
 
         // GET: LoanController/Edit/5
+        [Route("Edytuj/{id}")]
         public ActionResult Edit(int id)
         {
             return View();
@@ -93,6 +99,7 @@ namespace Biblioteczka.Controllers
         // POST: LoanController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Route("Edytuj/{id}")]
         public ActionResult Edit(int id, IFormCollection collection)
         {
             try
@@ -106,6 +113,7 @@ namespace Biblioteczka.Controllers
         }
 
         // GET: LoanController/Delete/5
+        [Route("Usun/{id}")]
         public ActionResult Delete(int id)
         {
             return View();
@@ -114,32 +122,12 @@ namespace Biblioteczka.Controllers
         // POST: LoanController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Route("Usun/{id}")]
         public ActionResult Delete(int id, IFormCollection collection)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-
-
-        // POST: LoanController/Return/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Return(int id, IFormCollection collection)
-        {
-            try
-            {
-                Loan loan = db.Loan.Where(x => x.Id == id).Single();
-                loan.ReturnDate = DateTime.Now;
-                loan.Status = "1";
-
-                db.Loan.Update(loan);
+                db.Remove(db.Loan.Where(x => x.Id == id).Single());
                 db.SaveChanges();
 
                 TempData["Alert"] = "Success";
@@ -152,14 +140,37 @@ namespace Biblioteczka.Controllers
             }
         }
 
+        // POST: LoanController/Return/5
+        [Authorize(Roles = role)]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Route("Zwroc")]
+        public ActionResult Return(int id, IFormCollection collection)
+        {
+            try
+            {
+                Loan loan = db.Loan.Where(x => x.Id == id).Single();
+                loan.ReturnDate = DateTime.Now;
+                loan.Status = "1";
 
+                Copy copy = db.Copy.Where(x => x.Id == loan.CopyId).Single();
+                copy.Status = "1";
 
+                db.Loan.Update(loan);
+                db.Copy.Update(copy);
+                db.SaveChanges();
 
+                TempData["Alert"] = "Success";
+                return RedirectToAction(nameof(Index));
+            }
+            catch
+            {
+                TempData["Alert"] = "Danger";
+                return RedirectToAction(nameof(Index));
+            }
+        }
 
-
-
-
-
+        //GET
         private List<LoanViewModel> GetLoanList()
         {
             List<LoanViewModel> loans = db.Loan

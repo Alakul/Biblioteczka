@@ -1,6 +1,9 @@
-﻿@model BookViewModel
+﻿@using X.PagedList
+
+@model BookViewModel
 @{
      ViewData["Title"] = "O autorze";
+     Tuple<IPagedList<BookViewModel>, string, string> paginationData = new Tuple<IPagedList<BookViewModel>, string, string>(@Model.BookList, "Autorzy", "Szczegoly");
 }
 
 <partial name="Templates/_BackButton"/>
@@ -24,4 +27,4 @@ else {
     <partial name="Templates/_BookList"/>
 }
 
-<partial name="Templates/_PaginationDetails" model="@Model.BookList"/>
+<partial name="Templates/_Pagination" model="@paginationData"/>

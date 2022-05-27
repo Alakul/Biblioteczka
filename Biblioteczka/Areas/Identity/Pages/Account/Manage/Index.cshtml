@@ -1,4 +1,4 @@
-﻿@page
+﻿@page "/Ustawienia/Profil"
 @model IndexModel
 @{
     ViewData["Title"] = "Profil";
@@ -17,7 +17,8 @@
             </div>
             <div class="mb-3">
                 <label asp-for="Input.PhoneNumber" class="form-label">Numer telefonu</label>
-                <input asp-for="Input.PhoneNumber" class="form-control" />
+                <input asp-for="Input.PhoneNumber" class="form-control" aria-required="true"
+                    data-val-phone="Pole Numer telefonu nie jest prawidłowym numerem telefonu." />
                 <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
             </div>
             <button id="update-profile-button" type="submit" class="w-100 btn btn-lg btn-primary mb-4">Zapisz</button>

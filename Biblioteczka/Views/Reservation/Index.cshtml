@@ -1,16 +1,17 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @using Biblioteczka.Areas.Identity.Data
+@using X.PagedList
 
 @inject SignInManager<AppUser> SignInManager
 @inject UserManager<AppUser> UserManager
 
 @{
     ViewData["Title"] = "Rezerwacje";
-    string path = "/Reservation";
+    Tuple<IPagedList<ReservationViewModel>, string, string> paginationData = new Tuple<IPagedList<ReservationViewModel>, string, string>(@Model.ReservationList, "Rezerwacje", "Index");
 }
 
 <partial name="Templates/_Alert" model="@TempData["Alert"]?.ToString()"/>
-<partial name="Templates/_SearchBar" model="@path"/>
+<partial name="Templates/_SearchBar" model="@Url.Action("Index")"/>
 
 @if (User.IsInRole("Admin")){
     <partial name="Templates/_ReservationListAdmin"/>
@@ -19,4 +20,4 @@ else if (SignInManager.IsSignedIn(User)){
     <partial name="Templates/_ReservationList"/>
 }
 
-<partial name="Templates/_Pagination" model="@Model.ReservationList"/>
+<partial name="Templates/_Pagination" model="@paginationData"/>

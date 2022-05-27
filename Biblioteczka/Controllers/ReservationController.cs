@@ -7,9 +7,10 @@ using X.PagedList;
 
 namespace Biblioteczka.Controllers
 {
+    [Route("Rezerwacje")]
     public class ReservationController : Controller
     {
-
+        private const string role = "Admin";
         private readonly AppDbContext db;
         public ReservationController(AppDbContext context)
         {
@@ -23,11 +24,10 @@ namespace Biblioteczka.Controllers
             List<ReservationViewModel> reservations = GetReservationList();
 
             HttpContextAccessor httpContextAccessor = new HttpContextAccessor();
-            AppMethods appMethods = new AppMethods();
-            var tuple = appMethods.Search(httpContextAccessor, reservations, "SearchStringReservation", formValue, searchString);
+            var tuple = AppMethods.Search(httpContextAccessor, reservations, "SearchStringReservation", formValue, searchString);
             reservations = tuple.Item1;
             ViewBag.SearchString = tuple.Item2;
-            reservations = appMethods.Sort(httpContextAccessor, reservations, "SortOrderReservation", sortOrder);
+            reservations = AppMethods.Sort(httpContextAccessor, reservations, "SortOrderReservation", sortOrder);
 
             int pageSize = 20;
             int pageNumber = (page ?? 1);
@@ -36,12 +36,14 @@ namespace Biblioteczka.Controllers
         }
 
         // GET: ReservationController/Details/5
+        [Route("Szczegoly/{id}")]
         public ActionResult Details(int id)
         {
             return View();
         }
 
         // GET: ReservationController/Create
+        [Route("Dodaj")]
         public ActionResult Create()
         {
             return View();
@@ -50,6 +52,7 @@ namespace Biblioteczka.Controllers
         // POST: ReservationController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Route("Dodaj")]
         public ActionResult Create(IFormCollection collection)
         {
             try
@@ -63,6 +66,7 @@ namespace Biblioteczka.Controllers
         }
 
         // GET: ReservationController/Edit/5
+        [Route("Edytuj/{id}")]
         public ActionResult Edit(int id)
         {
             return View();
@@ -71,6 +75,7 @@ namespace Biblioteczka.Controllers
         // POST: ReservationController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Route("Edytuj/{id}")]
         public ActionResult Edit(int id, IFormCollection collection)
         {
             try
@@ -84,6 +89,7 @@ namespace Biblioteczka.Controllers
         }
 
         // GET: ReservationController/Delete/5
+        [Route("Usun/{id}")]
         public ActionResult Delete(int id)
         {
             return View();
@@ -92,6 +98,7 @@ namespace Biblioteczka.Controllers
         // POST: ReservationController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Route("Usun/{id}")]
         public ActionResult Delete(int id, IFormCollection collection)
         {
             try
@@ -114,11 +121,7 @@ namespace Biblioteczka.Controllers
             }
         }
 
-
-
-
-
-
+        //GET
         private List<ReservationViewModel> GetReservationList()
         {
             List<ReservationViewModel> reservations = db.Reservation

@@ -9,12 +9,14 @@ using X.PagedList;
 namespace Biblioteczka.Controllers
 {
     [Authorize(Roles = "Admin")]
+    [Route("Uzytkownicy")]
     public class UserController : Controller
     {
+        private const string role = "Admin";
         private readonly AppDbContext db;
         private readonly UserManager<AppUser> UserManager;
-        // GET: UserController
 
+        // GET: UserController
         public UserController(AppDbContext context,UserManager<AppUser> userManager)
         {
             db = context;
@@ -33,6 +35,7 @@ namespace Biblioteczka.Controllers
         }
 
         // GET: UserController/Details/5
+        [Route("Szczegoly/{id}")]
         public async Task<ActionResult> Details(string id)
         {
             AppUser appUser = await UserManager.FindByIdAsync(id);
@@ -40,6 +43,7 @@ namespace Biblioteczka.Controllers
         }
 
         // GET: UserController/Create
+        [Route("Dodaj")]
         public ActionResult Create()
         {
             return View();
@@ -48,6 +52,7 @@ namespace Biblioteczka.Controllers
         // POST: UserController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Route("Dodaj")]
         public ActionResult Create(IFormCollection collection)
         {
             try
@@ -61,6 +66,7 @@ namespace Biblioteczka.Controllers
         }
 
         // GET: UserController/Edit/5
+        [Route("Edytuj/{id}")]
         public ActionResult Edit(int id)
         {
             return View();
@@ -69,6 +75,7 @@ namespace Biblioteczka.Controllers
         // POST: UserController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Route("Edytuj/{id}")]
         public ActionResult Edit(int id, IFormCollection collection)
         {
             try
@@ -82,6 +89,7 @@ namespace Biblioteczka.Controllers
         }
 
         // GET: UserController/Delete/5
+        [Route("Usun/{id}")]
         public ActionResult Delete(int id)
         {
             return View();
@@ -90,6 +98,7 @@ namespace Biblioteczka.Controllers
         // POST: UserController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Route("Usun/{id}")]
         public async Task<ActionResult> DeleteAsync(string id, IFormCollection collection)
         {
             try
@@ -107,9 +116,8 @@ namespace Biblioteczka.Controllers
             }
         }
 
-
-        
-        // GET: UserController/Role
+        // GET: UserController/Role/5
+        [Route("ZmienRole/{id}")]
         public async Task<ActionResult> Role(string id)
         {
             AppUser appUser = await UserManager.FindByIdAsync(id);
@@ -119,19 +127,20 @@ namespace Biblioteczka.Controllers
         // POST: UserController/Role
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Route("ZmienRole/{id}")]
         public async Task<ActionResult> Role(string id, IFormCollection collection)
         {
             try
             {
                 AppUser appUser = await UserManager.FindByIdAsync(id);
-                var result = await UserManager.IsInRoleAsync(appUser, "Admin");
+                var result = await UserManager.IsInRoleAsync(appUser, role);
 
-                if (collection["Role"] == "Admin" && result==false){
-                    await UserManager.AddToRoleAsync(appUser, "Admin");
+                if (collection["Role"] == role && result==false){
+                    await UserManager.AddToRoleAsync(appUser, role);
 
                 }
                 else if (collection["Role"] == "User" && result==true){
-                    await UserManager.RemoveFromRoleAsync(appUser, "Admin");
+                    await UserManager.RemoveFromRoleAsync(appUser, role);
                 }
 
                 TempData["Alert"] = "Success";
