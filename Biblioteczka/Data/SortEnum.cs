@@ -10,9 +10,11 @@
             YearAsc, YearDesc,
             DateAsc, DateDesc,
             NumberAsc, NumberDesc,
-            UserNameAsc, UserNameDesc,
             LoanDateAsc, LoanDateDesc,
             ReturnDateAsc, ReturnDateDesc,
+            UserNameAsc, UserNameDesc,
+            EmailAsc, EmailDesc,
+            RoleAsc, RoleDesc,
         }
     }
 }

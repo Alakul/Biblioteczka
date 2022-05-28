@@ -1,11 +1,12 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @using Biblioteczka.Areas.Identity.Data
+@using Biblioteczka.Data;
 
 @inject SignInManager<AppUser> SignInManager
 @inject UserManager<AppUser> UserManager
 
 <ul class="navbar-nav">
-    @if (User.IsInRole("Admin"))
+    @if (User.IsInRole(AppData.Admin) || User.IsInRole(AppData.Librarian))
     {
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle text-white fw-bold" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -14,9 +15,12 @@
             <ul id="nav-dropdown" class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                 <li><a class="dropdown-item" asp-controller="Book" asp-action="Index">Książki</a></li>
                 <li><a class="dropdown-item" asp-controller="Author" asp-action="Index">Autorzy</a></li>
-                <li><a class="dropdown-item" asp-controller="User" asp-action="Index">Użytkownicy</a></li>
+                <li><a class="dropdown-item" asp-controller="Copy" asp-action="Index">Egzemplarze</a></li>
                 <li><a class="dropdown-item" asp-controller="Loan" asp-action="Index">Wypożyczone</a></li>
                 <li><a class="dropdown-item" asp-controller="Reservation" asp-action="Index">Rezerwacje</a></li>
+                @if (User.IsInRole(AppData.Admin)){
+                    <li><a class="dropdown-item" asp-controller="User" asp-action="Index">Użytkownicy</a></li>
+                }
                 <li><a class="dropdown-item" asp-area="Identity" asp-page="/Account/Manage/Index">Ustawienia</a></li>
                 <li><hr class="dropdown-divider"></li>
                 <li>

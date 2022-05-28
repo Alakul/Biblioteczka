@@ -1,6 +1,7 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @using Biblioteczka.Areas.Identity.Data
 @using X.PagedList
+@using Biblioteczka.Data;
 
 @inject SignInManager<AppUser> SignInManager
 @inject UserManager<AppUser> UserManager
@@ -13,7 +14,7 @@
 
 <partial name="Templates/_BackButton"/>
 
-@if (User.IsInRole("Admin")){
+@if (User.IsInRole(AppData.Admin) || User.IsInRole(AppData.Librarian)){
     <a class="btn btn-success mb-1 me-4 position-absolute end-0" asp-route-id="@Model.Book.Id" asp-controller="Book" asp-action="Edit"><i class="bi bi-pencil-square"><label class="ms-2">Edytuj</label></i></a>
 }
 

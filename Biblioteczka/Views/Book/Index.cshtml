@@ -1,4 +1,6 @@
 ﻿@using X.PagedList
+@using Biblioteczka.Data;
+
 @model BookViewModel
 @{
     ViewData["Title"] = "Książki";
@@ -8,7 +10,7 @@
 <partial name="Templates/_Alert" model="@TempData["Alert"]?.ToString()"/>
 <partial name="Templates/_SearchBar" model="@Url.Action("Index")"/>
 
-@if (User.IsInRole("Admin")){
+@if (User.IsInRole(AppData.Admin) || User.IsInRole(AppData.Librarian)){
     <partial name="Templates/_BookListAdmin"/>
 }
 else {

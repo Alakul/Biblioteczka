@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Biblioteczka.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20220527184436_SeedRoles")]
+    [Migration("20220527205712_SeedRoles")]
     partial class SeedRoles
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -93,14 +93,14 @@ namespace Biblioteczka.Migrations
                         {
                             Id = "0b948a1f-c552-41af-9818-77ab56a8be88",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "15a30e08-4f0f-47e5-9d96-d8470112d561",
+                            ConcurrencyStamp = "89f6c359-5a11-41d6-9108-8ee4deaffcfa",
                             Email = "admin@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedUserName = "ADMIN@GMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEF1NCbj3k618qa+WGgTjD3PDeZ0l5i/pltrZIhucjA1xbnv2HTl3G/pAAIoej6+iyA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEEKaOJVcgWxLdsV4DXwpoNtSK64PJg3BuvIyp1w0OcaYRLEPyqCnRYCWDdYT2c6f3g==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "39c7851e-db2f-4fde-aa9b-42ebc35af3d5",
+                            SecurityStamp = "c6721404-6c90-4a09-947c-6b8ac3d70e0c",
                             TwoFactorEnabled = false,
                             UserName = "admin@gmail.com"
                         });
@@ -300,22 +300,22 @@ namespace Biblioteczka.Migrations
                         {
                             Id = "14976c8a-e19b-4982-b395-ab0dca5efa99",
                             ConcurrencyStamp = "1",
-                            Name = "Admin",
-                            NormalizedName = "ADMIN"
+                            Name = "Administrator",
+                            NormalizedName = "ADMINISTRATOR"
                         },
                         new
                         {
                             Id = "14976c8a-e19e-4982-b395-ab0dca5efa98",
                             ConcurrencyStamp = "1",
-                            Name = "User",
-                            NormalizedName = "USER"
+                            Name = "Użytkownik",
+                            NormalizedName = "UŻYTKOWNIK"
                         },
                         new
                         {
                             Id = "14936c8a-e19e-4982-b395-ab0dca5efa97",
                             ConcurrencyStamp = "1",
-                            Name = "Librarian",
-                            NormalizedName = "LIBRARIAN"
+                            Name = "Bibliotekarz",
+                            NormalizedName = "BIBLIOTEKARZ"
                         });
                 });
 

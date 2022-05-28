@@ -11,7 +11,7 @@ namespace Biblioteczka.Controllers
     [Route("Autorzy")]
     public class AuthorController : Controller
     {
-        private const string role = "Admin";
+        private const string role = AppData.Admin + "," + AppData.Librarian;
         private readonly AppDbContext db;
         public AuthorController(AppDbContext context)
         {

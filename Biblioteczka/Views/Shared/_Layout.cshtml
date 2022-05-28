@@ -1,5 +1,6 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @using Biblioteczka.Areas.Identity.Data
+@using Biblioteczka.Data;
 
 @inject SignInManager<AppUser> SignInManager
 @inject UserManager<AppUser> UserManager
@@ -32,7 +33,7 @@
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                     <partial name="_LoginPartial.cshtml" />
-                    @if (!User.IsInRole("Admin")){
+                    @if (!User.IsInRole(AppData.Admin) || User.IsInRole(AppData.Librarian)){
                         <ul class="navbar-nav flex-grow-1">
                             <li class="nav-item">
                                 <a class="nav-link text-white fw-bold" asp-controller="Book" asp-action="Index">Książki</a>
@@ -45,7 +46,7 @@
     </header>
 
     
-    @if (User.IsInRole("Admin")) {
+    @if (User.IsInRole(AppData.Admin) || User.IsInRole(AppData.Librarian)) {
         <div id="wrapper" class="d-flex">
             <aside id="sidebar-wrapper" class="border-end bg-white">
                 <div class="sidebar-heading border-bottom bg-light">Zarządzanie</div>
@@ -55,7 +56,9 @@
                     <a class="list-group-item list-group-item-action p-3" asp-controller="Copy" asp-action="Index"><i class="bi bi-bookshelf"></i><label class="ms-3">Ezgemplarze</label></a>
                     <a class="list-group-item list-group-item-action p-3" asp-controller="Loan" asp-action="Index"><i class="bi bi-bookmark-check"></i><label class="ms-3">Wypożyczenia</label></a>
                     <a class="list-group-item list-group-item-action p-3" asp-controller="Reservation" asp-action="Index"><i class="bi bi-calendar2-check"></i><label class="ms-3">Rezerwacje</label></a>
-                    <a class="list-group-item list-group-item-action p-3" asp-controller="User" asp-action="Index"><i class="bi bi-people"></i><label class="ms-3">Użytkownicy</label></a>
+                    @if (User.IsInRole(AppData.Admin)){
+                        <a class="list-group-item list-group-item-action p-3" asp-controller="User" asp-action="Index"><i class="bi bi-people"></i><label class="ms-3">Użytkownicy</label></a>
+                    }
                     <a class="list-group-item list-group-item-action p-3" asp-area="Identity" asp-page="/Account/Manage/Index"><i class="bi bi-gear-wide"></i><label class="ms-3">Ustawienia</label></a>
                 </div>
             </aside>

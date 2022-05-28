@@ -12,16 +12,16 @@ namespace Biblioteczka.Migrations
                 table: "AspNetRoles",
                 keyColumn: "Id",
                 keyValue: "14976c8a-e19b-4982-b395-ab0dca5efa99",
-                column: "NormalizedName",
-                value: "ADMIN");
+                columns: new[] { "Name", "NormalizedName" },
+                values: new object[] { "Administrator", "ADMINISTRATOR" });
 
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "14936c8a-e19e-4982-b395-ab0dca5efa97", "1", "Librarian", "LIBRARIAN" },
-                    { "14976c8a-e19e-4982-b395-ab0dca5efa98", "1", "User", "USER" }
+                    { "14936c8a-e19e-4982-b395-ab0dca5efa97", "1", "Bibliotekarz", "BIBLIOTEKARZ" },
+                    { "14976c8a-e19e-4982-b395-ab0dca5efa98", "1", "Użytkownik", "UŻYTKOWNIK" }
                 });
 
             migrationBuilder.UpdateData(
@@ -29,7 +29,7 @@ namespace Biblioteczka.Migrations
                 keyColumn: "Id",
                 keyValue: "0b948a1f-c552-41af-9818-77ab56a8be88",
                 columns: new[] { "ConcurrencyStamp", "PasswordHash", "SecurityStamp" },
-                values: new object[] { "15a30e08-4f0f-47e5-9d96-d8470112d561", "AQAAAAEAACcQAAAAEF1NCbj3k618qa+WGgTjD3PDeZ0l5i/pltrZIhucjA1xbnv2HTl3G/pAAIoej6+iyA==", "39c7851e-db2f-4fde-aa9b-42ebc35af3d5" });
+                values: new object[] { "89f6c359-5a11-41d6-9108-8ee4deaffcfa", "AQAAAAEAACcQAAAAEEKaOJVcgWxLdsV4DXwpoNtSK64PJg3BuvIyp1w0OcaYRLEPyqCnRYCWDdYT2c6f3g==", "c6721404-6c90-4a09-947c-6b8ac3d70e0c" });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -48,8 +48,8 @@ namespace Biblioteczka.Migrations
                 table: "AspNetRoles",
                 keyColumn: "Id",
                 keyValue: "14976c8a-e19b-4982-b395-ab0dca5efa99",
-                column: "NormalizedName",
-                value: "Admin");
+                columns: new[] { "Name", "NormalizedName" },
+                values: new object[] { "Admin", "Admin" });
 
             migrationBuilder.UpdateData(
                 table: "AspNetUsers",

@@ -9,11 +9,10 @@ using X.PagedList;
 
 namespace Biblioteczka.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = AppData.Admin)]
     [Route("Uzytkownicy")]
     public class UserController : Controller
     {
-        private const string role = "Admin";
         private readonly AppDbContext db;
         private readonly UserManager<AppUser> UserManager;
 
@@ -26,25 +25,16 @@ namespace Biblioteczka.Controllers
 
         public ActionResult Index(string searchString, string sortOrder, int? page, string formValue)
         {
-            /*
-            List<AppUser> users = db.Users.ToList();
-            users = SearchUsers(formValue, searchString, users);
-            users = SortUsers(sortOrder, users);
-            */
             UserViewModel userViewModel = new UserViewModel();
-            List<UserViewModel> users = db.Users.Join(db.UserRoles, x => x.Id, y => y.UserId, (x, y) => new { Users = x, UserRoles = y })
-                .Join(db.Roles, joined => joined.UserRoles.RoleId, b => b.Id,
-                (joined, roles) => new UserViewModel
-                {
-                    User = joined.Users,
-                    Role = roles,
-                })
-                .ToList();
+            List<UserViewModel> users = GetUserList();
 
-            users = SearchUsers(formValue, searchString, users);
-            users = SortUsers(sortOrder, users);
+            HttpContextAccessor httpContextAccessor = new HttpContextAccessor();
+            var tuple = AppMethods.Search(httpContextAccessor, users, "SearchStringUser", formValue, searchString);
+            users = tuple.Item1;
+            ViewBag.SearchString = tuple.Item2;
+            users = AppMethods.Sort(httpContextAccessor, users, "SortOrderUser", sortOrder);
 
-            int pageSize = 5;
+            int pageSize = 20;
             int pageNumber = (page ?? 1);
             userViewModel.UserList = users.ToPagedList(pageNumber, pageSize);
             return View(userViewModel);
@@ -181,94 +171,18 @@ namespace Biblioteczka.Controllers
         }
 
 
-
-
-
-        //SEARCH
-        private List<UserViewModel> SearchUsers(string formValue, string searchString, List<UserViewModel> users)
+        //GET
+        private List<UserViewModel> GetUserList()
         {
-            CookieOptions options = new CookieOptions();
-            string cookieName = "SearchStringUser";
-            string cookie = Request.Cookies[cookieName];
+            List<UserViewModel> users = db.Users.Join(db.UserRoles, x => x.Id, y => y.UserId, (x, y) => new { Users = x, UserRoles = y })
+                .Join(db.Roles, joined => joined.UserRoles.RoleId, b => b.Id,
+                (joined, roles) => new UserViewModel
+                {
+                    User = joined.Users,
+                    Role = roles,
+                })
+                .ToList();
 
-            if (formValue == null){
-                if (cookie != null){
-                    users = users.Where(x => x.User.UserName.ToLower().Contains(cookie.ToLower()) ||
-                        x.User.Email.ToLower().Contains(cookie.ToLower())).ToList();
-                    ViewBag.SearchString = cookie;
-                }
-                else {
-                    users = users.ToList();
-                    ViewBag.SearchString = "";
-                }
-            }
-            else if (searchString == null && formValue == "1"){
-                users = users.ToList();
-                Response.Cookies.Delete(cookieName);
-                ViewBag.SearchString = "";
-            }
-            else if (searchString != null && formValue == "1"){
-                string newValue = searchString.Trim();
-                if (!string.IsNullOrEmpty(newValue)){
-                    if (newValue != cookie){
-                        Response.Cookies.Append(cookieName, newValue, options);
-                    }
-                    users = users.Where(x => x.User.UserName.ToLower().Contains(newValue.ToLower()) ||
-                        x.User.Email.ToLower().Contains(newValue.ToLower())).ToList();
-                    ViewBag.SearchString = newValue;
-                }
-                else {
-                    users = users.ToList();
-                    ViewBag.SearchString = "";
-                }
-            }
-
-            return users;
-        }
-
-        //SORT
-        private List<UserViewModel> SortUsers(string sortOrder, List<UserViewModel> users)
-        {
-            CookieOptions options = new CookieOptions();
-            string cookieName = "SortOrderUser";
-
-            if (sortOrder == null){
-                string cookie = Request.Cookies[cookieName];
-                if (cookie != null){
-                    users = GetUsers(cookie, users);
-                }
-            }
-            else if (sortOrder != null){
-                users = GetUsers(sortOrder, users);
-                if (sortOrder != null){
-                    Response.Cookies.Append(cookieName, sortOrder, options);
-                }
-            }
-
-            return users;
-        }
-
-        //SWITCH
-        private List<UserViewModel> GetUsers(string sort, List<UserViewModel> users)
-        {
-            switch (sort)
-            {
-                case "UserNameAsc":
-                    users = users.OrderBy(x => x.User.UserName).ToList();
-                    break;
-                case "UserNameDesc":
-                    users = users.OrderByDescending(x => x.User.UserName).ToList();
-                    break;
-                case "EmailAsc":
-                    users = users.OrderBy(x => x.User.Email).ToList();
-                    break;
-                case "EmailDesc":
-                    users = users.OrderByDescending(x => x.User.Email).ToList();
-                    break;
-                default:
-                    users = users.OrderBy(x => x.User.UserName).ToList();
-                    break;
-            }
             return users;
         }
     }

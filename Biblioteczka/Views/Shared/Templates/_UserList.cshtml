@@ -16,8 +16,8 @@
                     <a class="text-decoration-none text-dark" href="@Url.Action("Index", "User", new { sortOrder = "EmailDesc" })"><i class="bi bi-arrow-down"></i></a>
                 </th>
                 <th scope="col"><label class="me-2">Role</label>
-                    <a class="text-decoration-none text-dark" href="@Url.Action("Index", "User", new { sortOrder = "EmailAsc" })"><i class="bi bi-arrow-up"></i></a>
-                    <a class="text-decoration-none text-dark" href="@Url.Action("Index", "User", new { sortOrder = "EmailDesc" })"><i class="bi bi-arrow-down"></i></a>
+                    <a class="text-decoration-none text-dark" href="@Url.Action("Index", "User", new { sortOrder = "RoleAsc" })"><i class="bi bi-arrow-up"></i></a>
+                    <a class="text-decoration-none text-dark" href="@Url.Action("Index", "User", new { sortOrder = "RoleDesc" })"><i class="bi bi-arrow-down"></i></a>
                 </th>
                 <th scope="col" class="text-end"></th>
             </tr>
@@ -30,16 +30,7 @@
                     <th scope="row">@user.User.Id</th>
                     <td><a class="text-decoration-none text-dark" asp-route-id="@user.User.Id" asp-controller="User" asp-action="Details">@user.User.UserName</a></td>
                     <td>@user.User.Email</td>
-                    
-                    @if (user.Role.Name == "Admin"){
-                        <td>Administrator</td>
-                    }
-                    else if (user.Role.Name == "Librarian"){
-                        <td>Bibliotekarz</td>
-                    }
-                    else if (user.Role.Name == "User"){
-                        <td>Użytkownik</td>
-                    }
+                    <td>@user.Role.Name</td>
                     <td class="text-end">
                     @if (UserManager.GetUserId(User) != @user.User.Id){
                         <a class="btn btn-primary mb-1" asp-route-id="@user.User.Id" asp-controller="User" asp-action="Role">Rola</a>

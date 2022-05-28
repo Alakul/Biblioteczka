@@ -1,7 +1,14 @@
 ﻿namespace Biblioteczka.Data
 {
-    public class AppData
+    public static class AppData
     {
+
+        public const string Admin = "Administrator";
+        public const string Librarian = "Bibliotekarz";
+        public const string User = "Użytkownik";
+
+
+
         //BOOK
         public static List<string> bookCategories = new List<string> {
             "Thriller", "Horror", "Dramat", "Popularno-naukowa"

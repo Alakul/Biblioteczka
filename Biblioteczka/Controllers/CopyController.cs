@@ -11,7 +11,7 @@ namespace Biblioteczka.Controllers
     [Route("Egzemplarze")]
     public class CopyController : Controller
     {
-        private const string role = "Admin";
+        private const string role = AppData.Admin + "," + AppData.Librarian;
         private readonly AppDbContext db;
         public CopyController(AppDbContext context)
         {

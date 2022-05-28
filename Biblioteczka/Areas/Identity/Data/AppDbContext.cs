@@ -36,8 +36,8 @@ public class AppDbContext : IdentityDbContext<AppUser>
         IdentityRole identityRole = new IdentityRole()
         {
             Id = "14976c8a-e19b-4982-b395-ab0dca5efa99",
-            Name = "Admin",
-            NormalizedName = "ADMIN",
+            Name = "Administrator",
+            NormalizedName = "ADMINISTRATOR",
             ConcurrencyStamp = "1"
         };
         builder.Entity<IdentityRole>().HasData(identityRole);
@@ -65,14 +65,14 @@ public class AppDbContext : IdentityDbContext<AppUser>
         builder.Entity<IdentityRole>().HasData(
             new IdentityRole {
                 Id = "14976c8a-e19e-4982-b395-ab0dca5efa98",
-                Name = "User",
-                NormalizedName = "USER",
+                Name = "Użytkownik",
+                NormalizedName = "UŻYTKOWNIK",
                 ConcurrencyStamp = "1"
             },
             new IdentityRole {
                 Id = "14936c8a-e19e-4982-b395-ab0dca5efa97",
-                Name = "Librarian",
-                NormalizedName = "LIBRARIAN",
+                Name = "Bibliotekarz",
+                NormalizedName = "BIBLIOTEKARZ",
                 ConcurrencyStamp = "1"
             }
         );

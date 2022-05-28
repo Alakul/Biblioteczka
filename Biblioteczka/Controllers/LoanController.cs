@@ -13,7 +13,7 @@ namespace Biblioteczka.Controllers
     [Route("Wypozyczone")]
     public class LoanController : Controller
     {
-        private const string role = "Admin";
+        private const string role = AppData.Admin + "," + AppData.Librarian;
         private readonly AppDbContext db;
         private readonly UserManager<AppUser> UserManager;
         public LoanController(AppDbContext context, UserManager<AppUser> userManager)

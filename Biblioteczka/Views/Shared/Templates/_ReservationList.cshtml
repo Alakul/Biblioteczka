@@ -1,5 +1,6 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @using Biblioteczka.Areas.Identity.Data
+@using Biblioteczka.Data;
 @inject UserManager<AppUser> UserManager
 
 <div class="bg-white rounded shadow ps-3 pe-3 pt-1 pb-1 mt-3">
@@ -38,7 +39,7 @@
                         <td><a class="text-decoration-none text-dark" asp-route-id="@List.Reservation.BookId" asp-controller="Book" asp-action="Details">@List.Copy.Number</a></td>
                         <td>@List.Reservation.Date</td>
                         <td class="text-end">
-                            @if (User.IsInRole("Admin")){
+                            @if (User.IsInRole(AppData.Admin) || User.IsInRole(AppData.Librarian)){
                                 <a class="btn btn-success mb-1" asp-route-id="@List.Reservation.Id" asp-controller="Loan" asp-action="Create">Wypożycz</a>
                             }
                             <a class="btn btn-danger mb-1" data-bs-toggle="modal" data-bs-target="#deleteModal_@List.Reservation.Id"><i class="bi bi-trash3-fill"></i></a>

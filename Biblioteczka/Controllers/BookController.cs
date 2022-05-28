@@ -13,7 +13,7 @@ namespace Biblioteczka.Controllers
     [Route("Ksiazki")]
     public class BookController : Controller
     {
-        private const string role = "Admin";
+        private const string role = AppData.Admin + "," + AppData.Librarian;
         private readonly AppDbContext db;
         private readonly IWebHostEnvironment webHostEnvironment;
         public BookController(AppDbContext context, IWebHostEnvironment hostEnvironment)
