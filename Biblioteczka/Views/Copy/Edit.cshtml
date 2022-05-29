@@ -18,13 +18,13 @@
 
             <div class="mb-3">
                 <label for="Status">Status</label>
-                <select id="Status" name="Copy.Status" class="form-control" >
-                    @for (int i = 0; i < @ViewBag.Categories.Count; i++){
-                        @if (i == int.Parse(Model.Copy.Status)){
-                            <option value="@i" selected>@ViewBag.Categories[@i]</option>
+                <select id="Status" name="Copy.Status" class="form-control selected-value" >
+                    @foreach (var item in @ViewBag.Status){
+                        @if (item.Key == @Model.Copy.Status){
+                            <option value="@item.Key" selected>@item.Value</option>
                         }
                         else {
-                            <option value="@i">@ViewBag.Categories[@i]</option>
+                            <option value="@item.Key">@item.Value</option>
                         }
                     }
                 </select>

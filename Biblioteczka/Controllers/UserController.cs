@@ -124,10 +124,19 @@ namespace Biblioteczka.Controllers
 
         // GET: UserController/Role/5
         [Route("ZmienRole/{id}")]
-        public async Task<ActionResult> Role(string id)
+        public ActionResult Role(string id)
         {
-            AppUser appUser = await UserManager.FindByIdAsync(id);
-            return View(appUser);
+            ViewBag.Roles = AppData.roleTypes;
+
+            UserViewModel user = db.Users.Join(db.UserRoles, x => x.Id, y => y.UserId, (x, y) => new { Users = x, UserRoles = y })
+                .Join(db.Roles, joined => joined.UserRoles.RoleId, b => b.Id,
+                (joined, roles) => new UserViewModel
+                {
+                    User = joined.Users,
+                    Role = roles,
+                }).Where(x => x.User.Id == id).Single();
+
+            return View(user);
         }
 
         // POST: UserController/Role
@@ -136,6 +145,8 @@ namespace Biblioteczka.Controllers
         [Route("ZmienRole/{id}")]
         public async Task<ActionResult> Role(string id, IFormCollection collection)
         {
+            ViewBag.Roles = AppData.roleTypes;
+
             try
             {
                 AppUser appUser = await UserManager.FindByIdAsync(id);

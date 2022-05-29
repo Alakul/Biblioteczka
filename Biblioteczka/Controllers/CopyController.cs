@@ -52,7 +52,7 @@ namespace Biblioteczka.Controllers
             CopyCreateEditViewModel copyCreateEditViewModel = new CopyCreateEditViewModel();
             copyCreateEditViewModel.BookId = id;
 
-            GetList();
+            GetStatusList();
             return View(copyCreateEditViewModel);
         }
 
@@ -63,6 +63,8 @@ namespace Biblioteczka.Controllers
         [Route("Dodaj/{id}")]
         public ActionResult Create(int id, CopyCreateEditViewModel model)
         {
+            GetStatusList();
+
             try
             {
                 Copy copy = new Copy
@@ -78,13 +80,11 @@ namespace Biblioteczka.Controllers
                 db.Copy.Add(copy);
                 db.SaveChanges();
 
-                GetList();
                 TempData["Alert"] = "Success";
                 return RedirectToAction(nameof(Create));
             }
             catch
             {
-                GetList();
                 TempData["Alert"] = "Danger";
                 return RedirectToAction(nameof(Create));
             }
@@ -101,7 +101,7 @@ namespace Biblioteczka.Controllers
             copyViewModel.BookId = copy.BookId;
             copyViewModel.Copy = copy;
 
-            GetList();
+            GetStatusList();
             return View(copyViewModel);
         }
 
@@ -112,6 +112,8 @@ namespace Biblioteczka.Controllers
         [Route("Edytuj/{id}")]
         public ActionResult Edit(int id, CopyCreateEditViewModel model)
         {
+            GetStatusList();
+
             try
             {
                 Copy copy = db.Copy.Where(x => x.Id == id).Single();
@@ -124,13 +126,11 @@ namespace Biblioteczka.Controllers
                 db.Copy.Update(copy);
                 db.SaveChanges();
 
-                GetList();
                 TempData["Alert"] = "Success";
                 return RedirectToAction(nameof(Edit));
             }
             catch
             {
-                GetList();
                 TempData["Alert"] = "Danger";
                 return RedirectToAction(nameof(Edit));
             }
@@ -193,9 +193,9 @@ namespace Biblioteczka.Controllers
 
             return copies;
         }
-        private void GetList()
+        private void GetStatusList()
         {
-            ViewBag.Categories = AppData.copyCategories;
+            ViewBag.Status = AppData.copyStatus;
         }
     }
 }

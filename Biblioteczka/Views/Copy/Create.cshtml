@@ -18,8 +18,10 @@
 
             <div class="mb-3">
                 <label for="Status">Status</label>
-                <select id="Status" name="Copy.Status" class="form-control">
-                    <partial name="Templates/_Select" model="@ViewBag.Categories"/>
+                <select id="Status" name="Copy.Status" class="form-select">
+                    @foreach (var item in @ViewBag.Status){
+                        <option value="@item.Key">@item.Value</option>
+                    }
                 </select>
             </div>
         

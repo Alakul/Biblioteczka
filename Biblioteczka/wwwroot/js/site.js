@@ -56,3 +56,7 @@ function fileSizeValidate(file) {
         }
     }
 }
+
+
+
+$(".selected-value option:selected").css({ "background-color": "#F2545B", color: "white" });

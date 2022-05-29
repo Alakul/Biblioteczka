@@ -12,14 +12,19 @@
 
             <div class="mb-3">
                 <label>Użytkownik</label>
-                <p class="form-control">@Model.UserName</p>
+                <p class="form-control">@Model.User.UserName</p>
             </div>
 
             <div class="mb-3">
-                <select name="Role" class="form-control">
-                    <option value="Użytkownik" selected>Zwykły użytkownik</option>
-                    <option value="Bibliotekarz">Bibliotekarz</option>
-                    <option value="Administrator">Administrator</option>
+                <select name="Role" class="form-control selected-value">
+                    @foreach (var item in @ViewBag.Roles){
+                        @if (item == @Model.Role.Name){
+                            <option value="@item" selected>@item</option>
+                        }
+                        else {
+                            <option value="@item">@item</option>
+                        }
+                    }
                 </select>
             </div>
 
