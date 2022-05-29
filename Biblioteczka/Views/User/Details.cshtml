@@ -7,8 +7,12 @@
 <div class="col-sm-6 mx-auto bg-white rounded shadow d-flex">
     <div class="col-12 p-3">
         <div class="text-center">
-            <h4>@Model.UserName</h4>
-            <p>Id: @Model.Id</p>
+            <h4>@Model.User.UserName</h4>
+            <p class="mt-3">Id: @Model.User.Id</p>
+            <p>Email: @Model.User.Email</p>
+            @if (Model.Role!=null && !string.IsNullOrEmpty(Model.Role.Name)){
+                <p>Rola: @Model.Role.Name</p>
+            }
         </div>
     </div>  
 </div>

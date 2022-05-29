@@ -11,13 +11,13 @@
             <partial name="Templates/_FormHeader" model="@ViewData["Title"]"/>
         
             <div class="mb-3">
-                <label for="UserName">Nazwa</label>
-                <input id="UserName" name="UserName" type="text" class="form-control" minlength="3" maxlength="100" required>
+                <label for="UserName">Login</label>
+                <input id="UserName" name="UserName" type="text" class="form-control" minlength="3" maxlength="100" value="@Model.UserName" required>
             </div>
 
             <div class="mb-3">
                 <label for="Email">Email</label>
-                <input id="Email" name="Email" type="text" class="form-control" minlength="3" maxlength="100" required>
+                <input id="Email" name="Email" type="text" class="form-control" minlength="3" maxlength="100" value="@Model.Email" required>
             </div>
 
             <partial name="Templates/_FormButton"/>

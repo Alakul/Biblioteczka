@@ -15,10 +15,7 @@
                     <a class="text-decoration-none text-dark" href="@Url.Action("Index", "User", new { sortOrder = "EmailAsc" })"><i class="bi bi-arrow-up"></i></a>
                     <a class="text-decoration-none text-dark" href="@Url.Action("Index", "User", new { sortOrder = "EmailDesc" })"><i class="bi bi-arrow-down"></i></a>
                 </th>
-                <th scope="col"><label class="me-2">Role</label>
-                    <a class="text-decoration-none text-dark" href="@Url.Action("Index", "User", new { sortOrder = "RoleAsc" })"><i class="bi bi-arrow-up"></i></a>
-                    <a class="text-decoration-none text-dark" href="@Url.Action("Index", "User", new { sortOrder = "RoleDesc" })"><i class="bi bi-arrow-down"></i></a>
-                </th>
+                <th scope="col">Role</th>
                 <th scope="col" class="text-end"></th>
             </tr>
         </thead>
@@ -29,19 +26,25 @@
                 <tr>
                     <th scope="row">@user.User.Id</th>
                     <td><a class="text-decoration-none text-dark" asp-route-id="@user.User.Id" asp-controller="User" asp-action="Details">@user.User.UserName</a></td>
-                    <td>@user.User.Email</td>
-                    <td>@user.Role.Name</td>
+                    <td><a class="text-decoration-none text-dark" asp-route-id="@user.User.Id" asp-controller="User" asp-action="Details">@user.User.Email</a></td>
+                    @if (user.Role!=null && !string.IsNullOrEmpty(user.Role.Name)){
+                        <td>@user.Role.Name</td>
+                    }
+                    else {
+                        <td></td>
+                    }
+                    
                     <td class="text-end">
                     @if (UserManager.GetUserId(User) != @user.User.Id){
                         <a class="btn btn-primary mb-1" asp-route-id="@user.User.Id" asp-controller="User" asp-action="Role">Rola</a>
-                        <a class="btn btn-success mb-1" href="#"><i class="bi bi-pencil-square"></i></a>
+                        <a class="btn btn-success mb-1" asp-route-id="@user.User.Id" asp-controller="User" asp-action="Edit"><i class="bi bi-pencil-square"></i></a>
                         <a class="btn btn-danger mb-1" data-bs-toggle="modal" data-bs-target="#deleteModal_@user.User.Id"><i class="bi bi-trash3-fill"></i></a>
                         <form asp-route-id="@user.User.Id" asp-controller="User" asp-action="Delete" method="post">
                             <partial name="Templates/_ModalDelete" model="@user.User.Id"/>
                         </form>
                     }
                     else {
-                        <a class="btn btn-primary" href="#">Edytuj profil</a>
+                        <a class="btn btn-primary" asp-route-id="@user.User.Id" asp-controller="User" asp-action="Edit">Edytuj profil</a>
                     }
                 </tr>
             }

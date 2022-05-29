@@ -14,7 +14,6 @@
             ReturnDateAsc, ReturnDateDesc,
             UserNameAsc, UserNameDesc,
             EmailAsc, EmailDesc,
-            RoleAsc, RoleDesc,
         }
     }
 }

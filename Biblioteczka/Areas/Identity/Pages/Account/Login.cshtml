@@ -11,11 +11,10 @@
 		<hr />
 		<div asp-validation-summary="ModelOnly" class="text-danger"></div>
 		<div class="mb-3">
-			<label asp-for="Input.Email">Email</label>
-			<input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" 
-				data-val-email="Pole Email nie jest prawidłowym adresem email." 
-				data-val-required="Pole Email jest wymagane."/>
-			<span asp-validation-for="Input.Email" class="text-danger"></span>
+			<label asp-for="Input.UserName">Login</label>
+			<input asp-for="Input.UserName" class="form-control"
+				data-val-required="Pole Login jest wymagane."/>
+			<span asp-validation-for="Input.UserName" class="text-danger"></span>
 		</div>
 		<div class="mb-3">
 			<label asp-for="Input.Password">Hasło</label>

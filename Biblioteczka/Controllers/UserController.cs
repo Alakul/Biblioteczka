@@ -42,10 +42,11 @@ namespace Biblioteczka.Controllers
 
         // GET: UserController/Details/5
         [Route("Szczegoly/{id}")]
-        public async Task<ActionResult> Details(string id)
+        public ActionResult Details(string id)
         {
-            AppUser appUser = await UserManager.FindByIdAsync(id);
-            return View(appUser);
+            List<UserViewModel> allUsers = GetUserList();
+            UserViewModel user = allUsers.Where(x => x.User.Id == id).Single();
+            return View(user);
         }
 
         // GET: UserController/Create
@@ -73,24 +74,50 @@ namespace Biblioteczka.Controllers
 
         // GET: UserController/Edit/5
         [Route("Edytuj/{id}")]
-        public ActionResult Edit(int id)
+        public async Task<ActionResult> Edit(string id)
         {
-            return View();
+            AppUser appUser = await UserManager.FindByIdAsync(id);
+            return View(appUser);
         }
 
         // POST: UserController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Route("Edytuj/{id}")]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public async Task<ActionResult> Edit(string id, IFormCollection collection)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                string emailNormalized = collection["Email"].ToString().ToUpper();
+                string userNameNormalized = collection["UserName"].ToString().ToUpper();
+
+                AppUser appUser = await UserManager.FindByIdAsync(id);
+                List<AppUser> users = db.Users.Where(x => x.NormalizedUserName == userNameNormalized).ToList();
+
+                if (users.Count == 0)
+                {
+                    appUser.Email = collection["Email"];
+                    appUser.NormalizedEmail = emailNormalized;
+
+                    appUser.UserName = collection["UserName"];
+                    appUser.NormalizedUserName = userNameNormalized;
+
+                    db.Users.Update(appUser);
+                    db.SaveChanges();
+
+                    TempData["Alert"] = "Success";
+                    return RedirectToAction(nameof(Edit));
+                }
+                else
+                {
+                    TempData["Alert"] = "Danger";
+                    return RedirectToAction(nameof(Edit));
+                }
             }
             catch
             {
-                return View();
+                TempData["Alert"] = "Danger";
+                return RedirectToAction(nameof(Edit));
             }
         }
 
@@ -128,14 +155,8 @@ namespace Biblioteczka.Controllers
         {
             ViewBag.Roles = AppData.roleTypes;
 
-            UserViewModel user = db.Users.Join(db.UserRoles, x => x.Id, y => y.UserId, (x, y) => new { Users = x, UserRoles = y })
-                .Join(db.Roles, joined => joined.UserRoles.RoleId, b => b.Id,
-                (joined, roles) => new UserViewModel
-                {
-                    User = joined.Users,
-                    Role = roles,
-                }).Where(x => x.User.Id == id).Single();
-
+            List<UserViewModel> allUsers = GetUserList();
+            UserViewModel user = allUsers.Where(x => x.User.Id == id).Single();
             return View(user);
         }
 
@@ -158,7 +179,12 @@ namespace Biblioteczka.Controllers
                         var resultDelete = await UserManager.RemoveFromRolesAsync(appUser, currentRoles);
                     }
 
-                    var resultAdd = await UserManager.AddToRoleAsync(appUser, collection["Role"]);
+                    var resultRole = "Użytkownik";
+                    if (collection["Role"].ToString() != ""){
+                        resultRole = collection["Role"];
+                    }
+
+                    var resultAdd = await UserManager.AddToRoleAsync(appUser, resultRole);
                     if (resultAdd.Succeeded){
                         TempData["Alert"] = "Success";
                         return RedirectToAction(nameof(Role));
@@ -185,16 +211,17 @@ namespace Biblioteczka.Controllers
         //GET
         private List<UserViewModel> GetUserList()
         {
-            List<UserViewModel> users = db.Users.Join(db.UserRoles, x => x.Id, y => y.UserId, (x, y) => new { Users = x, UserRoles = y })
-                .Join(db.Roles, joined => joined.UserRoles.RoleId, b => b.Id,
-                (joined, roles) => new UserViewModel
+            List<UserViewModel> allUsers = (
+                from a in db.Users join b in db.UserRoles on a.Id equals b.UserId into ab
+                from c in ab.DefaultIfEmpty() join d in db.Roles on c.RoleId equals d.Id into cd
+                from e in cd.DefaultIfEmpty()
+                select new UserViewModel
                 {
-                    User = joined.Users,
-                    Role = roles,
-                })
-                .ToList();
+                    User = a,
+                    Role = e,
+                }).ToList();
 
-            return users;
+            return allUsers;
         }
     }
 }

@@ -105,6 +105,11 @@ body.sb-sidenav-toggled #wrapper #sidebar-wrapper {
     background-color: #F2545B;
     border-color: #F2545B;
 }
+.btn-check:checked + .btn-primary, .btn-check:active + .btn-primary, .btn-primary:active, .btn-primary.active, .show > .btn-primary.dropdown-toggle {
+    background-color: #F2545B;
+    border-color: #F2545B;
+}
+
 
 
 .page-item.active .page-link {

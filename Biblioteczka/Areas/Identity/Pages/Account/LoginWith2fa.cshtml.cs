@@ -124,7 +124,7 @@ namespace Biblioteczka.Areas.Identity.Pages.Account
             else
             {
                 _logger.LogWarning("Invalid authenticator code entered for user with ID '{UserId}'.", user.Id);
-                ModelState.AddModelError(string.Empty, "Invalid authenticator code.");
+                ModelState.AddModelError(string.Empty, "Nieprawidłowy kod uwierzytelnienia.");
                 return Page();
             }
         }

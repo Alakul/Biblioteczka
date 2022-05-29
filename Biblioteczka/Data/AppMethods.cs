@@ -244,8 +244,6 @@ namespace Biblioteczka.Data
             SortValues.UserNameDesc => elements = elements.OrderByDescending(x => x.User.UserName).ToList(),
             SortValues.EmailAsc => elements = elements.OrderBy(x => x.User.Email).ToList(),
             SortValues.EmailDesc => elements = elements.OrderByDescending(x => x.User.Email).ToList(),
-            SortValues.RoleAsc => elements = elements.OrderBy(x => x.Role.Name).ToList(),
-            SortValues.RoleDesc => elements = elements.OrderByDescending(x => x.Role.Name).ToList(),
             _ => elements = elements.OrderByDescending(x => x.User.UserName).ToList(),
         };
 
