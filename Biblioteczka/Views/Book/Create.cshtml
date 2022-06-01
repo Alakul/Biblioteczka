@@ -3,9 +3,11 @@
     ViewData["Title"] = "Dodaj książkę";
 }
 
-<partial name="Templates/_BackButton"/>
+<div class="mb-3">
+    <partial name="Templates/_BackButton"/>
+</div>
 
-<div class="col-sm-6 mx-auto">
+<div class="col-sm-8 col-md-6 mx-auto">
     <partial name="Templates/_Alert" model="@TempData["Alert"]?.ToString()"/>
     <div class="bg-white rounded shadow p-4">
         <form asp-controller="Book" asp-action="Create" method="post" enctype="multipart/form-data">
@@ -18,7 +20,7 @@
 
             <div class="mb-3">
                 <label for="Author">Autor</label>
-                <select id="Author" name="Book.AuthorId" class="form-control">
+                <select id="Author" name="Book.AuthorId" class="form-select">
                     @foreach (var Author in @Model.Authors){
                         <option value="@Author.Id">@Author.Name @Author.LastName</option>
                     }
@@ -27,6 +29,7 @@
             <script type="text/javascript">
                 $('#Author').select2({
                    theme: "bootstrap-5",
+                   width: $( this ).data( 'width' ) ? $( this ).data( 'width' ) : $( this ).hasClass( 'w-100' ) ? '100%' : 'style',
                    "language": {
                        "noResults": function(){
                            return "Nie znaleziono.";

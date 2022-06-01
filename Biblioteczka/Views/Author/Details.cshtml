@@ -1,4 +1,5 @@
 ﻿@using X.PagedList
+@using Biblioteczka.Data;
 
 @model BookViewModel
 @{
@@ -6,11 +7,13 @@
      Tuple<IPagedList<BookViewModel>, string, string> paginationData = new Tuple<IPagedList<BookViewModel>, string, string>(@Model.BookList, "Autorzy", "Szczegoly");
 }
 
-<partial name="Templates/_BackButton"/>
+<div class="mb-3 d-flex justify-content-between">
+    <partial name="Templates/_BackButton"/>
 
-@if (User.IsInRole("Admin")){
-    <a class="btn btn-success mb-1 me-4 position-absolute end-0" asp-route-id="@Model.Author.Id" asp-controller="Author" asp-action="Edit"><i class="bi bi-pencil-square"><label class="ms-2">Edytuj</label></i></a>
-}
+    @if (User.IsInRole(AppData.Admin) || User.IsInRole(AppData.Librarian)){
+        <a class="btn btn-success" asp-route-id="@Model.Author.Id" asp-controller="Author" asp-action="Edit"><i class="bi bi-pencil-square"></i><label class="ms-2">Edytuj</label></a>
+    }
+</div>
 
 <div class="col-sm-6 mx-auto bg-white rounded shadow d-flex">
     <div class="col-12 p-3">

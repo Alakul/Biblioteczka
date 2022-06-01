@@ -14,7 +14,7 @@ namespace Biblioteczka.Models
 
         [ForeignKey("BookId")]
         public int BookId { get; set; }
-        public Book? Book { get; set; }
+        
 
         public int Number { get; set; }
         public string Status { get; set; }

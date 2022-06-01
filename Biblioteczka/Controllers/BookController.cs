@@ -116,6 +116,7 @@ namespace Biblioteczka.Controllers
 
             BookCreateEditViewModel bookCreateEditViewModel = new BookCreateEditViewModel();
             bookCreateEditViewModel.Book = book;
+            bookCreateEditViewModel.Author = db.Author.Where(x=>x.Id == book.AuthorId).Single();
             bookCreateEditViewModel.Authors = db.Author.ToList();
 
             return View(bookCreateEditViewModel);

@@ -35,9 +35,9 @@
             {
                 <tr>
                     <th scope="row">@List.Copy.Id</th>
-                    <td><a class="text-decoration-none text-dark" asp-route-id="@List.Book.Id" asp-controller="Book" asp-action="Details">@List.Copy.Book.Title</a></td>
+                    <td><a class="text-decoration-none text-dark" asp-route-id="@List.Book.Id" asp-controller="Book" asp-action="Details">@List.Book.Title</a></td>
                     <td><img src="~/images/@List.Book.Image" style="object-fit: cover;" height="100"/></td>
-                    <td><a class="text-decoration-none text-dark" asp-route-id="@List.Author.Id" asp-controller="Author" asp-action="Details">@List.Copy.Book.Author.Name @List.Copy.Book.Author.LastName</a></td>
+                    <td><a class="text-decoration-none text-dark" asp-route-id="@List.Author.Id" asp-controller="Author" asp-action="Details">@List.Book.Author.Name @List.Book.Author.LastName</a></td>
                     <td><a class="text-decoration-none text-dark" asp-route-id="@List.Book.Id" asp-controller="Book" asp-action="Details">@List.Copy.Number</a></td>
 
                     @if (List.Copy.Status=="0"){

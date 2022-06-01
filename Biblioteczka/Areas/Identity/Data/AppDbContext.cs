@@ -13,6 +13,7 @@ public class AppDbContext : IdentityDbContext<AppUser>
     public DbSet<Copy> Copy { get; set; }
     public DbSet<Loan> Loan { get; set; }
     public DbSet<Reservation> Reservation { get; set; }
+    public DbSet<Profile> Profile { get; set; }
 
     public AppDbContext(DbContextOptions<AppDbContext> options)
         : base(options)

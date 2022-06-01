@@ -56,9 +56,7 @@
                     <a class="list-group-item list-group-item-action p-3" asp-controller="Copy" asp-action="Index"><i class="bi bi-bookshelf"></i><label class="ms-3">Ezgemplarze</label></a>
                     <a class="list-group-item list-group-item-action p-3" asp-controller="Loan" asp-action="Index"><i class="bi bi-bookmark-check"></i><label class="ms-3">Wypożyczenia</label></a>
                     <a class="list-group-item list-group-item-action p-3" asp-controller="Reservation" asp-action="Index"><i class="bi bi-calendar2-check"></i><label class="ms-3">Rezerwacje</label></a>
-                    @if (User.IsInRole(AppData.Admin)){
-                        <a class="list-group-item list-group-item-action p-3" asp-controller="User" asp-action="Index"><i class="bi bi-people"></i><label class="ms-3">Użytkownicy</label></a>
-                    }
+                    <a class="list-group-item list-group-item-action p-3" asp-controller="User" asp-action="Index"><i class="bi bi-people"></i><label class="ms-3">Użytkownicy</label></a>
                     <a class="list-group-item list-group-item-action p-3" asp-area="Identity" asp-page="/Account/Manage/Index"><i class="bi bi-gear-wide"></i><label class="ms-3">Ustawienia</label></a>
                 </div>
             </aside>

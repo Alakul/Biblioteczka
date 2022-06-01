@@ -12,11 +12,13 @@
     Tuple<IPagedList<Copy>, string, string> paginationData = new Tuple<IPagedList<Copy>, string, string>(@Model.CopyList, "Ksiazki", "Szczegoly");
 }
 
-<partial name="Templates/_BackButton"/>
+<div class="mb-3 d-flex justify-content-between">
+    <partial name="Templates/_BackButton"/>
 
-@if (User.IsInRole(AppData.Admin) || User.IsInRole(AppData.Librarian)){
-    <a class="btn btn-success mb-1 me-4 position-absolute end-0" asp-route-id="@Model.Book.Id" asp-controller="Book" asp-action="Edit"><i class="bi bi-pencil-square"><label class="ms-2">Edytuj</label></i></a>
-}
+    @if (User.IsInRole(AppData.Admin) || User.IsInRole(AppData.Librarian)){
+        <a class="btn btn-success" asp-route-id="@Model.Book.Id" asp-controller="Book" asp-action="Edit"><i class="bi bi-pencil-square"></i><label class="ms-2">Edytuj</label></a>
+    }
+</div>
 
 <div class="col-sm-6 mx-auto bg-white rounded shadow d-flex mb-3">
     <div class="col-4 p-3">
@@ -25,7 +27,7 @@
     <div class="col-8 p-3">
         <div class="text-center">
             <h4>@Model.Book.Title</h4>
-            <p>@Model.Author.Name @Model.Author.LastName</p>
+            <p><a class="text-decoration-none text-dark" asp-route-id="@Model.Author.Id" asp-controller="Author" asp-action="Details">@Model.Author.Name @Model.Author.LastName</a></p>
         </div>          
         <p style="text-align: justify;">@Model.Book.Description</p>
 
@@ -36,5 +38,4 @@
 
 <partial name="Templates/_Alert" model="@TempData["Alert"]?.ToString()"/>
 <partial name="Templates/_CopyList"/>
-
 <partial name="Templates/_Pagination" model="@paginationData"/>

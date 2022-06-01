@@ -18,9 +18,7 @@
                 <li><a class="dropdown-item" asp-controller="Copy" asp-action="Index">Egzemplarze</a></li>
                 <li><a class="dropdown-item" asp-controller="Loan" asp-action="Index">Wypożyczone</a></li>
                 <li><a class="dropdown-item" asp-controller="Reservation" asp-action="Index">Rezerwacje</a></li>
-                @if (User.IsInRole(AppData.Admin)){
-                    <li><a class="dropdown-item" asp-controller="User" asp-action="Index">Użytkownicy</a></li>
-                }
+                <li><a class="dropdown-item" asp-controller="User" asp-action="Index">Użytkownicy</a></li>
                 <li><a class="dropdown-item" asp-area="Identity" asp-page="/Account/Manage/Index">Ustawienia</a></li>
                 <li><hr class="dropdown-divider"></li>
                 <li>
@@ -56,9 +54,6 @@
     }
     else
     {
-        <li class="nav-item">
-            <a class="nav-link text-white fw-bold" id="register" asp-area="Identity" asp-page="/Account/Register">Rejestracja</a>
-        </li>
         <li class="nav-item">
             <a class="nav-link text-white fw-bold" id="login" asp-area="Identity" asp-page="/Account/Login">Logowanie</a>
         </li>

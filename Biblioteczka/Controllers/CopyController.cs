@@ -22,7 +22,7 @@ namespace Biblioteczka.Controllers
         [Authorize(Roles = role)]
         public ActionResult Index(string searchString, string sortOrder, int? page, string formValue)
         {
-            CopyViewModel copyBookAuthorViewModel = new CopyViewModel();
+            CopyViewModel copyViewModel = new CopyViewModel();
             List<CopyViewModel> copies = GetCopyList();
 
             HttpContextAccessor httpContextAccessor = new HttpContextAccessor();
@@ -33,8 +33,8 @@ namespace Biblioteczka.Controllers
 
             int pageSize = 20;
             int pageNumber = (page ?? 1);
-            copyBookAuthorViewModel.CopyList = copies.ToPagedList(pageNumber, pageSize);
-            return View(copyBookAuthorViewModel);
+            copyViewModel.CopyList = copies.ToPagedList(pageNumber, pageSize);
+            return View(copyViewModel);
         }
 
         // GET: CopyController/Details/5

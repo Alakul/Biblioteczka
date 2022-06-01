@@ -9,10 +9,11 @@ using X.PagedList;
 
 namespace Biblioteczka.Controllers
 {
-    [Authorize(Roles = AppData.Admin)]
+    
     [Route("Uzytkownicy")]
     public class UserController : Controller
     {
+        private const string role = AppData.Admin + "," + AppData.Librarian;
         private readonly AppDbContext db;
         private readonly UserManager<AppUser> UserManager;
 
@@ -23,6 +24,7 @@ namespace Biblioteczka.Controllers
             UserManager = userManager;
         }
 
+        [Authorize(Roles = role)]
         public ActionResult Index(string searchString, string sortOrder, int? page, string formValue)
         {
             UserViewModel userViewModel = new UserViewModel();
@@ -41,6 +43,7 @@ namespace Biblioteczka.Controllers
         }
 
         // GET: UserController/Details/5
+        [Authorize(Roles = role)]
         [Route("Szczegoly/{id}")]
         public ActionResult Details(string id)
         {
@@ -50,6 +53,7 @@ namespace Biblioteczka.Controllers
         }
 
         // GET: UserController/Create
+        [Authorize(Roles = AppData.Admin)]
         [Route("Dodaj")]
         public ActionResult Create()
         {
@@ -57,6 +61,7 @@ namespace Biblioteczka.Controllers
         }
 
         // POST: UserController/Create
+        [Authorize(Roles = AppData.Admin)]
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Route("Dodaj")]
@@ -73,6 +78,7 @@ namespace Biblioteczka.Controllers
         }
 
         // GET: UserController/Edit/5
+        [Authorize(Roles = AppData.Admin)]
         [Route("Edytuj/{id}")]
         public async Task<ActionResult> Edit(string id)
         {
@@ -81,6 +87,7 @@ namespace Biblioteczka.Controllers
         }
 
         // POST: UserController/Edit/5
+        [Authorize(Roles = AppData.Admin)]
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Route("Edytuj/{id}")]
@@ -122,6 +129,7 @@ namespace Biblioteczka.Controllers
         }
 
         // GET: UserController/Delete/5
+        [Authorize(Roles = AppData.Admin)]
         [Route("Usun/{id}")]
         public ActionResult Delete(int id)
         {
@@ -129,6 +137,7 @@ namespace Biblioteczka.Controllers
         }
 
         // POST: UserController/Delete/5
+        [Authorize(Roles = AppData.Admin)]
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Route("Usun/{id}")]
@@ -138,6 +147,10 @@ namespace Biblioteczka.Controllers
             {
                 AppUser appUser = await UserManager.FindByIdAsync(id);
                 await UserManager.DeleteAsync(appUser);
+
+                Profile profile = db.Profile.Where(x=>x.UserId == id).Single();
+                db.Profile.Remove(profile);
+                db.SaveChanges();
 
                 TempData["Alert"] = "Success";
                 return RedirectToAction(nameof(Index));
@@ -150,6 +163,7 @@ namespace Biblioteczka.Controllers
         }
 
         // GET: UserController/Role/5
+        [Authorize(Roles = AppData.Admin)]
         [Route("ZmienRole/{id}")]
         public ActionResult Role(string id)
         {
@@ -161,6 +175,7 @@ namespace Biblioteczka.Controllers
         }
 
         // POST: UserController/Role
+        [Authorize(Roles = AppData.Admin)]
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Route("ZmienRole/{id}")]

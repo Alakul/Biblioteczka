@@ -1,5 +1,7 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @using Biblioteczka.Areas.Identity.Data
+@using Biblioteczka.Data;
+
 @inject UserManager<AppUser> UserManager
 
 <div class="bg-white rounded shadow ps-3 pe-3 pt-1 pb-1 mt-3">
@@ -16,7 +18,7 @@
                     <a class="text-decoration-none text-dark" href="@Url.Action("Index", "User", new { sortOrder = "EmailDesc" })"><i class="bi bi-arrow-down"></i></a>
                 </th>
                 <th scope="col">Role</th>
-                <th scope="col" class="text-end"></th>
+                <th scope="col" class="text-end"><a class="btn btn-primary" asp-area="Identity" asp-page="/Account/Register"><i class="bi bi-plus-lg"></i></a></th>
             </tr>
         </thead>
 
@@ -34,17 +36,24 @@
                         <td></td>
                     }
                     
-                    <td class="text-end">
-                    @if (UserManager.GetUserId(User) != @user.User.Id){
-                        <a class="btn btn-primary mb-1" asp-route-id="@user.User.Id" asp-controller="User" asp-action="Role">Rola</a>
-                        <a class="btn btn-success mb-1" asp-route-id="@user.User.Id" asp-controller="User" asp-action="Edit"><i class="bi bi-pencil-square"></i></a>
-                        <a class="btn btn-danger mb-1" data-bs-toggle="modal" data-bs-target="#deleteModal_@user.User.Id"><i class="bi bi-trash3-fill"></i></a>
-                        <form asp-route-id="@user.User.Id" asp-controller="User" asp-action="Delete" method="post">
-                            <partial name="Templates/_ModalDelete" model="@user.User.Id"/>
-                        </form>
+                    @if (User.IsInRole(AppData.Admin))
+                    {
+                        <td class="text-end">
+                            @if (UserManager.GetUserId(User) != @user.User.Id){
+                                <a class="btn btn-primary mb-1" asp-route-id="@user.User.Id" asp-controller="User" asp-action="Role">Rola</a>
+                                <a class="btn btn-success mb-1" asp-route-id="@user.User.Id" asp-controller="User" asp-action="Edit"><i class="bi bi-pencil-square"></i></a>
+                                <a class="btn btn-danger mb-1" data-bs-toggle="modal" data-bs-target="#deleteModal_@user.User.Id"><i class="bi bi-trash3-fill"></i></a>
+                                <form asp-route-id="@user.User.Id" asp-controller="User" asp-action="Delete" method="post">
+                                    <partial name="Templates/_ModalDelete" model="@user.User.Id"/>
+                                </form>
+                            }
+                            else {
+                                <a class="btn btn-success" asp-route-id="@user.User.Id" asp-controller="User" asp-action="Edit"><i class="bi bi-pencil-square"></i><label class="ms-2">Edytuj</label></a>
+                            }
+                        </td>
                     }
                     else {
-                        <a class="btn btn-primary" asp-route-id="@user.User.Id" asp-controller="User" asp-action="Edit">Edytuj profil</a>
+                        <td class="text-end"></td>
                     }
                 </tr>
             }
