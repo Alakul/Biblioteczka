@@ -8,6 +8,7 @@ namespace Biblioteczka.Models
     {
         public AppUser User { get; set; }
         public IdentityRole? Role { get; set; }
+        public Profile Profile { get; set; }
         public IPagedList<UserViewModel>? UserList { get; set; }
     }
 }

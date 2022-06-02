@@ -98,6 +98,9 @@ namespace Biblioteczka.Data
                 List<UserViewModel> userList = elements.Cast<UserViewModel>().ToList();
                 userList = userList.Where(x => x.User.UserName.ToLower().Contains(cookie.ToLower()) ||
                         x.User.Email.ToLower().Contains(cookie.ToLower()) ||
+                        x.Profile.Name.ToLower().Contains(cookie.ToLower()) ||
+                        x.Profile.LastName.ToLower().Contains(cookie.ToLower()) ||
+                        x.Profile.LibraryCardNumber.ToLower().Contains(cookie.ToLower()) ||
                         x.Role.Name.ToLower().Contains(cookie.ToLower())).ToList();
                 genericList = userList.Cast<T>().ToList();
             }
@@ -153,8 +156,7 @@ namespace Biblioteczka.Data
                 reservationList = SortElementsReservation(reservationList, sort);
                 genericList = reservationList.Cast<T>().ToList();
             }
-            else if (type == typeof(UserViewModel))
-            {
+            else if (type == typeof(UserViewModel)){
                 List<UserViewModel> userList = elements.Cast<UserViewModel>().ToList();
                 userList = SortElementsUser(userList, sort);
                 genericList = userList.Cast<T>().ToList();
@@ -240,6 +242,10 @@ namespace Biblioteczka.Data
         public static List<UserViewModel> SortElementsUser(List<UserViewModel> elements, SortValues sortValues) =>
         sortValues switch
         {
+            SortValues.NameAsc => elements = elements.OrderBy(x => x.Profile.Name).ToList(),
+            SortValues.NameDesc => elements = elements.OrderByDescending(x => x.Profile.Name).ToList(),
+            SortValues.LastNameAsc => elements = elements.OrderBy(x => x.Profile.LastName).ToList(),
+            SortValues.LastNameDesc => elements = elements.OrderByDescending(x => x.Profile.LastName).ToList(),
             SortValues.UserNameAsc => elements = elements.OrderBy(x => x.User.UserName).ToList(),
             SortValues.UserNameDesc => elements = elements.OrderByDescending(x => x.User.UserName).ToList(),
             SortValues.EmailAsc => elements = elements.OrderBy(x => x.User.Email).ToList(),

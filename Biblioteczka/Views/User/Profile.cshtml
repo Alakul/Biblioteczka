@@ -1,0 +1,39 @@
+﻿@{
+    ViewData["Title"] = "Edytuj profil użytkownika";
+    var lcn = @Model.LibraryCardNumber;
+    lcn = lcn.Substring(3, 8);
+}
+
+<div class="mb-3">
+    <partial name="Templates/_BackButton"/>
+</div>
+
+<div class="col-sm-8 col-md-6 mx-auto">
+    <partial name="Templates/_Alert" model="@TempData["Alert"]?.ToString()"/>
+    <div class="bg-white rounded shadow p-4">
+        <form asp-controller="User" asp-action="Profile" method="post">
+            <partial name="Templates/_FormHeader" model="@ViewData["Title"]"/>
+            <div class="mb-3">
+				<label for="Name">Imię</label>
+                <input id="Name" name="Name" type="text" class="form-control" minlength="3" maxlength="100" value="@Model.Name" required>
+			</div>
+			<div class="mb-3">
+				<label for="LastName">Nazwisko</label>
+                <input id="LastName" name="LastName" type="text" class="form-control" minlength="3" maxlength="100" value="@Model.LastName" required>
+			</div>
+			<div class="mb-3">
+				<label for="Pesel">Pesel</label>
+                <input id="Pesel" name="Pesel" type="number" class="form-control" oninput="InpuNumber(this);" maxlength="11" value="@Model.Pesel" required>
+			</div>
+			<div class="mb-3">
+                <label for="LibraryCardNumber">Numer karty bibliotecznej</label>
+                <div class="input-group">
+					<span class="input-group-text">LCD</span>
+					<input id="LibraryCardNumber" name="LibraryCardNumber" type="number" class="form-control" oninput="InpuNumber(this);" maxlength="8" value="@lcn" required>
+				</div>
+			</div>	
+
+            <partial name="Templates/_FormButton"/>
+        </form>
+    </div>
+</div>

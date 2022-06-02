@@ -46,7 +46,7 @@ public class AppDbContext : IdentityDbContext<AppUser>
         AppUser identityUser = new AppUser()
         {
             Id = "0b948a1f-c552-41af-9818-77ab56a8be88",
-            UserName = "admin@gmail.com",
+            UserName = "admin",
             Email = "admin@gmail.com",
             NormalizedUserName = "ADMIN@GMAIL.COM"
         };
@@ -59,6 +59,18 @@ public class AppDbContext : IdentityDbContext<AppUser>
             RoleId = identityRole.Id,
             UserId = identityUser.Id
         });
+
+        Profile profile = new Profile()
+        {
+            Id = 1,
+            UserId = identityUser.Id,
+            Name = "Ad",
+            LastName = "Min",
+            Pesel = "12345678901",
+            LibraryCardNumber = "LCN12345678",
+            Date = DateTime.Now,
+        };
+        builder.Entity<Profile>().HasData(profile);
     }
 
     private void SeedRoles(ModelBuilder builder)

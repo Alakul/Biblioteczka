@@ -16,11 +16,18 @@
                 <input asp-for="Username" class="form-control" disabled />
             </div>
             <div class="mb-3">
-                <label asp-for="Input.PhoneNumber" class="form-label">Numer telefonu</label>
-                <input asp-for="Input.PhoneNumber" class="form-control" aria-required="true"
-                    data-val-phone="Pole Numer telefonu nie jest prawidłowym numerem telefonu." />
-                <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
+                <label asp-for="Input.Name" class="form-label">Imię i nazwisko</label>
+                <input class="form-control" disabled value="@Model.Input.Name @Model.Input.LastName"/>
             </div>
+            <div class="mb-3">
+                <label asp-for="Input.Pesel" class="form-label">Pesel</label>
+                <input asp-for="Input.Pesel" class="form-control" disabled />
+            </div>
+            <div class="mb-3">
+                <label asp-for="Input.LibraryCardNumber" class="form-label">Numer karty bibliotecznej</label>
+                <input asp-for="Input.LibraryCardNumber" class="form-control" disabled />
+            </div>
+
             <button id="update-profile-button" type="submit" class="w-100 btn btn-lg btn-primary mb-4">Zapisz</button>
         </form>
     </div>

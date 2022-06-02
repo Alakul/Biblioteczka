@@ -222,6 +222,58 @@ namespace Biblioteczka.Controllers
             }
         }
 
+        // GET: UserController/Role/5
+        [Authorize(Roles = AppData.Admin)]
+        [Route("EdytujProfil/{id}")]
+        public ActionResult Profile(string id)
+        {
+            Profile profile = db.Profile.Where(x=>x.UserId == id).Single();
+            return View(profile);
+        }
+
+        // POST: UserController/Role
+        [Authorize(Roles = AppData.Admin)]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Route("EdytujProfil/{id}")]
+        public ActionResult Profile(string id, IFormCollection collection)
+        {
+            try
+            {
+                Profile profile = db.Profile.Where(x => x.UserId == id).Single();
+
+                string pesel = collection["Pesel"].ToString();
+                string lcn = "LCN" + collection["LibraryCardNumber"].ToString();
+
+                List<Profile> profileListNumber = db.Profile.Where(x => x.LibraryCardNumber == lcn).ToList();
+                List<Profile> profileListPesel = db.Profile.Where(x => x.Pesel == pesel).ToList();
+
+                if (profileListNumber.Count >= 2 || profileListPesel.Count >= 2){
+                    TempData["Alert"] = "Danger";
+                    return RedirectToAction(nameof(Profile));
+                }
+                else {
+                    profile.Name = collection["Name"];
+                    profile.LastName = collection["LastName"];
+                    profile.Pesel = pesel;
+                    profile.LibraryCardNumber = lcn;
+                    profile.Date = DateTime.Now;
+
+                    db.Profile.Update(profile);
+                    db.SaveChanges();
+
+                    TempData["Alert"] = "Success";
+                    return RedirectToAction(nameof(Profile));
+                }
+            }
+            catch
+            {
+                TempData["Alert"] = "Danger";
+                return RedirectToAction(nameof(Profile));
+            }
+        }
+
+
 
         //GET
         private List<UserViewModel> GetUserList()
@@ -229,12 +281,15 @@ namespace Biblioteczka.Controllers
             List<UserViewModel> allUsers = (
                 from a in db.Users join b in db.UserRoles on a.Id equals b.UserId into ab
                 from c in ab.DefaultIfEmpty() join d in db.Roles on c.RoleId equals d.Id into cd
-                from e in cd.DefaultIfEmpty()
+                from e in cd.DefaultIfEmpty() join f in db.Profile on a.Id equals f.UserId into fg
+                from f in fg.DefaultIfEmpty()
                 select new UserViewModel
                 {
                     User = a,
                     Role = e,
-                }).ToList();
+                    Profile = f,
+                })
+                .ToList();
 
             return allUsers;
         }
