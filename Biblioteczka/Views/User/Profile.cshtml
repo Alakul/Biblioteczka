@@ -1,4 +1,5 @@
-﻿@{
+﻿@model Profile
+@{
     ViewData["Title"] = "Edytuj profil użytkownika";
     var lcn = @Model.LibraryCardNumber;
     lcn = lcn.Substring(3, 8);
@@ -13,27 +14,36 @@
     <div class="bg-white rounded shadow p-4">
         <form asp-controller="User" asp-action="Profile" method="post">
             <partial name="Templates/_FormHeader" model="@ViewData["Title"]"/>
-            <div class="mb-3">
-				<label for="Name">Imię</label>
-                <input id="Name" name="Name" type="text" class="form-control" minlength="3" maxlength="100" value="@Model.Name" required>
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+			<div class="mb-3">
+				<label asp-for="Name"></label>
+				<input asp-for="Name" class="form-control" value="@Model.Name"/>
+				<span asp-validation-for="Name" class="text-danger"></span>
 			</div>
 			<div class="mb-3">
-				<label for="LastName">Nazwisko</label>
-                <input id="LastName" name="LastName" type="text" class="form-control" minlength="3" maxlength="100" value="@Model.LastName" required>
+				<label asp-for="LastName"></label>
+				<input asp-for="LastName" class="form-control" value="@Model.LastName"/>
+				<span asp-validation-for="LastName" class="text-danger"></span>
 			</div>
 			<div class="mb-3">
-				<label for="Pesel">Pesel</label>
-                <input id="Pesel" name="Pesel" type="number" class="form-control" oninput="InpuNumber(this);" maxlength="11" value="@Model.Pesel" required>
+				<label asp-for="Pesel">Pesel</label>
+				<input asp-for="Pesel" class="form-control" value="@Model.Pesel"/>
+				<span asp-validation-for="Pesel" class="text-danger"></span>
 			</div>
 			<div class="mb-3">
-                <label for="LibraryCardNumber">Numer karty bibliotecznej</label>
-                <div class="input-group">
+				<label asp-for="LibraryCardNumber">Numer karty bibliotecznej</label>
+				<div class="input-group">
 					<span class="input-group-text">LCD</span>
-					<input id="LibraryCardNumber" name="LibraryCardNumber" type="number" class="form-control" oninput="InpuNumber(this);" maxlength="8" value="@lcn" required>
+					<input asp-for="LibraryCardNumber" class="form-control" value="@lcn"/>		
 				</div>
+				<span asp-validation-for="LibraryCardNumber" class="text-danger"></span>
 			</div>	
 
             <partial name="Templates/_FormButton"/>
         </form>
     </div>
 </div>
+@section Scripts {
+	<partial name="_ValidationScriptsPartial" />
+}

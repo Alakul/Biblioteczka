@@ -77,7 +77,7 @@ namespace Biblioteczka.Areas.Identity.Pages.Account
         /// </summary>
         public class InputModel
         {
-            [Required]
+            [Required(ErrorMessage = "Pole {0} jest wymagane.")]
             [DataType(DataType.Text)]
             [Display(Name = "Login")]
             public string UserName { get; set; }
@@ -86,8 +86,8 @@ namespace Biblioteczka.Areas.Identity.Pages.Account
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
-            [Required]
-            [EmailAddress]
+            [Required(ErrorMessage = "Pole {0} jest wymagane.")]
+            [EmailAddress(ErrorMessage = "Pole {0} nie jest prawidłowym adresem email.")]
             [Display(Name = "Email")]
             public string Email { get; set; }
 
@@ -95,7 +95,7 @@ namespace Biblioteczka.Areas.Identity.Pages.Account
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
-            [Required]
+            [Required(ErrorMessage = "Pole {0} jest wymagane.")]
             [StringLength(100, ErrorMessage = "{0} musi mieć co najmniej {2} i maksymalnie {1} znaków.", MinimumLength = 6)]
             [DataType(DataType.Password)]
             [Display(Name = "Hasło")]
@@ -106,27 +106,30 @@ namespace Biblioteczka.Areas.Identity.Pages.Account
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
             [DataType(DataType.Password)]
-            [Display(Name = "Confirm password")]
+            [Display(Name = "Potwierdź hasło")]
             [Compare("Password", ErrorMessage = "Hasło i hasło potwierdzające nie pasują do siebie.")]
             public string ConfirmPassword { get; set; }
 
 
-            //Profile
-            [Required]
+
+            [Required(ErrorMessage = "Pole {0} jest wymagane.")]
             [DataType(DataType.Text)]
-            [Display(Name = "Name")]
+            [Display(Name = "Imię")]
             public string Name { get; set; }
 
-            [Required]
+            [Required(ErrorMessage = "Pole {0} jest wymagane.")]
             [DataType(DataType.Text)]
-            [Display(Name = "LastName")]
+            [Display(Name = "Nazwisko")]
             public string LastName { get; set; }
 
-            [Required]
+            [Required(ErrorMessage = "Pole {0} jest wymagane.")]
             [RegularExpression("^[0-9]{11}$", ErrorMessage = "Wprowadź liczbę skłającą się z 11 cyfr.")]
+            [Display(Name = "Pesel")]
             public long Pesel { get; set; }
 
+            [Required(ErrorMessage = "Pole {0} jest wymagane.")]
             [RegularExpression("^[0-9]{8}$", ErrorMessage = "Wprowadź liczbę skłającą się z 8 cyfr.")]
+            [Display(Name = "Numer karty bibliotecznej")]
             public long? LibraryCardNumber { get; set; }
         }
 

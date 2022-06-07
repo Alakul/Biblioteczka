@@ -1,4 +1,5 @@
-﻿@{
+﻿@model Author
+@{
      ViewData["Title"] = "Dodaj autora";
 }
 
@@ -12,18 +13,22 @@
         <form asp-controller="Author" asp-action="Create" method="post">
             <partial name="Templates/_FormHeader" model="@ViewData["Title"]"/>
 
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="mb-3">
-                <label for="Name">Imię</label>
-                <input id="Name" name="Name" type="text" class="form-control" minlength="3" maxlength="100" required>
+                <label asp-for="Name"></label>
+			    <input asp-for="Name" type="text" class="form-control"/>
+			    <span asp-validation-for="Name" class="text-danger"></span>
             </div>
-
             <div class="mb-3">
-                <label for="LastName">Nazwisko</label>
-                <input id="LastName" name="LastName" type="text" class="form-control" minlength="3" maxlength="100" required>
+                <label asp-for="LastName"></label>
+			    <input asp-for="LastName" type="text" class="form-control"/>
+			    <span asp-validation-for="LastName" class="text-danger"></span>
             </div>
         
             <partial name="Templates/_FormButton"/>
         </form>
     </div>
 </div>
-
+@section Scripts {
+	<partial name="_ValidationScriptsPartial" />
+}

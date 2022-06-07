@@ -72,7 +72,8 @@ namespace Biblioteczka.Controllers
         [Route("Dodaj")]
         public ActionResult Create(BookCreateEditViewModel model)
         {
-            try {
+            try
+            {
                 string newFileName = AppMethods.UploadFile(webHostEnvironment, model, "images");
                 if (newFileName != null)
                 {
@@ -86,7 +87,13 @@ namespace Biblioteczka.Controllers
                         Description = model.Book.Description.Trim(),
                         Image = newFileName,
                         Year = model.Book.Year,
-                        City = model.Book.City.Trim()
+                        City = model.Book.City.Trim(),
+
+                        ISBN = model.Book.ISBN.Trim(),
+                        Series = model.Book.Series,
+                        IssueNumber = model.Book.IssueNumber,
+                        Publisher = model.Book.Publisher.Trim(),
+                        Pages = model.Book.Pages
                     };
 
                     db.Book.Add(book);
@@ -101,7 +108,8 @@ namespace Biblioteczka.Controllers
                     return RedirectToAction(nameof(Create));
                 }
             }
-            catch {
+            catch
+            {
                 TempData["Alert"] = "Danger";
                 return RedirectToAction(nameof(Create));
             }
@@ -116,8 +124,10 @@ namespace Biblioteczka.Controllers
 
             BookCreateEditViewModel bookCreateEditViewModel = new BookCreateEditViewModel();
             bookCreateEditViewModel.Book = book;
-            bookCreateEditViewModel.Author = db.Author.Where(x=>x.Id == book.AuthorId).Single();
-            bookCreateEditViewModel.Authors = db.Author.ToList();
+
+            Author author = db.Author.Where(x => x.Id == book.AuthorId).Single();
+            bookCreateEditViewModel.Name = author.Name;
+            bookCreateEditViewModel.LastName = author.LastName;
 
             return View(bookCreateEditViewModel);
         }
@@ -129,17 +139,22 @@ namespace Biblioteczka.Controllers
         [Route("Edytuj/{id}")]
         public ActionResult Edit(int id, BookCreateEditViewModel model)
         {
-            try
+            if (ModelState.IsValid)
             {
                 Book book = db.Book.Where(x => x.Id == id).Single();
                 book.UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
                 book.Date = DateTime.Now;
 
                 book.Title = model.Book.Title.Trim();
-                book.AuthorId = model.Book.AuthorId;
+                book.ISBN = model.Book.ISBN.Trim();
+                book.Series = model.Book.Series;
+                book.IssueNumber = model.Book.IssueNumber;
+
                 book.Description = model.Book.Description.Trim();
                 book.Year = model.Book.Year;
                 book.City = model.Book.City.Trim();
+                book.Publisher = model.Book.Publisher.Trim();
+                book.Pages = model.Book.Pages;
 
                 if (model.File != null)
                 {
@@ -155,7 +170,7 @@ namespace Biblioteczka.Controllers
                 return RedirectToAction(nameof(Edit));
                 
             }
-            catch
+            else
             {
                 TempData["Alert"] = "Danger";
                 return RedirectToAction(nameof(Edit));

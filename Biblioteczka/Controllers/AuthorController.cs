@@ -74,7 +74,7 @@ namespace Biblioteczka.Controllers
         [Route("Dodaj")]
         public ActionResult Create(IFormCollection collection)
         {
-            try
+            if (ModelState.IsValid)
             {
                 var author = new Author();
                 author.UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -89,7 +89,7 @@ namespace Biblioteczka.Controllers
                 TempData["Alert"] = "Success";
                 return RedirectToAction(nameof(Create));
             }
-            catch
+            else
             {
                 TempData["Alert"] = "Danger";
                 return RedirectToAction(nameof(Create));
@@ -112,7 +112,7 @@ namespace Biblioteczka.Controllers
         [Route("Edytuj/{id}")]
         public ActionResult Edit(int id, IFormCollection collection)
         {
-            try
+            if (ModelState.IsValid)
             {
                 Author author = db.Author.Where(x => x.Id == id).Single();
 
@@ -128,7 +128,7 @@ namespace Biblioteczka.Controllers
                 TempData["Alert"] = "Success";
                 return RedirectToAction(nameof(Edit));
             }
-            catch
+            else
             {
                 TempData["Alert"] = "Danger";
                 return RedirectToAction(nameof(Edit));

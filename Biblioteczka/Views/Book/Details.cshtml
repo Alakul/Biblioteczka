@@ -20,9 +20,28 @@
     }
 </div>
 
-<div class="col-sm-6 mx-auto bg-white rounded shadow d-flex mb-3">
+<div class="col-sm-10 col-md-8 mx-auto bg-white rounded shadow d-flex mb-3">
     <div class="col-4 p-3">
         <img class="image" src="~/images/@Model.Book.Image"/>
+        <div class="mt-2">
+            <label>ISBN: <b>@Model.Book.ISBN</b></label>
+
+            @if (!string.IsNullOrEmpty(Model.Book.IssueNumber)){
+                <label>Wydanie: <b>@Model.Book.IssueNumber</b></label>
+            }
+            @if (!string.IsNullOrEmpty(Model.Book.Series)){
+                <label>Seria: <b>@Model.Book.Series</b></label>
+            }
+        
+            <label>Rok wydania: <b>@Model.Book.Year</b></label>
+            <label>Miejsce wydania: <b>@Model.Book.City</b></label>
+            <label>Wydawnictwo: <b>@Model.Book.Publisher</b></label>
+        
+            @if (Model.Book.Pages!=null){
+                <label>Liczba stron: <b>@Model.Book.Pages</b></label>
+            }
+        </div>
+        
     </div>
     <div class="col-8 p-3">
         <div class="text-center">
@@ -30,9 +49,6 @@
             <p><a class="text-decoration-none text-dark" asp-route-id="@Model.Author.Id" asp-controller="Author" asp-action="Details">@Model.Author.Name @Model.Author.LastName</a></p>
         </div>          
         <p style="text-align: justify;">@Model.Book.Description</p>
-
-        <label>Rok wydania: @Model.Book.Year</label><br />
-        <label>Miejsce wydania: @Model.Book.City</label>
     </div>  
 </div>
 

@@ -13,11 +13,12 @@
         <form asp-controller="Copy" asp-action="Edit" method="post">
             <partial name="Templates/_FormHeader" model="@ViewData["Title"]"/>
         
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="mb-3">
-                <label for="Number">Numer</label>
-                <input id="Number" name="Copy.Number" type="text" class="form-control" minlength="3" maxlength="100" value="@Model.Copy.Number" required >
+                <label asp-for="Copy.Number"></label>
+			    <input asp-for="Copy.Number" type="text" class="form-control" value="@Model.Copy.Number"/>
+			    <span asp-validation-for="Copy.Number" class="text-danger"></span>
             </div>
-
             <div class="mb-3">
                 <label for="Status">Status</label>
                 <select id="Status" name="Copy.Status" class="form-control selected-value" >
@@ -31,8 +32,11 @@
                     }
                 </select>
             </div>
-        
+
             <partial name="Templates/_FormButton"/>
         </form>
     </div>
 </div>
+@section Scripts {
+	<partial name="_ValidationScriptsPartial" />
+}

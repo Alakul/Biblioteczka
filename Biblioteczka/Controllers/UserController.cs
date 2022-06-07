@@ -82,8 +82,12 @@ namespace Biblioteczka.Controllers
         [Route("Edytuj/{id}")]
         public async Task<ActionResult> Edit(string id)
         {
-            AppUser appUser = await UserManager.FindByIdAsync(id);
-            return View(appUser);
+            //AppUser appUser = await UserManager.FindByIdAsync(id);
+            UserViewModel user = new UserViewModel();
+            user.User = await UserManager.FindByIdAsync(id);
+            user.Email = user.User.Email;
+            user.UserName = user.User.UserName;
+            return View(user);
         }
 
         // POST: UserController/Edit/5
@@ -93,7 +97,7 @@ namespace Biblioteczka.Controllers
         [Route("Edytuj/{id}")]
         public async Task<ActionResult> Edit(string id, IFormCollection collection)
         {
-            try
+            if (ModelState.IsValid)
             {
                 string emailNormalized = collection["Email"].ToString().ToUpper();
                 string userNameNormalized = collection["UserName"].ToString().ToUpper();
@@ -121,7 +125,7 @@ namespace Biblioteczka.Controllers
                     return RedirectToAction(nameof(Edit));
                 }
             }
-            catch
+            else
             {
                 TempData["Alert"] = "Danger";
                 return RedirectToAction(nameof(Edit));
@@ -238,7 +242,7 @@ namespace Biblioteczka.Controllers
         [Route("EdytujProfil/{id}")]
         public ActionResult Profile(string id, IFormCollection collection)
         {
-            try
+            if (ModelState.IsValid)
             {
                 Profile profile = db.Profile.Where(x => x.UserId == id).Single();
 
@@ -266,7 +270,7 @@ namespace Biblioteczka.Controllers
                     return RedirectToAction(nameof(Profile));
                 }
             }
-            catch
+            else
             {
                 TempData["Alert"] = "Danger";
                 return RedirectToAction(nameof(Profile));

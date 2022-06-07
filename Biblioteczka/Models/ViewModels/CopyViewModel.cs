@@ -1,5 +1,4 @@
-﻿using Biblioteczka.Areas.Identity.Data;
-using X.PagedList;
+﻿using X.PagedList;
 
 namespace Biblioteczka.Models
 {

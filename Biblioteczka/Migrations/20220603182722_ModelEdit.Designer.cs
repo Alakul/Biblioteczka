@@ -4,6 +4,7 @@ using Biblioteczka.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Biblioteczka.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220603182722_ModelEdit")]
+    partial class ModelEdit
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -130,7 +132,7 @@ namespace Biblioteczka.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Author", (string)null);
+                    b.ToTable("Author");
                 });
 
             modelBuilder.Entity("Biblioteczka.Models.Book", b =>
@@ -197,7 +199,7 @@ namespace Biblioteczka.Migrations
 
                     b.HasIndex("AuthorId");
 
-                    b.ToTable("Book", (string)null);
+                    b.ToTable("Book");
                 });
 
             modelBuilder.Entity("Biblioteczka.Models.Copy", b =>
@@ -227,7 +229,7 @@ namespace Biblioteczka.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Copy", (string)null);
+                    b.ToTable("Copy");
                 });
 
             modelBuilder.Entity("Biblioteczka.Models.Loan", b =>
@@ -263,7 +265,7 @@ namespace Biblioteczka.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Loan", (string)null);
+                    b.ToTable("Loan");
                 });
 
             modelBuilder.Entity("Biblioteczka.Models.Profile", b =>
@@ -299,7 +301,7 @@ namespace Biblioteczka.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Profile", (string)null);
+                    b.ToTable("Profile");
 
                     b.HasData(
                         new
@@ -337,7 +339,7 @@ namespace Biblioteczka.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Reservation", (string)null);
+                    b.ToTable("Reservation");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>

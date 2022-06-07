@@ -65,7 +65,7 @@ namespace Biblioteczka.Controllers
         {
             GetStatusList();
 
-            try
+            if (ModelState.IsValid)
             {
                 Copy copy = new Copy
                 {
@@ -83,7 +83,7 @@ namespace Biblioteczka.Controllers
                 TempData["Alert"] = "Success";
                 return RedirectToAction(nameof(Create));
             }
-            catch
+            else
             {
                 TempData["Alert"] = "Danger";
                 return RedirectToAction(nameof(Create));
@@ -114,7 +114,7 @@ namespace Biblioteczka.Controllers
         {
             GetStatusList();
 
-            try
+            if (ModelState.IsValid)
             {
                 Copy copy = db.Copy.Where(x => x.Id == id).Single();
                 copy.UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -129,7 +129,7 @@ namespace Biblioteczka.Controllers
                 TempData["Alert"] = "Success";
                 return RedirectToAction(nameof(Edit));
             }
-            catch
+            else
             {
                 TempData["Alert"] = "Danger";
                 return RedirectToAction(nameof(Edit));
