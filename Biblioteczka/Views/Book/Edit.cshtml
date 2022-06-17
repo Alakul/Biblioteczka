@@ -1,4 +1,4 @@
-﻿@model BookCreateEditViewModel
+﻿@model BookEditViewModel
 @{
     ViewData["Title"] = "Edytuj książkę";
 }
@@ -45,7 +45,8 @@
             </div>
             <div class="mb-3">
                 <label asp-for="File"></label>
-                <input id="File" name="File" type="file" class="form-control" onchange="preview(this);" accept="image/jpg,image/png,image/jpeg,image/gif">
+                <input id="File" asp-for="File" type="file" class="form-control" onchange="preview(this);" accept=".jpg, .jpeg, .png">
+                <span asp-validation-for="File" class="text-danger"></span>
                 <img id="ImagePreview" name="ImagePreview" src="~/images/@Model.Book.Image" height="250" class="ms-auto me-auto mt-4 d-block"/>
             </div>
             <div class="mb-3">

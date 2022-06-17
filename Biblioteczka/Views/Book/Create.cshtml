@@ -1,4 +1,4 @@
-﻿@model BookCreateEditViewModel
+﻿@model BookCreateViewModel
 @{
     ViewData["Title"] = "Dodaj książkę";
 }
@@ -61,7 +61,8 @@
 			    <span asp-validation-for="Book.Description" class="text-danger"></span>
             </div>
             <div class="mb-3">
-                <input id="File" asp-for="File" type="file" class="form-control" onchange="preview(this);" accept="image/jpg,image/png,image/jpeg,image/gif" required/>
+                <label asp-for="File"></label>
+                <input id="File" asp-for="File" type="file" class="form-control" onchange="preview(this);"/>
                 <span asp-validation-for="File" class="text-danger"></span>
                 <img id="ImagePreview" name="ImagePreview" height="0" class="ms-auto me-auto d-block"/>
             </div>
@@ -92,4 +93,5 @@
 </div>
 @section Scripts {
 	<partial name="_ValidationScriptsPartial" />
+    <script src="~/js/validation.js"></script>
 }

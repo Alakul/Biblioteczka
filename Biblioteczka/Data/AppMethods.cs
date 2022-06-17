@@ -254,7 +254,7 @@ namespace Biblioteczka.Data
         };
 
         //FILE
-        public static string UploadFile(IWebHostEnvironment webHostEnvironment, BookCreateEditViewModel model, string folderName)
+        public static string UploadFile(IWebHostEnvironment webHostEnvironment, BookCreateViewModel model, string folderName)
         {
             string fileName = null;
             if (model.File != null){
@@ -271,7 +271,24 @@ namespace Biblioteczka.Data
             }
             return fileName;
         }
+        public static string UploadFile(IWebHostEnvironment webHostEnvironment, BookEditViewModel model, string folderName)
+        {
+            string fileName = null;
+            if (model.File != null)
+            {
+                string destinationFolder = Path.Combine(webHostEnvironment.WebRootPath, folderName);
+                Directory.CreateDirectory(destinationFolder);
 
+                string fileExtension = model.File.FileName;
+                fileName = Guid.NewGuid().ToString() + fileExtension.Substring(fileExtension.LastIndexOf('.'));
+                string filePath = Path.Combine(destinationFolder, fileName);
+                using (var stream = File.Create(filePath))
+                {
+                    model.File.CopyTo(stream);
+                }
+            }
+            return fileName;
+        }
         public static void DeleteFile(IWebHostEnvironment webHostEnvironment, string newFileName, string folderName)
         {
             string destinationFolder = Path.Combine(webHostEnvironment.WebRootPath, folderName);

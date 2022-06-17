@@ -70,9 +70,9 @@ namespace Biblioteczka.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Route("Dodaj")]
-        public ActionResult Create(BookCreateEditViewModel model)
+        public ActionResult Create(BookCreateViewModel model)
         {
-            try
+            if (ModelState.IsValid)
             {
                 string newFileName = AppMethods.UploadFile(webHostEnvironment, model, "images");
                 if (newFileName != null)
@@ -108,10 +108,10 @@ namespace Biblioteczka.Controllers
                     return RedirectToAction(nameof(Create));
                 }
             }
-            catch
+            else
             {
                 TempData["Alert"] = "Danger";
-                return RedirectToAction(nameof(Create));
+                return View(nameof(Create), GetAuthors());
             }
         }
 
@@ -120,16 +120,7 @@ namespace Biblioteczka.Controllers
         [Route("Edytuj/{id}")]
         public ActionResult Edit(int id)
         {
-            Book book = db.Book.Where(x => x.Id == id).Single();
-
-            BookCreateEditViewModel bookCreateEditViewModel = new BookCreateEditViewModel();
-            bookCreateEditViewModel.Book = book;
-
-            Author author = db.Author.Where(x => x.Id == book.AuthorId).Single();
-            bookCreateEditViewModel.Name = author.Name;
-            bookCreateEditViewModel.LastName = author.LastName;
-
-            return View(bookCreateEditViewModel);
+            return View(nameof(Edit), GetBook(id));
         }
 
         // POST: BookController/Edit/5
@@ -137,7 +128,7 @@ namespace Biblioteczka.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Route("Edytuj/{id}")]
-        public ActionResult Edit(int id, BookCreateEditViewModel model)
+        public ActionResult Edit(int id, BookEditViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -173,7 +164,7 @@ namespace Biblioteczka.Controllers
             else
             {
                 TempData["Alert"] = "Danger";
-                return RedirectToAction(nameof(Edit));
+                return View(nameof(Edit), GetBook(id));
             }
         }
 
@@ -266,12 +257,26 @@ namespace Biblioteczka.Controllers
             return books;
         }
 
-        private BookCreateEditViewModel GetAuthors()
+        private BookCreateViewModel GetAuthors()
         {
-            BookCreateEditViewModel bookCreateEditViewModel = new BookCreateEditViewModel();
-            bookCreateEditViewModel.Authors = db.Author.ToList();
+            BookCreateViewModel bookCreateViewModel = new BookCreateViewModel();
+            bookCreateViewModel.Authors = db.Author.ToList();
 
-            return bookCreateEditViewModel;
+            return bookCreateViewModel;
+        }
+
+        private BookEditViewModel GetBook(int id)
+        {
+            Book book = db.Book.Where(x => x.Id == id).Single();
+
+            BookEditViewModel bookEditViewModel = new BookEditViewModel();
+            bookEditViewModel.Book = book;
+
+            Author author = db.Author.Where(x => x.Id == book.AuthorId).Single();
+            bookEditViewModel.Name = author.Name;
+            bookEditViewModel.LastName = author.LastName;
+
+            return bookEditViewModel;
         }
     }
 }

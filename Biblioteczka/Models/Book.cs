@@ -1,4 +1,5 @@
 ﻿using Biblioteczka.Areas.Identity.Data;
+using Biblioteczka.Attributes;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
