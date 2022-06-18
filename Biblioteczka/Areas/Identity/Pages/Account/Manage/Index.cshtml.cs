@@ -7,6 +7,8 @@ using System.ComponentModel.DataAnnotations;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using Biblioteczka.Areas.Identity.Data;
+using Biblioteczka.Data;
+using Biblioteczka.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -17,13 +19,16 @@ namespace Biblioteczka.Areas.Identity.Pages.Account.Manage
     {
         private readonly UserManager<AppUser> _userManager;
         private readonly SignInManager<AppUser> _signInManager;
+        private readonly AppDbContext db;
 
         public IndexModel(
             UserManager<AppUser> userManager,
-            SignInManager<AppUser> signInManager)
+            SignInManager<AppUser> signInManager,
+            AppDbContext context)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            db = context;
         }
 
         /// <summary>
@@ -59,19 +64,49 @@ namespace Biblioteczka.Areas.Identity.Pages.Account.Manage
             [Phone]
             [Display(Name = "Numer telefonu")]
             public string PhoneNumber { get; set; }
+
+
+
+            [DataType(DataType.Text)]
+            [Display(Name = "Name")]
+            public string Name { get; set; }
+
+            [DataType(DataType.Text)]
+            [Display(Name = "LastName")]
+            public string LastName { get; set; }
+
+            public string Pesel { get; set; }
+            public string LibraryCardNumber { get; set; }
         }
 
         private async Task LoadAsync(AppUser user)
         {
             var userName = await _userManager.GetUserNameAsync(user);
             var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
-
             Username = userName;
 
-            Input = new InputModel
+            List<Profile> profileList = db.Profile.Where(x=>x.UserId == user.Id).ToList();
+            if (profileList.Count == 1)
             {
-                PhoneNumber = phoneNumber
-            };
+                Profile profile = db.Profile.Where(x => x.UserId == user.Id).Single();
+                Input = new InputModel
+                {
+                    Name = profile.Name,
+                    LastName = profile.LastName,
+                    Pesel = profile.Pesel,
+                    LibraryCardNumber = profile.LibraryCardNumber,
+                };
+            }
+            else
+            {
+                Input = new InputModel
+                {
+                    Name = "Brak",
+                    LastName = "",
+                    Pesel = "Brak",
+                    LibraryCardNumber = "Brak",
+                };
+            }
         }
 
         public async Task<IActionResult> OnGetAsync()

@@ -1,14 +1,34 @@
-﻿@{
+﻿@using Biblioteczka.Data;
+@{
      ViewData["Title"] = "O użytkowniku";
 }
 
-<partial name="Templates/_BackButton"/>
+<div class="mb-3 d-flex justify-content-between">
+    <partial name="Templates/_BackButton"/>
+
+    @if (User.IsInRole(AppData.Admin)){
+        <div>
+            <a class="btn btn-success" asp-route-id="@Model.User.Id" asp-controller="User" asp-action="Edit"><i class="bi bi-pencil-square"></i><label class="ms-2">Konto</label></a>
+            <a class="btn btn-success" asp-route-id="@Model.User.Id" asp-controller="User" asp-action="Profile"><i class="bi bi-pencil-square"></i><label class="ms-2">Profil</label></a>
+        </div>
+    }
+</div>
 
 <div class="col-sm-6 mx-auto bg-white rounded shadow d-flex">
     <div class="col-12 p-3">
         <div class="text-center">
-            <h4>@Model.UserName</h4>
-            <p>Id: @Model.Id</p>
+            <h5>Dane dotyczące użytkownika</h5>
+            <p>Imię i nazwisko: @Model.Profile.Name @Model.Profile.LastName</p>
+            <p>Numer karty bibliotecznej: @Model.Profile.LibraryCardNumber</p>
+            <p>Pesel: @Model.Profile.Pesel</p>
+
+            <hr/>
+            <h5>Dane dotyczące konta</h5>
+            <p>Login: @Model.User.UserName</p>
+            <p class="mt-3">Email: @Model.User.Email</p>
+            @if (Model.Role!=null && !string.IsNullOrEmpty(Model.Role.Name)){
+                <p>Rola: @Model.Role.Name</p>
+            }
         </div>
     </div>  
 </div>

@@ -93,6 +93,17 @@ namespace Biblioteczka.Data
                         x.Author.LastName.ToLower().Contains(cookie.ToLower())).ToList();
                 genericList = reservationList.Cast<T>().ToList();
             }
+            else if (type == typeof(UserViewModel))
+            {
+                List<UserViewModel> userList = elements.Cast<UserViewModel>().ToList();
+                userList = userList.Where(x => x.User.UserName.ToLower().Contains(cookie.ToLower()) ||
+                        x.User.Email.ToLower().Contains(cookie.ToLower()) ||
+                        x.Profile.Name.ToLower().Contains(cookie.ToLower()) ||
+                        x.Profile.LastName.ToLower().Contains(cookie.ToLower()) ||
+                        x.Profile.LibraryCardNumber.ToLower().Contains(cookie.ToLower()) ||
+                        x.Role.Name.ToLower().Contains(cookie.ToLower())).ToList();
+                genericList = userList.Cast<T>().ToList();
+            }
 
             return genericList;
         }
@@ -144,6 +155,11 @@ namespace Biblioteczka.Data
                 List<ReservationViewModel> reservationList = elements.Cast<ReservationViewModel>().ToList();
                 reservationList = SortElementsReservation(reservationList, sort);
                 genericList = reservationList.Cast<T>().ToList();
+            }
+            else if (type == typeof(UserViewModel)){
+                List<UserViewModel> userList = elements.Cast<UserViewModel>().ToList();
+                userList = SortElementsUser(userList, sort);
+                genericList = userList.Cast<T>().ToList();
             }
 
             return genericList;
@@ -223,8 +239,22 @@ namespace Biblioteczka.Data
             _ => elements = elements.OrderByDescending(x => x.Copy.Date).ToList(),
         };
 
+        public static List<UserViewModel> SortElementsUser(List<UserViewModel> elements, SortValues sortValues) =>
+        sortValues switch
+        {
+            SortValues.NameAsc => elements = elements.OrderBy(x => x.Profile.Name).ToList(),
+            SortValues.NameDesc => elements = elements.OrderByDescending(x => x.Profile.Name).ToList(),
+            SortValues.LastNameAsc => elements = elements.OrderBy(x => x.Profile.LastName).ToList(),
+            SortValues.LastNameDesc => elements = elements.OrderByDescending(x => x.Profile.LastName).ToList(),
+            SortValues.UserNameAsc => elements = elements.OrderBy(x => x.User.UserName).ToList(),
+            SortValues.UserNameDesc => elements = elements.OrderByDescending(x => x.User.UserName).ToList(),
+            SortValues.EmailAsc => elements = elements.OrderBy(x => x.User.Email).ToList(),
+            SortValues.EmailDesc => elements = elements.OrderByDescending(x => x.User.Email).ToList(),
+            _ => elements = elements.OrderByDescending(x => x.User.UserName).ToList(),
+        };
+
         //FILE
-        public static string UploadFile(IWebHostEnvironment webHostEnvironment, BookCreateEditViewModel model, string folderName)
+        public static string UploadFile(IWebHostEnvironment webHostEnvironment, BookCreateViewModel model, string folderName)
         {
             string fileName = null;
             if (model.File != null){
@@ -241,7 +271,24 @@ namespace Biblioteczka.Data
             }
             return fileName;
         }
+        public static string UploadFile(IWebHostEnvironment webHostEnvironment, BookEditViewModel model, string folderName)
+        {
+            string fileName = null;
+            if (model.File != null)
+            {
+                string destinationFolder = Path.Combine(webHostEnvironment.WebRootPath, folderName);
+                Directory.CreateDirectory(destinationFolder);
 
+                string fileExtension = model.File.FileName;
+                fileName = Guid.NewGuid().ToString() + fileExtension.Substring(fileExtension.LastIndexOf('.'));
+                string filePath = Path.Combine(destinationFolder, fileName);
+                using (var stream = File.Create(filePath))
+                {
+                    model.File.CopyTo(stream);
+                }
+            }
+            return fileName;
+        }
         public static void DeleteFile(IWebHostEnvironment webHostEnvironment, string newFileName, string folderName)
         {
             string destinationFolder = Path.Combine(webHostEnvironment.WebRootPath, folderName);

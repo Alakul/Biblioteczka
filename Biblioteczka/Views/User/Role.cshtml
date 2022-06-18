@@ -2,9 +2,11 @@
      ViewData["Title"] = "Zmień rolę użytkownika";
 }
 
-<partial name="Templates/_BackButton"/>
+<div class="mb-3">
+    <partial name="Templates/_BackButton"/>
+</div>
 
-<div class="col-sm-6 mx-auto">
+<div class="col-sm-8 col-md-6 mx-auto">
     <partial name="Templates/_Alert" model="@TempData["Alert"]?.ToString()"/>
     <div class="bg-white rounded shadow p-4">
         <form asp-controller="User" asp-action="Role" method="post">
@@ -12,13 +14,20 @@
 
             <div class="mb-3">
                 <label>Użytkownik</label>
-                <p class="form-control">@Model.UserName</p>
+                <p class="form-control">@Model.User.UserName</p>
             </div>
 
             <div class="mb-3">
-                <select name="Role" class="form-control">
-                <option value="Admin">Administrator</option>
-                <option value="User">Zwykły użytkownik</option>
+                <label>Rola</label>
+                <select name="Role" class="form-control selected-value">
+                    @foreach (var item in @ViewBag.Roles){
+                        @if (Model.Role!=null && !string.IsNullOrEmpty(Model.Role.Name) && item == @Model.Role.Name){
+                            <option value="@item" selected>@item</option>
+                        }
+                        else {
+                            <option value="@item">@item</option>
+                        }
+                    }
                 </select>
             </div>
 

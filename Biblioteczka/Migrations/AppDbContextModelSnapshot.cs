@@ -22,7 +22,7 @@ namespace Biblioteczka.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("LibraryApp.Areas.Identity.Data.AppUser", b =>
+            modelBuilder.Entity("Biblioteczka.Areas.Identity.Data.AppUser", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -91,20 +91,20 @@ namespace Biblioteczka.Migrations
                         {
                             Id = "0b948a1f-c552-41af-9818-77ab56a8be88",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "6ea19925-304d-4a03-8e70-e26803dd9f7e",
+                            ConcurrencyStamp = "47118b5d-400f-46bd-8d31-f48b4d1f82a2",
                             Email = "admin@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedUserName = "ADMIN@GMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEBIja76xnB632jG57FlqCKM1tOvCxKXyCia3a4CsgWE2Mp0rhLaO0HIJdyUD3MpjNQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEDE36S6n49rH5JrKNGD0mzXgKH2I2kT2MCt/4loEz8RiUSqUWAjB1xwow5vnWs33yQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "4518f76f-426f-4b18-8b9f-116c8c7964e3",
+                            SecurityStamp = "f9e50513-84b4-4bb4-a1cc-7c3540e4d269",
                             TwoFactorEnabled = false,
-                            UserName = "admin@gmail.com"
+                            UserName = "admin"
                         });
                 });
 
-            modelBuilder.Entity("LibraryApp.Models.Author", b =>
+            modelBuilder.Entity("Biblioteczka.Models.Author", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -117,21 +117,23 @@ namespace Biblioteczka.Migrations
 
                     b.Property<string>("LastName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Author");
+                    b.ToTable("Author", (string)null);
                 });
 
-            modelBuilder.Entity("LibraryApp.Models.Book", b =>
+            modelBuilder.Entity("Biblioteczka.Models.Book", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -144,22 +146,46 @@ namespace Biblioteczka.Migrations
 
                     b.Property<string>("City")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(3000)
+                        .HasColumnType("nvarchar(3000)");
+
+                    b.Property<string>("ISBN")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.Property<string>("Image")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("IssueNumber")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<int?>("Pages")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Publisher")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("Series")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(max)");
@@ -171,10 +197,10 @@ namespace Biblioteczka.Migrations
 
                     b.HasIndex("AuthorId");
 
-                    b.ToTable("Book");
+                    b.ToTable("Book", (string)null);
                 });
 
-            modelBuilder.Entity("LibraryApp.Models.Copy", b =>
+            modelBuilder.Entity("Biblioteczka.Models.Copy", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -193,19 +219,18 @@ namespace Biblioteczka.Migrations
 
                     b.Property<string>("Status")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(1)
+                        .HasColumnType("nvarchar(1)");
 
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("BookId");
-
-                    b.ToTable("Copy");
+                    b.ToTable("Copy", (string)null);
                 });
 
-            modelBuilder.Entity("LibraryApp.Models.Loan", b =>
+            modelBuilder.Entity("Biblioteczka.Models.Loan", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -238,10 +263,58 @@ namespace Biblioteczka.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Loan");
+                    b.ToTable("Loan", (string)null);
                 });
 
-            modelBuilder.Entity("LibraryApp.Models.Reservation", b =>
+            modelBuilder.Entity("Biblioteczka.Models.Profile", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LibraryCardNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Pesel")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Profile", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Date = new DateTime(2022, 6, 3, 20, 27, 21, 654, DateTimeKind.Local).AddTicks(2205),
+                            LastName = "Min",
+                            LibraryCardNumber = "LCN12345678",
+                            Name = "Ad",
+                            Pesel = "12345678901",
+                            UserId = "0b948a1f-c552-41af-9818-77ab56a8be88"
+                        });
+                });
+
+            modelBuilder.Entity("Biblioteczka.Models.Reservation", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -264,7 +337,7 @@ namespace Biblioteczka.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Reservation");
+                    b.ToTable("Reservation", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -298,8 +371,22 @@ namespace Biblioteczka.Migrations
                         {
                             Id = "14976c8a-e19b-4982-b395-ab0dca5efa99",
                             ConcurrencyStamp = "1",
-                            Name = "Admin",
-                            NormalizedName = "Admin"
+                            Name = "Administrator",
+                            NormalizedName = "ADMINISTRATOR"
+                        },
+                        new
+                        {
+                            Id = "14976c8a-e19e-4982-b395-ab0dca5efa98",
+                            ConcurrencyStamp = "1",
+                            Name = "Użytkownik",
+                            NormalizedName = "UŻYTKOWNIK"
+                        },
+                        new
+                        {
+                            Id = "14936c8a-e19e-4982-b395-ab0dca5efa97",
+                            ConcurrencyStamp = "1",
+                            Name = "Bibliotekarz",
+                            NormalizedName = "BIBLIOTEKARZ"
                         });
                 });
 
@@ -420,26 +507,15 @@ namespace Biblioteczka.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("LibraryApp.Models.Book", b =>
+            modelBuilder.Entity("Biblioteczka.Models.Book", b =>
                 {
-                    b.HasOne("LibraryApp.Models.Author", "Author")
-                        .WithMany("Books")
+                    b.HasOne("Biblioteczka.Models.Author", "Author")
+                        .WithMany()
                         .HasForeignKey("AuthorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Author");
-                });
-
-            modelBuilder.Entity("LibraryApp.Models.Copy", b =>
-                {
-                    b.HasOne("LibraryApp.Models.Book", "Book")
-                        .WithMany("Copies")
-                        .HasForeignKey("BookId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Book");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -453,7 +529,7 @@ namespace Biblioteczka.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("LibraryApp.Areas.Identity.Data.AppUser", null)
+                    b.HasOne("Biblioteczka.Areas.Identity.Data.AppUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -462,7 +538,7 @@ namespace Biblioteczka.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("LibraryApp.Areas.Identity.Data.AppUser", null)
+                    b.HasOne("Biblioteczka.Areas.Identity.Data.AppUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -477,7 +553,7 @@ namespace Biblioteczka.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("LibraryApp.Areas.Identity.Data.AppUser", null)
+                    b.HasOne("Biblioteczka.Areas.Identity.Data.AppUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -486,21 +562,11 @@ namespace Biblioteczka.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("LibraryApp.Areas.Identity.Data.AppUser", null)
+                    b.HasOne("Biblioteczka.Areas.Identity.Data.AppUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("LibraryApp.Models.Author", b =>
-                {
-                    b.Navigation("Books");
-                });
-
-            modelBuilder.Entity("LibraryApp.Models.Book", b =>
-                {
-                    b.Navigation("Copies");
                 });
 #pragma warning restore 612, 618
         }

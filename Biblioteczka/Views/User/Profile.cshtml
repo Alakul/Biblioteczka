@@ -1,0 +1,49 @@
+﻿@model Profile
+@{
+    ViewData["Title"] = "Edytuj profil użytkownika";
+    var lcn = @Model.LibraryCardNumber;
+    lcn = lcn.Substring(3, 8);
+}
+
+<div class="mb-3">
+    <partial name="Templates/_BackButton"/>
+</div>
+
+<div class="col-sm-8 col-md-6 mx-auto">
+    <partial name="Templates/_Alert" model="@TempData["Alert"]?.ToString()"/>
+    <div class="bg-white rounded shadow p-4">
+        <form asp-controller="User" asp-action="Profile" method="post">
+            <partial name="Templates/_FormHeader" model="@ViewData["Title"]"/>
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+			<div class="mb-3">
+				<label asp-for="Name"></label>
+				<input asp-for="Name" class="form-control" value="@Model.Name"/>
+				<span asp-validation-for="Name" class="text-danger"></span>
+			</div>
+			<div class="mb-3">
+				<label asp-for="LastName"></label>
+				<input asp-for="LastName" class="form-control" value="@Model.LastName"/>
+				<span asp-validation-for="LastName" class="text-danger"></span>
+			</div>
+			<div class="mb-3">
+				<label asp-for="Pesel">Pesel</label>
+				<input asp-for="Pesel" class="form-control" value="@Model.Pesel"/>
+				<span asp-validation-for="Pesel" class="text-danger"></span>
+			</div>
+			<div class="mb-3">
+				<label asp-for="LibraryCardNumber">Numer karty bibliotecznej</label>
+				<div class="input-group">
+					<span class="input-group-text">LCD</span>
+					<input asp-for="LibraryCardNumber" class="form-control" value="@lcn"/>		
+				</div>
+				<span asp-validation-for="LibraryCardNumber" class="text-danger"></span>
+			</div>	
+
+            <partial name="Templates/_FormButton"/>
+        </form>
+    </div>
+</div>
+@section Scripts {
+	<partial name="_ValidationScriptsPartial" />
+}

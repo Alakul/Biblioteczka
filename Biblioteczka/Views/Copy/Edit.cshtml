@@ -3,34 +3,40 @@
     ViewData["Title"] = "Edytuj egzemplarz";
 }
 
-<partial name="Templates/_BackButton" model="@Url.Action("Index")"/>
+<div class="mb-3">
+    <partial name="Templates/_BackButton"/>
+</div>
 
-<div class="col-sm-6 mx-auto">
+<div class="col-sm-8 col-md-6 mx-auto">
     <partial name="Templates/_Alert" model="@TempData["Alert"]?.ToString()"/>
     <div class="bg-white rounded shadow p-4">
         <form asp-controller="Copy" asp-action="Edit" method="post">
             <partial name="Templates/_FormHeader" model="@ViewData["Title"]"/>
         
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="mb-3">
-                <label for="Number">Numer</label>
-                <input id="Number" name="Copy.Number" type="text" class="form-control" minlength="3" maxlength="100" value="@Model.Copy.Number" required >
+                <label asp-for="Copy.Number"></label>
+			    <input asp-for="Copy.Number" type="text" class="form-control" value="@Model.Copy.Number"/>
+			    <span asp-validation-for="Copy.Number" class="text-danger"></span>
             </div>
-
             <div class="mb-3">
                 <label for="Status">Status</label>
-                <select id="Status" name="Copy.Status" class="form-control" >
-                    @for (int i = 0; i < @ViewBag.Categories.Count; i++){
-                        @if (i == int.Parse(Model.Copy.Status)){
-                            <option value="@i" selected>@ViewBag.Categories[@i]</option>
+                <select id="Status" name="Copy.Status" class="form-control selected-value" >
+                    @foreach (var item in @ViewBag.Status){
+                        @if (item.Key == @Model.Copy.Status){
+                            <option value="@item.Key" selected>@item.Value</option>
                         }
                         else {
-                            <option value="@i">@ViewBag.Categories[@i]</option>
+                            <option value="@item.Key">@item.Value</option>
                         }
                     }
                 </select>
             </div>
-        
+
             <partial name="Templates/_FormButton"/>
         </form>
     </div>
 </div>
+@section Scripts {
+	<partial name="_ValidationScriptsPartial" />
+}

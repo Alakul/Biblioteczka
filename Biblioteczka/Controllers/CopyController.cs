@@ -11,7 +11,7 @@ namespace Biblioteczka.Controllers
     [Route("Egzemplarze")]
     public class CopyController : Controller
     {
-        private const string role = "Admin";
+        private const string role = AppData.Admin + "," + AppData.Librarian;
         private readonly AppDbContext db;
         public CopyController(AppDbContext context)
         {
@@ -22,7 +22,7 @@ namespace Biblioteczka.Controllers
         [Authorize(Roles = role)]
         public ActionResult Index(string searchString, string sortOrder, int? page, string formValue)
         {
-            CopyViewModel copyBookAuthorViewModel = new CopyViewModel();
+            CopyViewModel copyViewModel = new CopyViewModel();
             List<CopyViewModel> copies = GetCopyList();
 
             HttpContextAccessor httpContextAccessor = new HttpContextAccessor();
@@ -33,8 +33,8 @@ namespace Biblioteczka.Controllers
 
             int pageSize = 20;
             int pageNumber = (page ?? 1);
-            copyBookAuthorViewModel.CopyList = copies.ToPagedList(pageNumber, pageSize);
-            return View(copyBookAuthorViewModel);
+            copyViewModel.CopyList = copies.ToPagedList(pageNumber, pageSize);
+            return View(copyViewModel);
         }
 
         // GET: CopyController/Details/5
@@ -52,7 +52,7 @@ namespace Biblioteczka.Controllers
             CopyCreateEditViewModel copyCreateEditViewModel = new CopyCreateEditViewModel();
             copyCreateEditViewModel.BookId = id;
 
-            GetList();
+            GetStatusList();
             return View(copyCreateEditViewModel);
         }
 
@@ -63,7 +63,9 @@ namespace Biblioteczka.Controllers
         [Route("Dodaj/{id}")]
         public ActionResult Create(int id, CopyCreateEditViewModel model)
         {
-            try
+            GetStatusList();
+
+            if (ModelState.IsValid)
             {
                 Copy copy = new Copy
                 {
@@ -78,13 +80,11 @@ namespace Biblioteczka.Controllers
                 db.Copy.Add(copy);
                 db.SaveChanges();
 
-                GetList();
                 TempData["Alert"] = "Success";
                 return RedirectToAction(nameof(Create));
             }
-            catch
+            else
             {
-                GetList();
                 TempData["Alert"] = "Danger";
                 return RedirectToAction(nameof(Create));
             }
@@ -101,7 +101,7 @@ namespace Biblioteczka.Controllers
             copyViewModel.BookId = copy.BookId;
             copyViewModel.Copy = copy;
 
-            GetList();
+            GetStatusList();
             return View(copyViewModel);
         }
 
@@ -112,7 +112,9 @@ namespace Biblioteczka.Controllers
         [Route("Edytuj/{id}")]
         public ActionResult Edit(int id, CopyCreateEditViewModel model)
         {
-            try
+            GetStatusList();
+
+            if (ModelState.IsValid)
             {
                 Copy copy = db.Copy.Where(x => x.Id == id).Single();
                 copy.UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -124,13 +126,11 @@ namespace Biblioteczka.Controllers
                 db.Copy.Update(copy);
                 db.SaveChanges();
 
-                GetList();
                 TempData["Alert"] = "Success";
                 return RedirectToAction(nameof(Edit));
             }
-            catch
+            else
             {
-                GetList();
                 TempData["Alert"] = "Danger";
                 return RedirectToAction(nameof(Edit));
             }
@@ -193,9 +193,9 @@ namespace Biblioteczka.Controllers
 
             return copies;
         }
-        private void GetList()
+        private void GetStatusList()
         {
-            ViewBag.Categories = AppData.copyCategories;
+            ViewBag.Status = AppData.copyStatus;
         }
     }
 }

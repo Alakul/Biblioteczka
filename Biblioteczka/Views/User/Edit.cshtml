@@ -1,27 +1,35 @@
-﻿@{
+﻿@model UserViewModel
+@{
      ViewData["Title"] = "Edytuj dane użytkownika";
 }
 
-<partial name="Templates/_BackButton"/>
+<div class="mb-3">
+    <partial name="Templates/_BackButton"/>
+</div>
 
-<div class="col-sm-6 mx-auto">
+<div class="col-sm-8 col-md-6 mx-auto">
     <partial name="Templates/_Alert" model="@TempData["Alert"]?.ToString()"/>
     <div class="bg-white rounded shadow p-4">
         <form asp-controller="User" asp-action="Edit" method="post">
             <partial name="Templates/_FormHeader" model="@ViewData["Title"]"/>
-        
-            <div class="mb-3">
-                <label for="UserName">Nazwa</label>
-                <input id="UserName" name="UserName" type="text" class="form-control" minlength="3" maxlength="100" required>
-            </div>
 
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="mb-3">
-                <label for="Email">Email</label>
-                <input id="Email" name="Email" type="text" class="form-control" minlength="3" maxlength="100" required>
+                <label asp-for="UserName"></label>
+			    <input asp-for="UserName" type="text" class="form-control" value="@Model.UserName"/>
+			    <span asp-validation-for="UserName" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Email"></label>
+			    <input asp-for="Email" type="email" class="form-control" value="@Model.Email"/>
+			    <span asp-validation-for="Email" class="text-danger"></span>
             </div>
 
             <partial name="Templates/_FormButton"/>
         </form>
     </div>
 </div>
+@section Scripts {
+	<partial name="_ValidationScriptsPartial" />
+}
 

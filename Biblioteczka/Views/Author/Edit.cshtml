@@ -1,26 +1,34 @@
-﻿@{
+﻿@model Author
+@{
      ViewData["Title"] = "Edytuj dane autora";
 }
 
-<partial name="Templates/_BackButton"/>
+<div class="mb-3">
+    <partial name="Templates/_BackButton"/>
+</div>
 
-<div class="col-sm-6 mx-auto">
+<div class="col-sm-8 col-md-6 mx-auto">
     <partial name="Templates/_Alert" model="@TempData["Alert"]?.ToString()"/>
     <div class="bg-white rounded shadow p-4">
         <form asp-controller="Author" asp-action="Edit" method="post">
             <partial name="Templates/_FormHeader" model="@ViewData["Title"]"/>
         
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="mb-3">
-                <label for="Name">Imię</label>
-                <input name="Name" type="text" class="form-control" minlength="3" maxlength="100" required value="@Model.Name">
+                <label asp-for="Name"></label>
+			    <input asp-for="Name" type="text" class="form-control" value="@Model.Name"/>
+			    <span asp-validation-for="Name" class="text-danger"></span>
             </div>
-
             <div class="mb-3">
-                <label for="LastName">Nazwisko</label>
-                <input name="LastName" type="text" class="form-control" minlength="3" maxlength="100" required value="@Model.LastName">
+                <label asp-for="LastName"></label>
+			    <input asp-for="LastName" type="text" class="form-control" value="@Model.LastName"/>
+			    <span asp-validation-for="LastName" class="text-danger"></span>
             </div>
         
             <partial name="Templates/_FormButton"/>
         </form>
     </div>
 </div>
+@section Scripts {
+	<partial name="_ValidationScriptsPartial" />
+}

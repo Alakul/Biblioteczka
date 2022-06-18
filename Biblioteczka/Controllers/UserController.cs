@@ -1,5 +1,6 @@
 ﻿using Biblioteczka.Areas.Identity.Data;
 using Biblioteczka.Data;
+using Biblioteczka.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -8,11 +9,11 @@ using X.PagedList;
 
 namespace Biblioteczka.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    
     [Route("Uzytkownicy")]
     public class UserController : Controller
     {
-        private const string role = "Admin";
+        private const string role = AppData.Admin + "," + AppData.Librarian;
         private readonly AppDbContext db;
         private readonly UserManager<AppUser> UserManager;
 
@@ -23,26 +24,36 @@ namespace Biblioteczka.Controllers
             UserManager = userManager;
         }
 
+        [Authorize(Roles = role)]
         public ActionResult Index(string searchString, string sortOrder, int? page, string formValue)
         {
-            List<AppUser> users = db.Users.ToList();
-            users = SearchUsers(formValue, searchString, users);
-            users = SortUsers(sortOrder, users);
+            UserViewModel userViewModel = new UserViewModel();
+            List<UserViewModel> users = GetUserList();
 
-            int pageSize = 5;
+            HttpContextAccessor httpContextAccessor = new HttpContextAccessor();
+            var tuple = AppMethods.Search(httpContextAccessor, users, "SearchStringUser", formValue, searchString);
+            users = tuple.Item1;
+            ViewBag.SearchString = tuple.Item2;
+            users = AppMethods.Sort(httpContextAccessor, users, "SortOrderUser", sortOrder);
+
+            int pageSize = 20;
             int pageNumber = (page ?? 1);
-            return View(users.ToPagedList(pageNumber, pageSize));
+            userViewModel.UserList = users.ToPagedList(pageNumber, pageSize);
+            return View(userViewModel);
         }
 
         // GET: UserController/Details/5
+        [Authorize(Roles = role)]
         [Route("Szczegoly/{id}")]
-        public async Task<ActionResult> Details(string id)
+        public ActionResult Details(string id)
         {
-            AppUser appUser = await UserManager.FindByIdAsync(id);
-            return View(appUser);
+            List<UserViewModel> allUsers = GetUserList();
+            UserViewModel user = allUsers.Where(x => x.User.Id == id).Single();
+            return View(user);
         }
 
         // GET: UserController/Create
+        [Authorize(Roles = AppData.Admin)]
         [Route("Dodaj")]
         public ActionResult Create()
         {
@@ -50,6 +61,7 @@ namespace Biblioteczka.Controllers
         }
 
         // POST: UserController/Create
+        [Authorize(Roles = AppData.Admin)]
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Route("Dodaj")]
@@ -66,29 +78,62 @@ namespace Biblioteczka.Controllers
         }
 
         // GET: UserController/Edit/5
+        [Authorize(Roles = AppData.Admin)]
         [Route("Edytuj/{id}")]
-        public ActionResult Edit(int id)
+        public async Task<ActionResult> Edit(string id)
         {
-            return View();
+            //AppUser appUser = await UserManager.FindByIdAsync(id);
+            UserViewModel user = new UserViewModel();
+            user.User = await UserManager.FindByIdAsync(id);
+            user.Email = user.User.Email;
+            user.UserName = user.User.UserName;
+            return View(user);
         }
 
         // POST: UserController/Edit/5
+        [Authorize(Roles = AppData.Admin)]
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Route("Edytuj/{id}")]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public async Task<ActionResult> Edit(string id, IFormCollection collection)
         {
-            try
+            if (ModelState.IsValid)
             {
-                return RedirectToAction(nameof(Index));
+                string emailNormalized = collection["Email"].ToString().ToUpper();
+                string userNameNormalized = collection["UserName"].ToString().ToUpper();
+
+                AppUser appUser = await UserManager.FindByIdAsync(id);
+                List<AppUser> users = db.Users.Where(x => x.NormalizedUserName == userNameNormalized).ToList();
+
+                if (users.Count == 0)
+                {
+                    appUser.Email = collection["Email"];
+                    appUser.NormalizedEmail = emailNormalized;
+
+                    appUser.UserName = collection["UserName"];
+                    appUser.NormalizedUserName = userNameNormalized;
+
+                    db.Users.Update(appUser);
+                    db.SaveChanges();
+
+                    TempData["Alert"] = "Success";
+                    return RedirectToAction(nameof(Edit));
+                }
+                else
+                {
+                    TempData["Alert"] = "Danger";
+                    return RedirectToAction(nameof(Edit));
+                }
             }
-            catch
+            else
             {
-                return View();
+                TempData["Alert"] = "Danger";
+                return RedirectToAction(nameof(Edit));
             }
         }
 
         // GET: UserController/Delete/5
+        [Authorize(Roles = AppData.Admin)]
         [Route("Usun/{id}")]
         public ActionResult Delete(int id)
         {
@@ -96,6 +141,7 @@ namespace Biblioteczka.Controllers
         }
 
         // POST: UserController/Delete/5
+        [Authorize(Roles = AppData.Admin)]
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Route("Usun/{id}")]
@@ -105,6 +151,10 @@ namespace Biblioteczka.Controllers
             {
                 AppUser appUser = await UserManager.FindByIdAsync(id);
                 await UserManager.DeleteAsync(appUser);
+
+                Profile profile = db.Profile.Where(x=>x.UserId == id).Single();
+                db.Profile.Remove(profile);
+                db.SaveChanges();
 
                 TempData["Alert"] = "Success";
                 return RedirectToAction(nameof(Index));
@@ -117,132 +167,135 @@ namespace Biblioteczka.Controllers
         }
 
         // GET: UserController/Role/5
+        [Authorize(Roles = AppData.Admin)]
         [Route("ZmienRole/{id}")]
-        public async Task<ActionResult> Role(string id)
+        public ActionResult Role(string id)
         {
-            AppUser appUser = await UserManager.FindByIdAsync(id);
-            return View(appUser);
+            ViewBag.Roles = AppData.roleTypes;
+
+            List<UserViewModel> allUsers = GetUserList();
+            UserViewModel user = allUsers.Where(x => x.User.Id == id).Single();
+            return View(user);
         }
 
         // POST: UserController/Role
+        [Authorize(Roles = AppData.Admin)]
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Route("ZmienRole/{id}")]
         public async Task<ActionResult> Role(string id, IFormCollection collection)
         {
+            ViewBag.Roles = AppData.roleTypes;
+
             try
             {
                 AppUser appUser = await UserManager.FindByIdAsync(id);
-                var result = await UserManager.IsInRoleAsync(appUser, role);
 
-                if (collection["Role"] == role && result==false){
-                    await UserManager.AddToRoleAsync(appUser, role);
+                if (await UserManager.IsInRoleAsync(appUser, collection["Role"]) == false)
+                {
+                    var currentRoles = await UserManager.GetRolesAsync(appUser);
+                    if (currentRoles != null){
+                        var resultDelete = await UserManager.RemoveFromRolesAsync(appUser, currentRoles);
+                    }
 
+                    var resultRole = "Użytkownik";
+                    if (collection["Role"].ToString() != ""){
+                        resultRole = collection["Role"];
+                    }
+
+                    var resultAdd = await UserManager.AddToRoleAsync(appUser, resultRole);
+                    if (resultAdd.Succeeded){
+                        TempData["Alert"] = "Success";
+                        return RedirectToAction(nameof(Role));
+                    }
+                    else {
+                        TempData["Alert"] = "Danger";
+                        return RedirectToAction(nameof(Role));
+                    }
                 }
-                else if (collection["Role"] == "User" && result==true){
-                    await UserManager.RemoveFromRoleAsync(appUser, role);
-                }
-
-                TempData["Alert"] = "Success";
-                return RedirectToAction(nameof(Index));
+                else
+                {
+                    TempData["Alert"] = "Success";
+                    return RedirectToAction(nameof(Role));
+                }    
             }
             catch
             {
                 TempData["Alert"] = "Danger";
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Role));
             }
         }
 
-
-
-
-
-        //SEARCH
-        private List<AppUser> SearchUsers(string formValue, string searchString, List<AppUser> users)
+        // GET: UserController/Role/5
+        [Authorize(Roles = AppData.Admin)]
+        [Route("EdytujProfil/{id}")]
+        public ActionResult Profile(string id)
         {
-            CookieOptions options = new CookieOptions();
-            string cookieName = "SearchStringUser";
-            string cookie = Request.Cookies[cookieName];
-
-            if (formValue == null){
-                if (cookie != null){
-                    users = users.Where(x => x.UserName.ToLower().Contains(cookie.ToLower()) ||
-                        x.Email.ToLower().Contains(cookie.ToLower())).ToList();
-                    ViewBag.SearchString = cookie;
-                }
-                else {
-                    users = UserManager.Users.ToList();
-                    ViewBag.SearchString = "";
-                }
-            }
-            else if (searchString == null && formValue == "1"){
-                users = UserManager.Users.ToList();
-                Response.Cookies.Delete(cookieName);
-                ViewBag.SearchString = "";
-            }
-            else if (searchString != null && formValue == "1"){
-                string newValue = searchString.Trim();
-                if (!string.IsNullOrEmpty(newValue)){
-                    if (newValue != cookie){
-                        Response.Cookies.Append(cookieName, newValue, options);
-                    }
-                    users = users.Where(x => x.UserName.ToLower().Contains(newValue.ToLower()) ||
-                        x.Email.ToLower().Contains(newValue.ToLower())).ToList();
-                    ViewBag.SearchString = newValue;
-                }
-                else {
-                    users = UserManager.Users.ToList();
-                    ViewBag.SearchString = "";
-                }
-            }
-
-            return users;
+            Profile profile = db.Profile.Where(x=>x.UserId == id).Single();
+            return View(profile);
         }
 
-        //SORT
-        private List<AppUser> SortUsers(string sortOrder, List<AppUser> users)
+        // POST: UserController/Role
+        [Authorize(Roles = AppData.Admin)]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Route("EdytujProfil/{id}")]
+        public ActionResult Profile(string id, IFormCollection collection)
         {
-            CookieOptions options = new CookieOptions();
-            string cookieName = "SortOrderUser";
-
-            if (sortOrder == null){
-                string cookie = Request.Cookies[cookieName];
-                if (cookie != null){
-                    users = GetUsers(cookie, users);
-                }
-            }
-            else if (sortOrder != null){
-                users = GetUsers(sortOrder, users);
-                if (sortOrder != null){
-                    Response.Cookies.Append(cookieName, sortOrder, options);
-                }
-            }
-
-            return users;
-        }
-
-        //SWITCH
-        private List<AppUser> GetUsers(string sort, List<AppUser> users)
-        {
-            switch (sort)
+            if (ModelState.IsValid)
             {
-                case "UserNameAsc":
-                    users = UserManager.Users.OrderBy(x => x.UserName).ToList();
-                    break;
-                case "UserNameDesc":
-                    users = UserManager.Users.OrderByDescending(x => x.UserName).ToList();
-                    break;
-                case "EmailAsc":
-                    users = UserManager.Users.OrderBy(x => x.Email).ToList();
-                    break;
-                case "EmailDesc":
-                    users = UserManager.Users.OrderByDescending(x => x.Email).ToList();
-                    break;
-                default:
-                    users = UserManager.Users.OrderBy(x => x.UserName).ToList();
-                    break;
+                Profile profile = db.Profile.Where(x => x.UserId == id).Single();
+
+                string pesel = collection["Pesel"].ToString();
+                string lcn = "LCN" + collection["LibraryCardNumber"].ToString();
+
+                List<Profile> profileListNumber = db.Profile.Where(x => x.LibraryCardNumber == lcn).ToList();
+                List<Profile> profileListPesel = db.Profile.Where(x => x.Pesel == pesel).ToList();
+
+                if (profileListNumber.Count >= 2 || profileListPesel.Count >= 2){
+                    TempData["Alert"] = "Danger";
+                    return RedirectToAction(nameof(Profile));
+                }
+                else {
+                    profile.Name = collection["Name"];
+                    profile.LastName = collection["LastName"];
+                    profile.Pesel = pesel;
+                    profile.LibraryCardNumber = lcn;
+                    profile.Date = DateTime.Now;
+
+                    db.Profile.Update(profile);
+                    db.SaveChanges();
+
+                    TempData["Alert"] = "Success";
+                    return RedirectToAction(nameof(Profile));
+                }
             }
-            return users;
+            else
+            {
+                TempData["Alert"] = "Danger";
+                return RedirectToAction(nameof(Profile));
+            }
+        }
+
+
+
+        //GET
+        private List<UserViewModel> GetUserList()
+        {
+            List<UserViewModel> allUsers = (
+                from a in db.Users join b in db.UserRoles on a.Id equals b.UserId into ab
+                from c in ab.DefaultIfEmpty() join d in db.Roles on c.RoleId equals d.Id into cd
+                from e in cd.DefaultIfEmpty() join f in db.Profile on a.Id equals f.UserId into fg
+                from f in fg.DefaultIfEmpty()
+                select new UserViewModel
+                {
+                    User = a,
+                    Role = e,
+                    Profile = f,
+                })
+                .ToList();
+
+            return allUsers;
         }
     }
 }

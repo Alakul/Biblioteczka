@@ -10,7 +10,7 @@ namespace Biblioteczka.Controllers
     [Route("Rezerwacje")]
     public class ReservationController : Controller
     {
-        private const string role = "Admin";
+        private const string role = AppData.Admin + "," + AppData.Librarian;
         private readonly AppDbContext db;
         public ReservationController(AppDbContext context)
         {
