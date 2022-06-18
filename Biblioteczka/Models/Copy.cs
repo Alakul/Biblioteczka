@@ -15,7 +15,7 @@ namespace Biblioteczka.Models
 
         [Required(ErrorMessage = "Pole {0} jest wymagane.")]
         [Display(Name = "Numer inwentarzowy")]
-        [Range(1, 99999999, ErrorMessage = "Wprowadź liczbę całkowitą z zakresu od {0} do {1}.")]
+        [Range(1, 99999999, ErrorMessage = "Wprowadź liczbę całkowitą z zakresu od {1} do {2}.")]
         public int Number { get; set; }
 
         [Required(ErrorMessage = "Pole {0} jest wymagane.")]
