@@ -36,7 +36,7 @@ Project is created with:
 
 <a name="admin"></a>
 ## Admin Account</br>
-Email: admin@gmail.com</br>
+Login: admin</br>
 Password: 12345678
 
 	
@@ -64,4 +64,14 @@ List of features
 <p>
     <img src="./Screenshots/AddBook.png" alt="Book adding form">
     <em>Book adding form</em>
+</p>
+</br>
+<p>
+    <img src="./Screenshots/CopyList.png" alt="List of copies">
+    <em>List of copies</em>
+</p>
+</br>
+<p>
+    <img src="./Screenshots/AccountSettings.png" alt="Account settings">
+    <em>Account settings</em>
 </p>

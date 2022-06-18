@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "qVI8V0AQzILqOxw57W6J8Wp1+LjjrdvYl0MbuHzae70=",
+  "Hash": "TCo0hmovWzgXlLOM4TjUXzXkO14lTuL2WekZ5TuoSy0=",
   "Source": "Biblioteczka",
   "BasePath": "_content/Biblioteczka",
   "Mode": "Default",
@@ -1103,40 +1103,6 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\images\\398d6e6d-f7f1-465c-aef7-295e5a72f367.jpg"
-    },
-    {
-      "Identity": "C:\\Users\\alicj\\source\\repos\\ASP.NET Core - Biblioteczka\\Biblioteczka\\wwwroot\\images\\69955fb3-9cc0-453d-9f91-4e8a2712c406.jpg",
-      "SourceId": "Biblioteczka",
-      "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\alicj\\source\\repos\\ASP.NET Core - Biblioteczka\\Biblioteczka\\wwwroot\\",
-      "BasePath": "_content/Biblioteczka",
-      "RelativePath": "images/69955fb3-9cc0-453d-9f91-4e8a2712c406.jpg",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\69955fb3-9cc0-453d-9f91-4e8a2712c406.jpg"
-    },
-    {
-      "Identity": "C:\\Users\\alicj\\source\\repos\\ASP.NET Core - Biblioteczka\\Biblioteczka\\wwwroot\\images\\6f28346b-a002-4612-907a-10ee378a3e5f.webp",
-      "SourceId": "Biblioteczka",
-      "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\alicj\\source\\repos\\ASP.NET Core - Biblioteczka\\Biblioteczka\\wwwroot\\",
-      "BasePath": "_content/Biblioteczka",
-      "RelativePath": "images/6f28346b-a002-4612-907a-10ee378a3e5f.webp",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\6f28346b-a002-4612-907a-10ee378a3e5f.webp"
     },
     {
       "Identity": "C:\\Users\\alicj\\source\\repos\\ASP.NET Core - Biblioteczka\\Biblioteczka\\wwwroot\\images\\6f510fcb-0d31-41dd-8008-9b4df4f536bb.jpg",
