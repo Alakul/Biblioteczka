@@ -8,349 +8,345 @@ build_property.PlatformNeutralAssembly =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = Biblioteczka
 build_property.RootNamespace = Biblioteczka
-build_property.ProjectDir = C:\Users\alicj\source\repos\ASP.NET Core - Biblioteczka\Biblioteczka\
+build_property.ProjectDir = C:\Users\alicj\source\repos\ASP.NET Core MVC - Biblioteczka\Biblioteczka\
 build_property.RazorLangVersion = 6.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = C:\Users\alicj\source\repos\ASP.NET Core - Biblioteczka\Biblioteczka
+build_property.MSBuildProjectDirectory = C:\Users\alicj\source\repos\ASP.NET Core MVC - Biblioteczka\Biblioteczka
 build_property._RazorSourceGeneratorDebug = 
 
-[C:/Users/alicj/source/repos/ASP.NET Core - Biblioteczka/Biblioteczka/Areas/Identity/Pages/Account/AccessDenied.cshtml]
+[C:/Users/alicj/source/repos/ASP.NET Core MVC - Biblioteczka/Biblioteczka/Areas/Identity/Pages/Account/AccessDenied.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxBY2Nlc3NEZW5pZWQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/alicj/source/repos/ASP.NET Core - Biblioteczka/Biblioteczka/Areas/Identity/Pages/Account/ConfirmEmail.cshtml]
+[C:/Users/alicj/source/repos/ASP.NET Core MVC - Biblioteczka/Biblioteczka/Areas/Identity/Pages/Account/ConfirmEmail.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxDb25maXJtRW1haWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/alicj/source/repos/ASP.NET Core - Biblioteczka/Biblioteczka/Areas/Identity/Pages/Account/ConfirmEmailChange.cshtml]
+[C:/Users/alicj/source/repos/ASP.NET Core MVC - Biblioteczka/Biblioteczka/Areas/Identity/Pages/Account/ConfirmEmailChange.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxDb25maXJtRW1haWxDaGFuZ2UuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/alicj/source/repos/ASP.NET Core - Biblioteczka/Biblioteczka/Areas/Identity/Pages/Account/ExternalLogin.cshtml]
+[C:/Users/alicj/source/repos/ASP.NET Core MVC - Biblioteczka/Biblioteczka/Areas/Identity/Pages/Account/ExternalLogin.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxFeHRlcm5hbExvZ2luLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/alicj/source/repos/ASP.NET Core - Biblioteczka/Biblioteczka/Areas/Identity/Pages/Account/ForgotPassword.cshtml]
+[C:/Users/alicj/source/repos/ASP.NET Core MVC - Biblioteczka/Biblioteczka/Areas/Identity/Pages/Account/ForgotPassword.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxGb3Jnb3RQYXNzd29yZC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/alicj/source/repos/ASP.NET Core - Biblioteczka/Biblioteczka/Areas/Identity/Pages/Account/ForgotPasswordConfirmation.cshtml]
+[C:/Users/alicj/source/repos/ASP.NET Core MVC - Biblioteczka/Biblioteczka/Areas/Identity/Pages/Account/ForgotPasswordConfirmation.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxGb3Jnb3RQYXNzd29yZENvbmZpcm1hdGlvbi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/alicj/source/repos/ASP.NET Core - Biblioteczka/Biblioteczka/Areas/Identity/Pages/Account/Lockout.cshtml]
+[C:/Users/alicj/source/repos/ASP.NET Core MVC - Biblioteczka/Biblioteczka/Areas/Identity/Pages/Account/Lockout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxMb2Nrb3V0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/alicj/source/repos/ASP.NET Core - Biblioteczka/Biblioteczka/Areas/Identity/Pages/Account/Login.cshtml]
+[C:/Users/alicj/source/repos/ASP.NET Core MVC - Biblioteczka/Biblioteczka/Areas/Identity/Pages/Account/Login.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxMb2dpbi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/alicj/source/repos/ASP.NET Core - Biblioteczka/Biblioteczka/Areas/Identity/Pages/Account/LoginWith2fa.cshtml]
+[C:/Users/alicj/source/repos/ASP.NET Core MVC - Biblioteczka/Biblioteczka/Areas/Identity/Pages/Account/LoginWith2fa.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxMb2dpbldpdGgyZmEuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/alicj/source/repos/ASP.NET Core - Biblioteczka/Biblioteczka/Areas/Identity/Pages/Account/LoginWithRecoveryCode.cshtml]
+[C:/Users/alicj/source/repos/ASP.NET Core MVC - Biblioteczka/Biblioteczka/Areas/Identity/Pages/Account/LoginWithRecoveryCode.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxMb2dpbldpdGhSZWNvdmVyeUNvZGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/alicj/source/repos/ASP.NET Core - Biblioteczka/Biblioteczka/Areas/Identity/Pages/Account/Logout.cshtml]
+[C:/Users/alicj/source/repos/ASP.NET Core MVC - Biblioteczka/Biblioteczka/Areas/Identity/Pages/Account/Logout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxMb2dvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/alicj/source/repos/ASP.NET Core - Biblioteczka/Biblioteczka/Areas/Identity/Pages/Account/Manage/ChangePassword.cshtml]
+[C:/Users/alicj/source/repos/ASP.NET Core MVC - Biblioteczka/Biblioteczka/Areas/Identity/Pages/Account/Manage/ChangePassword.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxNYW5hZ2VcQ2hhbmdlUGFzc3dvcmQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/alicj/source/repos/ASP.NET Core - Biblioteczka/Biblioteczka/Areas/Identity/Pages/Account/Manage/DeletePersonalData.cshtml]
+[C:/Users/alicj/source/repos/ASP.NET Core MVC - Biblioteczka/Biblioteczka/Areas/Identity/Pages/Account/Manage/DeletePersonalData.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxNYW5hZ2VcRGVsZXRlUGVyc29uYWxEYXRhLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/alicj/source/repos/ASP.NET Core - Biblioteczka/Biblioteczka/Areas/Identity/Pages/Account/Manage/Disable2fa.cshtml]
+[C:/Users/alicj/source/repos/ASP.NET Core MVC - Biblioteczka/Biblioteczka/Areas/Identity/Pages/Account/Manage/Disable2fa.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxNYW5hZ2VcRGlzYWJsZTJmYS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/alicj/source/repos/ASP.NET Core - Biblioteczka/Biblioteczka/Areas/Identity/Pages/Account/Manage/DownloadPersonalData.cshtml]
+[C:/Users/alicj/source/repos/ASP.NET Core MVC - Biblioteczka/Biblioteczka/Areas/Identity/Pages/Account/Manage/DownloadPersonalData.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxNYW5hZ2VcRG93bmxvYWRQZXJzb25hbERhdGEuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/alicj/source/repos/ASP.NET Core - Biblioteczka/Biblioteczka/Areas/Identity/Pages/Account/Manage/Email.cshtml]
+[C:/Users/alicj/source/repos/ASP.NET Core MVC - Biblioteczka/Biblioteczka/Areas/Identity/Pages/Account/Manage/Email.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxNYW5hZ2VcRW1haWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/alicj/source/repos/ASP.NET Core - Biblioteczka/Biblioteczka/Areas/Identity/Pages/Account/Manage/EnableAuthenticator.cshtml]
+[C:/Users/alicj/source/repos/ASP.NET Core MVC - Biblioteczka/Biblioteczka/Areas/Identity/Pages/Account/Manage/EnableAuthenticator.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxNYW5hZ2VcRW5hYmxlQXV0aGVudGljYXRvci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/alicj/source/repos/ASP.NET Core - Biblioteczka/Biblioteczka/Areas/Identity/Pages/Account/Manage/ExternalLogins.cshtml]
+[C:/Users/alicj/source/repos/ASP.NET Core MVC - Biblioteczka/Biblioteczka/Areas/Identity/Pages/Account/Manage/ExternalLogins.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxNYW5hZ2VcRXh0ZXJuYWxMb2dpbnMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/alicj/source/repos/ASP.NET Core - Biblioteczka/Biblioteczka/Areas/Identity/Pages/Account/Manage/GenerateRecoveryCodes.cshtml]
+[C:/Users/alicj/source/repos/ASP.NET Core MVC - Biblioteczka/Biblioteczka/Areas/Identity/Pages/Account/Manage/GenerateRecoveryCodes.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxNYW5hZ2VcR2VuZXJhdGVSZWNvdmVyeUNvZGVzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/alicj/source/repos/ASP.NET Core - Biblioteczka/Biblioteczka/Areas/Identity/Pages/Account/Manage/Index.cshtml]
+[C:/Users/alicj/source/repos/ASP.NET Core MVC - Biblioteczka/Biblioteczka/Areas/Identity/Pages/Account/Manage/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxNYW5hZ2VcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/alicj/source/repos/ASP.NET Core - Biblioteczka/Biblioteczka/Areas/Identity/Pages/Account/Manage/PersonalData.cshtml]
+[C:/Users/alicj/source/repos/ASP.NET Core MVC - Biblioteczka/Biblioteczka/Areas/Identity/Pages/Account/Manage/PersonalData.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxNYW5hZ2VcUGVyc29uYWxEYXRhLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/alicj/source/repos/ASP.NET Core - Biblioteczka/Biblioteczka/Areas/Identity/Pages/Account/Manage/ResetAuthenticator.cshtml]
+[C:/Users/alicj/source/repos/ASP.NET Core MVC - Biblioteczka/Biblioteczka/Areas/Identity/Pages/Account/Manage/ResetAuthenticator.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxNYW5hZ2VcUmVzZXRBdXRoZW50aWNhdG9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/alicj/source/repos/ASP.NET Core - Biblioteczka/Biblioteczka/Areas/Identity/Pages/Account/Manage/SetPassword.cshtml]
+[C:/Users/alicj/source/repos/ASP.NET Core MVC - Biblioteczka/Biblioteczka/Areas/Identity/Pages/Account/Manage/SetPassword.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxNYW5hZ2VcU2V0UGFzc3dvcmQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/alicj/source/repos/ASP.NET Core - Biblioteczka/Biblioteczka/Areas/Identity/Pages/Account/Manage/ShowRecoveryCodes.cshtml]
+[C:/Users/alicj/source/repos/ASP.NET Core MVC - Biblioteczka/Biblioteczka/Areas/Identity/Pages/Account/Manage/ShowRecoveryCodes.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxNYW5hZ2VcU2hvd1JlY292ZXJ5Q29kZXMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/alicj/source/repos/ASP.NET Core - Biblioteczka/Biblioteczka/Areas/Identity/Pages/Account/Manage/TwoFactorAuthentication.cshtml]
+[C:/Users/alicj/source/repos/ASP.NET Core MVC - Biblioteczka/Biblioteczka/Areas/Identity/Pages/Account/Manage/TwoFactorAuthentication.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxNYW5hZ2VcVHdvRmFjdG9yQXV0aGVudGljYXRpb24uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/alicj/source/repos/ASP.NET Core - Biblioteczka/Biblioteczka/Areas/Identity/Pages/Account/Manage/_Layout.cshtml]
+[C:/Users/alicj/source/repos/ASP.NET Core MVC - Biblioteczka/Biblioteczka/Areas/Identity/Pages/Account/Manage/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxNYW5hZ2VcX0xheW91dC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/alicj/source/repos/ASP.NET Core - Biblioteczka/Biblioteczka/Areas/Identity/Pages/Account/Manage/_ManageNav.cshtml]
+[C:/Users/alicj/source/repos/ASP.NET Core MVC - Biblioteczka/Biblioteczka/Areas/Identity/Pages/Account/Manage/_ManageNav.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxNYW5hZ2VcX01hbmFnZU5hdi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/alicj/source/repos/ASP.NET Core - Biblioteczka/Biblioteczka/Areas/Identity/Pages/Account/Manage/_StatusMessage.cshtml]
+[C:/Users/alicj/source/repos/ASP.NET Core MVC - Biblioteczka/Biblioteczka/Areas/Identity/Pages/Account/Manage/_StatusMessage.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxNYW5hZ2VcX1N0YXR1c01lc3NhZ2UuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/alicj/source/repos/ASP.NET Core - Biblioteczka/Biblioteczka/Areas/Identity/Pages/Account/Manage/_ViewImports.cshtml]
+[C:/Users/alicj/source/repos/ASP.NET Core MVC - Biblioteczka/Biblioteczka/Areas/Identity/Pages/Account/Manage/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxNYW5hZ2VcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/alicj/source/repos/ASP.NET Core - Biblioteczka/Biblioteczka/Areas/Identity/Pages/Account/Register.cshtml]
+[C:/Users/alicj/source/repos/ASP.NET Core MVC - Biblioteczka/Biblioteczka/Areas/Identity/Pages/Account/Register.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxSZWdpc3Rlci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/alicj/source/repos/ASP.NET Core - Biblioteczka/Biblioteczka/Areas/Identity/Pages/Account/RegisterConfirmation.cshtml]
+[C:/Users/alicj/source/repos/ASP.NET Core MVC - Biblioteczka/Biblioteczka/Areas/Identity/Pages/Account/RegisterConfirmation.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxSZWdpc3RlckNvbmZpcm1hdGlvbi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/alicj/source/repos/ASP.NET Core - Biblioteczka/Biblioteczka/Areas/Identity/Pages/Account/ResendEmailConfirmation.cshtml]
+[C:/Users/alicj/source/repos/ASP.NET Core MVC - Biblioteczka/Biblioteczka/Areas/Identity/Pages/Account/ResendEmailConfirmation.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxSZXNlbmRFbWFpbENvbmZpcm1hdGlvbi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/alicj/source/repos/ASP.NET Core - Biblioteczka/Biblioteczka/Areas/Identity/Pages/Account/ResetPassword.cshtml]
+[C:/Users/alicj/source/repos/ASP.NET Core MVC - Biblioteczka/Biblioteczka/Areas/Identity/Pages/Account/ResetPassword.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxSZXNldFBhc3N3b3JkLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/alicj/source/repos/ASP.NET Core - Biblioteczka/Biblioteczka/Areas/Identity/Pages/Account/ResetPasswordConfirmation.cshtml]
+[C:/Users/alicj/source/repos/ASP.NET Core MVC - Biblioteczka/Biblioteczka/Areas/Identity/Pages/Account/ResetPasswordConfirmation.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxSZXNldFBhc3N3b3JkQ29uZmlybWF0aW9uLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/alicj/source/repos/ASP.NET Core - Biblioteczka/Biblioteczka/Areas/Identity/Pages/Account/_StatusMessage.cshtml]
+[C:/Users/alicj/source/repos/ASP.NET Core MVC - Biblioteczka/Biblioteczka/Areas/Identity/Pages/Account/_StatusMessage.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxfU3RhdHVzTWVzc2FnZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/alicj/source/repos/ASP.NET Core - Biblioteczka/Biblioteczka/Areas/Identity/Pages/Account/_ViewImports.cshtml]
+[C:/Users/alicj/source/repos/ASP.NET Core MVC - Biblioteczka/Biblioteczka/Areas/Identity/Pages/Account/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxfVmlld0ltcG9ydHMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/alicj/source/repos/ASP.NET Core - Biblioteczka/Biblioteczka/Areas/Identity/Pages/Error.cshtml]
+[C:/Users/alicj/source/repos/ASP.NET Core MVC - Biblioteczka/Biblioteczka/Areas/Identity/Pages/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcRXJyb3IuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/alicj/source/repos/ASP.NET Core - Biblioteczka/Biblioteczka/Areas/Identity/Pages/_ValidationScriptsPartial.cshtml]
+[C:/Users/alicj/source/repos/ASP.NET Core MVC - Biblioteczka/Biblioteczka/Areas/Identity/Pages/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcX1ZhbGlkYXRpb25TY3JpcHRzUGFydGlhbC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/alicj/source/repos/ASP.NET Core - Biblioteczka/Biblioteczka/Areas/Identity/Pages/_ViewImports.cshtml]
+[C:/Users/alicj/source/repos/ASP.NET Core MVC - Biblioteczka/Biblioteczka/Areas/Identity/Pages/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/alicj/source/repos/ASP.NET Core - Biblioteczka/Biblioteczka/Areas/Identity/Pages/_ViewStart.cshtml]
+[C:/Users/alicj/source/repos/ASP.NET Core MVC - Biblioteczka/Biblioteczka/Areas/Identity/Pages/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/alicj/source/repos/ASP.NET Core - Biblioteczka/Biblioteczka/Views/Author/Create.cshtml]
+[C:/Users/alicj/source/repos/ASP.NET Core MVC - Biblioteczka/Biblioteczka/Views/Author/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXV0aG9yXENyZWF0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/alicj/source/repos/ASP.NET Core - Biblioteczka/Biblioteczka/Views/Author/Details.cshtml]
+[C:/Users/alicj/source/repos/ASP.NET Core MVC - Biblioteczka/Biblioteczka/Views/Author/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXV0aG9yXERldGFpbHMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/alicj/source/repos/ASP.NET Core - Biblioteczka/Biblioteczka/Views/Author/Edit.cshtml]
+[C:/Users/alicj/source/repos/ASP.NET Core MVC - Biblioteczka/Biblioteczka/Views/Author/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXV0aG9yXEVkaXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/alicj/source/repos/ASP.NET Core - Biblioteczka/Biblioteczka/Views/Author/Index.cshtml]
+[C:/Users/alicj/source/repos/ASP.NET Core MVC - Biblioteczka/Biblioteczka/Views/Author/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXV0aG9yXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/alicj/source/repos/ASP.NET Core - Biblioteczka/Biblioteczka/Views/Book/Create.cshtml]
+[C:/Users/alicj/source/repos/ASP.NET Core MVC - Biblioteczka/Biblioteczka/Views/Book/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQm9va1xDcmVhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/alicj/source/repos/ASP.NET Core - Biblioteczka/Biblioteczka/Views/Book/Details.cshtml]
+[C:/Users/alicj/source/repos/ASP.NET Core MVC - Biblioteczka/Biblioteczka/Views/Book/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQm9va1xEZXRhaWxzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/alicj/source/repos/ASP.NET Core - Biblioteczka/Biblioteczka/Views/Book/Edit.cshtml]
+[C:/Users/alicj/source/repos/ASP.NET Core MVC - Biblioteczka/Biblioteczka/Views/Book/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQm9va1xFZGl0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/alicj/source/repos/ASP.NET Core - Biblioteczka/Biblioteczka/Views/Book/Index.cshtml]
+[C:/Users/alicj/source/repos/ASP.NET Core MVC - Biblioteczka/Biblioteczka/Views/Book/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQm9va1xJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/alicj/source/repos/ASP.NET Core - Biblioteczka/Biblioteczka/Views/Copy/Create.cshtml]
+[C:/Users/alicj/source/repos/ASP.NET Core MVC - Biblioteczka/Biblioteczka/Views/Copy/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29weVxDcmVhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/alicj/source/repos/ASP.NET Core - Biblioteczka/Biblioteczka/Views/Copy/Edit.cshtml]
+[C:/Users/alicj/source/repos/ASP.NET Core MVC - Biblioteczka/Biblioteczka/Views/Copy/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29weVxFZGl0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/alicj/source/repos/ASP.NET Core - Biblioteczka/Biblioteczka/Views/Copy/Index.cshtml]
+[C:/Users/alicj/source/repos/ASP.NET Core MVC - Biblioteczka/Biblioteczka/Views/Copy/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29weVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/alicj/source/repos/ASP.NET Core - Biblioteczka/Biblioteczka/Views/Home/Index.cshtml]
+[C:/Users/alicj/source/repos/ASP.NET Core MVC - Biblioteczka/Biblioteczka/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/alicj/source/repos/ASP.NET Core - Biblioteczka/Biblioteczka/Views/Home/Privacy.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/alicj/source/repos/ASP.NET Core - Biblioteczka/Biblioteczka/Views/Loan/Index.cshtml]
+[C:/Users/alicj/source/repos/ASP.NET Core MVC - Biblioteczka/Biblioteczka/Views/Loan/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTG9hblxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/alicj/source/repos/ASP.NET Core - Biblioteczka/Biblioteczka/Views/Reservation/Index.cshtml]
+[C:/Users/alicj/source/repos/ASP.NET Core MVC - Biblioteczka/Biblioteczka/Views/Reservation/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVzZXJ2YXRpb25cSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/alicj/source/repos/ASP.NET Core - Biblioteczka/Biblioteczka/Views/Shared/Error.cshtml]
+[C:/Users/alicj/source/repos/ASP.NET Core MVC - Biblioteczka/Biblioteczka/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/alicj/source/repos/ASP.NET Core - Biblioteczka/Biblioteczka/Views/Shared/Templates/_Alert.cshtml]
+[C:/Users/alicj/source/repos/ASP.NET Core MVC - Biblioteczka/Biblioteczka/Views/Shared/Templates/_Alert.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXFRlbXBsYXRlc1xfQWxlcnQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/alicj/source/repos/ASP.NET Core - Biblioteczka/Biblioteczka/Views/Shared/Templates/_AuthorList.cshtml]
+[C:/Users/alicj/source/repos/ASP.NET Core MVC - Biblioteczka/Biblioteczka/Views/Shared/Templates/_AuthorList.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXFRlbXBsYXRlc1xfQXV0aG9yTGlzdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/alicj/source/repos/ASP.NET Core - Biblioteczka/Biblioteczka/Views/Shared/Templates/_BackButton.cshtml]
+[C:/Users/alicj/source/repos/ASP.NET Core MVC - Biblioteczka/Biblioteczka/Views/Shared/Templates/_BackButton.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXFRlbXBsYXRlc1xfQmFja0J1dHRvbi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/alicj/source/repos/ASP.NET Core - Biblioteczka/Biblioteczka/Views/Shared/Templates/_BookList.cshtml]
+[C:/Users/alicj/source/repos/ASP.NET Core MVC - Biblioteczka/Biblioteczka/Views/Shared/Templates/_BookList.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXFRlbXBsYXRlc1xfQm9va0xpc3QuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/alicj/source/repos/ASP.NET Core - Biblioteczka/Biblioteczka/Views/Shared/Templates/_BookListAdmin.cshtml]
+[C:/Users/alicj/source/repos/ASP.NET Core MVC - Biblioteczka/Biblioteczka/Views/Shared/Templates/_BookListAdmin.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXFRlbXBsYXRlc1xfQm9va0xpc3RBZG1pbi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/alicj/source/repos/ASP.NET Core - Biblioteczka/Biblioteczka/Views/Shared/Templates/_BookSelected.cshtml]
+[C:/Users/alicj/source/repos/ASP.NET Core MVC - Biblioteczka/Biblioteczka/Views/Shared/Templates/_BookSelected.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXFRlbXBsYXRlc1xfQm9va1NlbGVjdGVkLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/alicj/source/repos/ASP.NET Core - Biblioteczka/Biblioteczka/Views/Shared/Templates/_CopyList.cshtml]
+[C:/Users/alicj/source/repos/ASP.NET Core MVC - Biblioteczka/Biblioteczka/Views/Shared/Templates/_CopyList.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXFRlbXBsYXRlc1xfQ29weUxpc3QuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/alicj/source/repos/ASP.NET Core - Biblioteczka/Biblioteczka/Views/Shared/Templates/_CopyListAdmin.cshtml]
+[C:/Users/alicj/source/repos/ASP.NET Core MVC - Biblioteczka/Biblioteczka/Views/Shared/Templates/_CopyListAdmin.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXFRlbXBsYXRlc1xfQ29weUxpc3RBZG1pbi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/alicj/source/repos/ASP.NET Core - Biblioteczka/Biblioteczka/Views/Shared/Templates/_FormButton.cshtml]
+[C:/Users/alicj/source/repos/ASP.NET Core MVC - Biblioteczka/Biblioteczka/Views/Shared/Templates/_FormButton.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXFRlbXBsYXRlc1xfRm9ybUJ1dHRvbi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/alicj/source/repos/ASP.NET Core - Biblioteczka/Biblioteczka/Views/Shared/Templates/_FormHeader.cshtml]
+[C:/Users/alicj/source/repos/ASP.NET Core MVC - Biblioteczka/Biblioteczka/Views/Shared/Templates/_FormHeader.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXFRlbXBsYXRlc1xfRm9ybUhlYWRlci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/alicj/source/repos/ASP.NET Core - Biblioteczka/Biblioteczka/Views/Shared/Templates/_LoanList.cshtml]
+[C:/Users/alicj/source/repos/ASP.NET Core MVC - Biblioteczka/Biblioteczka/Views/Shared/Templates/_LoanList.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXFRlbXBsYXRlc1xfTG9hbkxpc3QuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/alicj/source/repos/ASP.NET Core - Biblioteczka/Biblioteczka/Views/Shared/Templates/_LoanListAdmin.cshtml]
+[C:/Users/alicj/source/repos/ASP.NET Core MVC - Biblioteczka/Biblioteczka/Views/Shared/Templates/_LoanListAdmin.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXFRlbXBsYXRlc1xfTG9hbkxpc3RBZG1pbi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/alicj/source/repos/ASP.NET Core - Biblioteczka/Biblioteczka/Views/Shared/Templates/_ModalDelete.cshtml]
+[C:/Users/alicj/source/repos/ASP.NET Core MVC - Biblioteczka/Biblioteczka/Views/Shared/Templates/_ModalDelete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXFRlbXBsYXRlc1xfTW9kYWxEZWxldGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/alicj/source/repos/ASP.NET Core - Biblioteczka/Biblioteczka/Views/Shared/Templates/_Pagination.cshtml]
+[C:/Users/alicj/source/repos/ASP.NET Core MVC - Biblioteczka/Biblioteczka/Views/Shared/Templates/_Pagination.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXFRlbXBsYXRlc1xfUGFnaW5hdGlvbi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/alicj/source/repos/ASP.NET Core - Biblioteczka/Biblioteczka/Views/Shared/Templates/_ReservationList.cshtml]
+[C:/Users/alicj/source/repos/ASP.NET Core MVC - Biblioteczka/Biblioteczka/Views/Shared/Templates/_ReservationList.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXFRlbXBsYXRlc1xfUmVzZXJ2YXRpb25MaXN0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/alicj/source/repos/ASP.NET Core - Biblioteczka/Biblioteczka/Views/Shared/Templates/_ReservationListAdmin.cshtml]
+[C:/Users/alicj/source/repos/ASP.NET Core MVC - Biblioteczka/Biblioteczka/Views/Shared/Templates/_ReservationListAdmin.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXFRlbXBsYXRlc1xfUmVzZXJ2YXRpb25MaXN0QWRtaW4uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/alicj/source/repos/ASP.NET Core - Biblioteczka/Biblioteczka/Views/Shared/Templates/_SearchBar.cshtml]
+[C:/Users/alicj/source/repos/ASP.NET Core MVC - Biblioteczka/Biblioteczka/Views/Shared/Templates/_SearchBar.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXFRlbXBsYXRlc1xfU2VhcmNoQmFyLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/alicj/source/repos/ASP.NET Core - Biblioteczka/Biblioteczka/Views/Shared/Templates/_UserList.cshtml]
+[C:/Users/alicj/source/repos/ASP.NET Core MVC - Biblioteczka/Biblioteczka/Views/Shared/Templates/_UserList.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXFRlbXBsYXRlc1xfVXNlckxpc3QuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/alicj/source/repos/ASP.NET Core - Biblioteczka/Biblioteczka/Views/Shared/_Layout.cshtml]
+[C:/Users/alicj/source/repos/ASP.NET Core MVC - Biblioteczka/Biblioteczka/Views/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/alicj/source/repos/ASP.NET Core - Biblioteczka/Biblioteczka/Views/Shared/_LayoutForm.cshtml]
+[C:/Users/alicj/source/repos/ASP.NET Core MVC - Biblioteczka/Biblioteczka/Views/Shared/_LayoutForm.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXRGb3JtLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/alicj/source/repos/ASP.NET Core - Biblioteczka/Biblioteczka/Views/Shared/_LoginPartial.cshtml]
+[C:/Users/alicj/source/repos/ASP.NET Core MVC - Biblioteczka/Biblioteczka/Views/Shared/_LoginPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9Mb2dpblBhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/alicj/source/repos/ASP.NET Core - Biblioteczka/Biblioteczka/Views/Shared/_ValidationScriptsPartial.cshtml]
+[C:/Users/alicj/source/repos/ASP.NET Core MVC - Biblioteczka/Biblioteczka/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/alicj/source/repos/ASP.NET Core - Biblioteczka/Biblioteczka/Views/User/Details.cshtml]
+[C:/Users/alicj/source/repos/ASP.NET Core MVC - Biblioteczka/Biblioteczka/Views/User/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxEZXRhaWxzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/alicj/source/repos/ASP.NET Core - Biblioteczka/Biblioteczka/Views/User/Edit.cshtml]
+[C:/Users/alicj/source/repos/ASP.NET Core MVC - Biblioteczka/Biblioteczka/Views/User/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxFZGl0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/alicj/source/repos/ASP.NET Core - Biblioteczka/Biblioteczka/Views/User/Index.cshtml]
+[C:/Users/alicj/source/repos/ASP.NET Core MVC - Biblioteczka/Biblioteczka/Views/User/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/alicj/source/repos/ASP.NET Core - Biblioteczka/Biblioteczka/Views/User/Profile.cshtml]
+[C:/Users/alicj/source/repos/ASP.NET Core MVC - Biblioteczka/Biblioteczka/Views/User/Profile.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxQcm9maWxlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/alicj/source/repos/ASP.NET Core - Biblioteczka/Biblioteczka/Views/User/Role.cshtml]
+[C:/Users/alicj/source/repos/ASP.NET Core MVC - Biblioteczka/Biblioteczka/Views/User/Role.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxSb2xlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/alicj/source/repos/ASP.NET Core - Biblioteczka/Biblioteczka/Views/_ViewImports.cshtml]
+[C:/Users/alicj/source/repos/ASP.NET Core MVC - Biblioteczka/Biblioteczka/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/alicj/source/repos/ASP.NET Core - Biblioteczka/Biblioteczka/Views/_ViewStart.cshtml]
+[C:/Users/alicj/source/repos/ASP.NET Core MVC - Biblioteczka/Biblioteczka/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 

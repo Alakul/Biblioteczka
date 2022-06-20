@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "R7HnLwq6a8sh+Bs5CTwNfIZ5ZqGCN3jFrbRqxBjXj73bKwoXZZmUaT2git89T/eLo8W6CCqgiwHGrsBDB3uPdw==",
+  "dgSpecHash": "OmPY3c3xLiwnIUXSKkd+HEdwMXMgn47WrDpW+t5IzeeRbEjvTYRFdu6DLK1W5hMwn1TY+ZnpOss1A2Kmg+PwrQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\alicj\\source\\repos\\ASP.NET Core - Biblioteczka\\Biblioteczka\\Biblioteczka.csproj",
+  "projectFilePath": "C:\\Users\\alicj\\source\\repos\\ASP.NET Core MVC - Biblioteczka\\Biblioteczka\\Biblioteczka.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\alicj\\.nuget\\packages\\azure.core\\1.6.0\\azure.core.1.6.0.nupkg.sha512",
     "C:\\Users\\alicj\\.nuget\\packages\\azure.identity\\1.3.0\\azure.identity.1.3.0.nupkg.sha512",

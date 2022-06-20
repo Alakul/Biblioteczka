@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\alicj\\source\\repos\\ASP.NET Core - Biblioteczka\\Biblioteczka\\Biblioteczka.csproj": {}
+    "C:\\Users\\alicj\\source\\repos\\ASP.NET Core MVC - Biblioteczka\\Biblioteczka\\Biblioteczka.csproj": {}
   },
   "projects": {
-    "C:\\Users\\alicj\\source\\repos\\ASP.NET Core - Biblioteczka\\Biblioteczka\\Biblioteczka.csproj": {
+    "C:\\Users\\alicj\\source\\repos\\ASP.NET Core MVC - Biblioteczka\\Biblioteczka\\Biblioteczka.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\alicj\\source\\repos\\ASP.NET Core - Biblioteczka\\Biblioteczka\\Biblioteczka.csproj",
+        "projectUniqueName": "C:\\Users\\alicj\\source\\repos\\ASP.NET Core MVC - Biblioteczka\\Biblioteczka\\Biblioteczka.csproj",
         "projectName": "Biblioteczka",
-        "projectPath": "C:\\Users\\alicj\\source\\repos\\ASP.NET Core - Biblioteczka\\Biblioteczka\\Biblioteczka.csproj",
+        "projectPath": "C:\\Users\\alicj\\source\\repos\\ASP.NET Core MVC - Biblioteczka\\Biblioteczka\\Biblioteczka.csproj",
         "packagesPath": "C:\\Users\\alicj\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\alicj\\source\\repos\\ASP.NET Core - Biblioteczka\\Biblioteczka\\obj\\",
+        "outputPath": "C:\\Users\\alicj\\source\\repos\\ASP.NET Core MVC - Biblioteczka\\Biblioteczka\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
