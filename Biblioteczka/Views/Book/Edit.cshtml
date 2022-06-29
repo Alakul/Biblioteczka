@@ -15,7 +15,7 @@
             
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="mb-3">
-                <label asp-for="Book.Title"></label>
+                <label asp-for="Book.Title">Tytuł <span style="color: red;">*</span></label>
 			    <input asp-for="Book.Title" type="text" class="form-control" value="@Model.Book.Title"/>
 			    <span asp-validation-for="Book.Title" class="text-danger"></span>
             </div>
@@ -24,7 +24,7 @@
                 <p class="form-control">@Model.Name @Model.LastName</p>
             </div>
             <div class="mb-3">
-                <label asp-for="Book.ISBN"></label>
+                <label asp-for="Book.ISBN">ISBN <span style="color: red;">*</span></label>
 			    <input asp-for="Book.ISBN" type="text" class="form-control" value="@Model.Book.ISBN"/>
 			    <span asp-validation-for="Book.ISBN" class="text-danger"></span>
             </div>
@@ -39,7 +39,7 @@
 			    <span asp-validation-for="Book.Series" class="text-danger"></span>
             </div>
             <div class="mb-3">
-                <label asp-for="Book.Description"></label>
+                <label asp-for="Book.Description">Opis <span style="color: red;">*</span></label>
 			    <textarea asp-for="Book.Description" type="text" rows="4" class="form-control">@Model.Book.Description</textarea>
 			    <span asp-validation-for="Book.Description" class="text-danger"></span>
             </div>
@@ -50,17 +50,17 @@
                 <img id="ImagePreview" name="ImagePreview" src="~/images/@Model.Book.Image" height="250" class="ms-auto me-auto mt-4 d-block"/>
             </div>
             <div class="mb-3">
-                <label asp-for="Book.Year"></label>
+                <label asp-for="Book.Year">Rok wydania <span style="color: red;">*</span></label>
 			    <input asp-for="Book.Year" type="number" class="form-control" value="@Model.Book.Year"/>
 			    <span asp-validation-for="Book.Year" class="text-danger"></span>          
             </div>
             <div class="mb-3">
-                <label asp-for="Book.City"></label>
+                <label asp-for="Book.City">Miejsce wydania <span style="color: red;">*</span></label>
 			    <input asp-for="Book.City" type="text" class="form-control" value="@Model.Book.City"/>
 			    <span asp-validation-for="Book.City" class="text-danger"></span>
             </div>
             <div class="mb-3">
-                <label asp-for="Book.Publisher"></label>
+                <label asp-for="Book.Publisher">Wydawnictwo <span style="color: red;">*</span></label>
 			    <input asp-for="Book.Publisher" type="text" class="form-control" value="@Model.Book.Publisher"/>
 			    <span asp-validation-for="Book.Publisher" class="text-danger"></span>
             </div>
