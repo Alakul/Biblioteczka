@@ -29,6 +29,9 @@ namespace Biblioteczka.Controllers
             ViewBag.SearchString = tuple.Item2;
             reservations = AppMethods.Sort(httpContextAccessor, reservations, "SortOrderReservation", sortOrder);
 
+            ViewData["Selected"] = AppMethods.SetViewData(httpContextAccessor, sortOrder, "SortOrderReservation", "DateDesc");
+            ViewBag.Values = AppData.reservationSort;
+
             int pageSize = 20;
             int pageNumber = (page ?? 1);
             reservationViewModel.ReservationList = reservations.ToPagedList(pageNumber, pageSize);

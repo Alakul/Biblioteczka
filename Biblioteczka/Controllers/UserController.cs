@@ -36,6 +36,9 @@ namespace Biblioteczka.Controllers
             ViewBag.SearchString = tuple.Item2;
             users = AppMethods.Sort(httpContextAccessor, users, "SortOrderUser", sortOrder);
 
+            ViewData["Selected"] = AppMethods.SetViewData(httpContextAccessor, sortOrder, "SortOrderUser", "UserNameDesc");
+            ViewBag.Values = AppData.userSort;
+
             int pageSize = 20;
             int pageNumber = (page ?? 1);
             userViewModel.UserList = users.ToPagedList(pageNumber, pageSize);

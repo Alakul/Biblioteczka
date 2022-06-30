@@ -19,3 +19,8 @@ function preview(input) {
 }
 
 $(".selected-value option:selected").css({ "background-color": "#F2545B", color: "white" });
+
+$(document).on('change', '#sortOrder', function () {
+    $("#sortForm").submit();
+    return false;
+});

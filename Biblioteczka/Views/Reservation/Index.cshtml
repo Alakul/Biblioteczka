@@ -13,6 +13,7 @@
 
 <partial name="Templates/_Alert" model="@TempData["Alert"]?.ToString()"/>
 <partial name="Templates/_SearchBar" model="@Url.Action("Index")"/>
+<partial name="Templates/_SortBar" model="@Url.Action("Index")"/>
 
 @if (User.IsInRole(AppData.Admin) || User.IsInRole(AppData.Librarian)){
     <partial name="Templates/_ReservationListAdmin"/>

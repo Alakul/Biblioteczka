@@ -8,23 +8,11 @@
     <table class="table table-hover">
         <thead>
             <tr>
-                <th scope="col"><label class="me-2">Imię</label>
-                    <a class="text-decoration-none text-dark" href="@Url.Action("Index", "User", new { sortOrder = "NameAsc" })"><i class="bi bi-arrow-up"></i></a>
-                    <a class="text-decoration-none text-dark" href="@Url.Action("Index", "User", new { sortOrder = "NameDesc" })"><i class="bi bi-arrow-down"></i></a>
-                </th>
-                <th scope="col"><label class="me-2">Nazwisko</label>
-                    <a class="text-decoration-none text-dark" href="@Url.Action("Index", "User", new { sortOrder = "LastNameAsc" })"><i class="bi bi-arrow-up"></i></a>
-                    <a class="text-decoration-none text-dark" href="@Url.Action("Index", "User", new { sortOrder = "LastNameDesc" })"><i class="bi bi-arrow-down"></i></a>
-                </th>
-                <th scope="col"><label class="me-2">Nr karty</label></th>
-                <th scope="col"><label class="me-2">Login</label>
-                    <a class="text-decoration-none text-dark" href="@Url.Action("Index", "User", new { sortOrder = "UserNameAsc" })"><i class="bi bi-arrow-up"></i></a>
-                    <a class="text-decoration-none text-dark" href="@Url.Action("Index", "User", new { sortOrder = "UserNameDesc" })"><i class="bi bi-arrow-down"></i></a>
-                </th>
-                <th scope="col"><label class="me-2">Email</label>
-                    <a class="text-decoration-none text-dark" href="@Url.Action("Index", "User", new { sortOrder = "EmailAsc" })"><i class="bi bi-arrow-up"></i></a>
-                    <a class="text-decoration-none text-dark" href="@Url.Action("Index", "User", new { sortOrder = "EmailDesc" })"><i class="bi bi-arrow-down"></i></a>
-                </th>
+                <th scope="col">Imię</th>
+                <th scope="col">Nazwisko</th>
+                <th scope="col">Nr karty</th>
+                <th scope="col">Login</th>
+                <th scope="col">Email</th>
                 <th scope="col">Role</th>
                 <th scope="col" class="text-end"><a class="btn btn-primary" asp-area="Identity" asp-page="/Account/Register"><i class="bi bi-plus-lg"></i></a></th>
             </tr>

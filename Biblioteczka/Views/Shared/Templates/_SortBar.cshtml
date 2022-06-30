@@ -1,0 +1,20 @@
+﻿@model string
+
+<div class="row p-2 justify-content-end">
+    <div class="col-auto d-flex">
+        <label class="col-form-label me-3">Sortowanie</label>
+        <form id="sortForm" action="@Model">
+            <select id="sortOrder" name="SortOrder" class="form-control">
+                 @foreach (var item in @ViewBag.Values){
+                    if (ViewData["Selected"].ToString()!=null && ViewData["Selected"].ToString() == item.Key){
+                        <option value="@item.Key" selected>@item.Value</option>
+                    }
+                    else {
+                        <option value="@item.Key">@item.Value</option>
+                    }
+                }
+            </select>
+        </form>
+    </div>
+</div>
+

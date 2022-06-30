@@ -298,5 +298,20 @@ namespace Biblioteczka.Data
                 File.Delete(filePath);
             }
         }
+        public static string SetViewData(IHttpContextAccessor httpContextAccessor, string sortOrder, string cookieName, string defaulValue)
+        {
+            if (sortOrder == null){
+                string cookie = httpContextAccessor.HttpContext.Request.Cookies[cookieName];
+                if (cookie == null){
+                    return defaulValue;
+                }
+                else {
+                    return cookie;
+                }
+            }
+            else {
+                return sortOrder;
+            }
+        }
     }
 }

@@ -31,6 +31,9 @@ namespace Biblioteczka.Controllers
             ViewBag.SearchString = tuple.Item2;
             copies = AppMethods.Sort(httpContextAccessor, copies, "SortOrderCopy", sortOrder);
 
+            ViewData["Selected"] = AppMethods.SetViewData(httpContextAccessor, sortOrder, "SortOrderCopy", "DateDesc");
+            ViewBag.Values = AppData.copySort;
+
             int pageSize = 20;
             int pageNumber = (page ?? 1);
             copyViewModel.CopyList = copies.ToPagedList(pageNumber, pageSize);

@@ -2,20 +2,11 @@
     <table class="table table-hover table-responsive">
         <thead>
             <tr>
-                <th scope="col"><label class="me-2">Tytuł</label>
-                    <a class="text-decoration-none text-dark" href="@Url.Action("Index", "Book", new { sortOrder = "TitleAsc" })"><i class="bi bi-arrow-up"></i></a>
-                    <a class="text-decoration-none text-dark" href="@Url.Action("Index", "Book", new { sortOrder = "TitleDesc" })"><i class="bi bi-arrow-down"></i></a>
-                </th>
+                <th scope="col">Tytuł</th>
                 <th scope="col">Okładka</th>
                 <th scope="col">Autor</th>
-                <th scope="col"><label class="me-2">Rok wydania</label>
-                    <a class="text-decoration-none text-dark" href="@Url.Action("Index", "Book", new { sortOrder = "YearAsc" })"><i class="bi bi-arrow-up"></i></a>
-                    <a class="text-decoration-none text-dark" href="@Url.Action("Index", "Book", new { sortOrder = "YearDesc" })"><i class="bi bi-arrow-down"></i></a>
-                </th>
-                <th scope="col"><label class="me-2">Data dodania</label>
-                    <a class="text-decoration-none text-dark" href="@Url.Action("Index", "Book", new { sortOrder = "DateAsc" })"><i class="bi bi-arrow-up"></i></a>
-                    <a class="text-decoration-none text-dark" href="@Url.Action("Index", "Book", new { sortOrder = "DateDesc" })"><i class="bi bi-arrow-down"></i></a>
-                </th>  
+                <th scope="col">Rok wydania</th>
+                <th scope="col">Data dodania</th>  
             </tr>
         </thead>
 

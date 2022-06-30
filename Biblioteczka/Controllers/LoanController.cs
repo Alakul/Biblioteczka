@@ -34,6 +34,9 @@ namespace Biblioteczka.Controllers
             ViewBag.SearchString = tuple.Item2;
             loans = AppMethods.Sort(httpContextAccessor, loans, "SortOrderLoan", sortOrder);
 
+            ViewData["Selected"] = AppMethods.SetViewData(httpContextAccessor, sortOrder, "SortOrderLoan", "LoanDateDesc");
+            ViewBag.Values = AppData.loanSort;
+
             int pageSize = 20;
             int pageNumber = (page ?? 1);
             loanViewModel.LoanList = loans.ToPagedList(pageNumber, pageSize);

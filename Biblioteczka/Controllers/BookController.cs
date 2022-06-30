@@ -34,6 +34,9 @@ namespace Biblioteczka.Controllers
             ViewBag.SearchString = tuple.Item2;
             books = AppMethods.Sort(httpContextAccessor, books, "SortOrderBook", sortOrder);
 
+            ViewData["Selected"] = AppMethods.SetViewData(httpContextAccessor, sortOrder, "SortOrderBook", "DateDesc");
+            ViewBag.Values = AppData.bookSort;
+
             int pageSize = 20;
             int pageNumber = (page ?? 1);
             bookAuthorViewModel.BookList = books.ToPagedList(pageNumber, pageSize);
