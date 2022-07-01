@@ -85,7 +85,6 @@ namespace Biblioteczka.Controllers
         [Route("Edytuj/{id}")]
         public async Task<ActionResult> Edit(string id)
         {
-            //AppUser appUser = await UserManager.FindByIdAsync(id);
             UserViewModel user = new UserViewModel();
             user.User = await UserManager.FindByIdAsync(id);
             user.Email = user.User.Email;

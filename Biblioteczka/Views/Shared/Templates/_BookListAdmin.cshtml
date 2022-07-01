@@ -6,8 +6,8 @@
                 <th scope="col">Tytuł</th>
                 <th scope="col">Okładka</th>
                 <th scope="col">Autor</th>
-                <th scope="col">Rok wydania</th>
-                <th scope="col">Data dodania</th>
+                <th scope="col" class="hide-sm">Rok wydania</th>
+                <th scope="col" class="hide-sm">Data dodania</th>
                 <th scope="col" class="text-end"><a class="btn btn-primary" asp-controller="Book" asp-action="Create"><i class="bi bi-plus-lg"></i></a></th>
             </tr>
         </thead>
@@ -20,8 +20,8 @@
                     <td class="col-3"><a class="text-decoration-none text-dark" asp-route-id="@List.Book.Id" asp-controller="Book" asp-action="Details">@List.Book.Title</a></td>
                     <td><img src="~/images/@List.Book.Image" style="object-fit: cover;" height="100"/></td>
                     <td class="col-2"><a class="text-decoration-none text-dark" asp-route-id="@List.Book.AuthorId" asp-controller="Author" asp-action="Details">@List.Author.Name @List.Author.LastName</a></td>
-                    <td>@List.Book.Year</td>
-                    <td>@List.Book.Date.ToString("dd/MM/yyyy HH:mm")</td>
+                    <td class="hide-sm">@List.Book.Year</td>
+                    <td class="hide-sm">@List.Book.Date.ToString("dd/MM/yyyy HH:mm")</td>
                     <td class="text-end">
                         <a class="btn btn-success mb-1" asp-route-id="@List.Book.Id" asp-controller="Book" asp-action="Edit"><i class="bi bi-pencil-square"></i></a>
                         <a class="btn btn-danger mb-1" data-bs-toggle="modal" data-bs-target="#deleteModal_@List.Book.Id"><i class="bi bi-trash3-fill"></i></a>

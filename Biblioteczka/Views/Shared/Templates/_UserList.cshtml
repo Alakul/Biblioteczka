@@ -8,12 +8,12 @@
     <table class="table table-hover">
         <thead>
             <tr>
-                <th scope="col">Imię</th>
-                <th scope="col">Nazwisko</th>
-                <th scope="col">Nr karty</th>
+                <th scope="col" class="hide-sm hide-md">Imię</th>
+                <th scope="col" class="hide-sm hide-md">Nazwisko</th>
+                <th scope="col" class="hide-sm hide-md hide-lg">Nr karty</th>
                 <th scope="col">Login</th>
                 <th scope="col">Email</th>
-                <th scope="col">Role</th>
+                <th scope="col" class="hide-sm">Rola</th>
                 <th scope="col" class="text-end"><a class="btn btn-primary" asp-area="Identity" asp-page="/Account/Register"><i class="bi bi-plus-lg"></i></a></th>
             </tr>
         </thead>
@@ -22,16 +22,16 @@
             @foreach (var user in Model.UserList)
             {
                 <tr>
-                    <td><a class="text-decoration-none text-dark" asp-route-id="@user.User.Id" asp-controller="User" asp-action="Details">@user.Profile.Name</a></td>
-                    <td><a class="text-decoration-none text-dark" asp-route-id="@user.User.Id" asp-controller="User" asp-action="Details">@user.Profile.LastName</a></td>
-                    <td><a class="text-decoration-none text-dark" asp-route-id="@user.User.Id" asp-controller="User" asp-action="Details">@user.Profile.LibraryCardNumber</a></td>
+                    <td class="hide-sm hide-md"><a class="text-decoration-none text-dark" asp-route-id="@user.User.Id" asp-controller="User" asp-action="Details">@user.Profile.Name</a></td>
+                    <td class="hide-sm hide-md"><a class="text-decoration-none text-dark" asp-route-id="@user.User.Id" asp-controller="User" asp-action="Details">@user.Profile.LastName</a></td>
+                    <td class="hide-sm hide-md hide-lg"><a class="text-decoration-none text-dark" asp-route-id="@user.User.Id" asp-controller="User" asp-action="Details">@user.Profile.LibraryCardNumber</a></td>
                     <td><a class="text-decoration-none text-dark" asp-route-id="@user.User.Id" asp-controller="User" asp-action="Details">@user.User.UserName</a></td>
                     <td><a class="text-decoration-none text-dark" asp-route-id="@user.User.Id" asp-controller="User" asp-action="Details">@user.User.Email</a></td>
                     @if (user.Role!=null && !string.IsNullOrEmpty(user.Role.Name)){
-                        <td>@user.Role.Name</td>
+                        <td class="hide-sm">@user.Role.Name</td>
                     }
                     else {
-                        <td></td>
+                        <td class="hide-sm"></td>
                     }
                     
                     @if (User.IsInRole(AppData.Admin))

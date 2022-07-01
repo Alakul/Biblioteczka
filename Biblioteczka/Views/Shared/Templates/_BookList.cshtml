@@ -6,7 +6,7 @@
                 <th scope="col">Okładka</th>
                 <th scope="col">Autor</th>
                 <th scope="col">Rok wydania</th>
-                <th scope="col">Data dodania</th>  
+                <th scope="col" class="hide-sm">Data dodania</th>  
             </tr>
         </thead>
 
@@ -18,7 +18,7 @@
                     <td><img src="~/images/@List.Book.Image" style="object-fit: cover;" height="100"/></td>
                     <td class="col-2"><a class="text-decoration-none text-dark" asp-route-id="@List.Book.AuthorId" asp-controller="Author" asp-action="Details">@List.Book.Author.Name @List.Book.Author.LastName</a></td>
                     <td>@List.Book.Year</td>
-                    <td>@List.Book.Date</td>
+                    <td class="hide-sm">@List.Book.Date</td>
                 </tr>
             }
         </tbody>

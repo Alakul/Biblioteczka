@@ -10,7 +10,7 @@
             <tr>
                 <th scope="col">Tytuł</th>
                 <th scope="col">Okładka</th>
-                <th scope="col">Autor</th>
+                <th scope="col" class="hide-sm">Autor</th>
                 <th scope="col">Numer ezgemplarza</th>
                 <th scope="col">Data wypożyczenia</th>
                 <th scope="col">Data oddania</th>
@@ -24,7 +24,7 @@
                     <tr>       
                         <td><a class="text-decoration-none text-dark" asp-route-id="@List.Loan.BookId" asp-controller="Book" asp-action="Details">@List.Book.Title</a></td>
                         <td><img src="~/images/@List.Book.Image" style="object-fit: cover;" height="100"/></td>
-                        <td><a class="text-decoration-none text-dark" asp-route-id="@List.Author.Id" asp-controller="Author" asp-action="Details">@List.Author.Name @List.Author.LastName</a></td>
+                        <td class="hide-sm"><a class="text-decoration-none text-dark" asp-route-id="@List.Author.Id" asp-controller="Author" asp-action="Details">@List.Author.Name @List.Author.LastName</a></td>
                         <td><a class="text-decoration-none text-dark" asp-route-id="@List.Loan.BookId" asp-controller="Book" asp-action="Details">@List.Copy.Number</a></td>
                         <td>@List.Loan.LoanDate</td>
                         <td>@List.Loan.ReturnDate</td>

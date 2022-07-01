@@ -2,11 +2,11 @@
     <table class="table table-hover">
         <thead>
             <tr>
-                <th scope="col">Id</th>
-                <th scope="col">Użytkownik</th>
-                <th scope="col">Tytuł</th>
-                <th scope="col">Okładka</th>
-                <th scope="col">Autor</th>
+                <th scope="col" class="hide-sm hide-md hide-lg">Id</th>
+                <th scope="col">Login</th>
+                <th scope="col" class="hide-sm hide-md">Tytuł</th>
+                <th scope="col" class="hide-sm hide-md hide-lg">Okładka</th>
+                <th scope="col" class="hide-sm hide-md">Autor</th>
                 <th scope="col">Numer ezgemplarza</th>
                 <th scope="col">Data wypożyczenia</th>
                 <th scope="col">Data oddania</th>
@@ -18,11 +18,11 @@
             @foreach (var List in @Model.LoanList)
             {
                 <tr>
-                    <th scope="row">@List.Loan.Id</th>
+                    <th scope="row" class="hide-sm hide-md hide-lg">@List.Loan.Id</th>
                     <td><a class="text-decoration-none text-dark" asp-route-id="@List.Loan.UserBorrowingId" asp-controller="User" asp-action="Details">@List.User.UserName</a></td>                
-                    <td><a class="text-decoration-none text-dark" asp-route-id="@List.Loan.BookId" asp-controller="Book" asp-action="Details">@List.Book.Title</a></td>
-                    <td><img src="~/images/@List.Book.Image" style="object-fit: cover;" height="100"/></td>
-                    <td><a class="text-decoration-none text-dark" asp-route-id="@List.Author.Id" asp-controller="Author" asp-action="Details">@List.Author.Name @List.Author.LastName</a></td>
+                    <td class="hide-sm hide-md"><a class="text-decoration-none text-dark" asp-route-id="@List.Loan.BookId" asp-controller="Book" asp-action="Details">@List.Book.Title</a></td>
+                    <td class="hide-sm hide-md hide-lg"><img src="~/images/@List.Book.Image" style="object-fit: cover;" height="100"/></td>
+                    <td class="hide-sm hide-md"><a class="text-decoration-none text-dark" asp-route-id="@List.Author.Id" asp-controller="Author" asp-action="Details">@List.Author.Name @List.Author.LastName</a></td>
                     <td><a class="text-decoration-none text-dark" asp-route-id="@List.Loan.BookId" asp-controller="Book" asp-action="Details">@List.Copy.Number</a></td>
                     <td>@List.Loan.LoanDate</td>
                     <td>@List.Loan.ReturnDate</td>

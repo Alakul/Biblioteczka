@@ -7,13 +7,13 @@
     <table class="table table-hover">
         <thead>
             <tr>
-                <th scope="col">Id</th>
+                <th scope="col" class="hide-sm ">Id</th>
                 <th scope="col">Tytuł</th>
                 <th scope="col">Okładka</th>
                 <th scope="col">Autor</th>
-                <th scope="col">Numer</th>
+                <th scope="col" class="hide-sm">Numer</th>
                 <th scope="col">Status</th>
-                <th scope="col">Data dodania</th>
+                <th scope="col" class="hide-sm hide-md">Data dodania</th>
                 <th scope="col" class="text-end"></th>
             </tr>
         </thead>
@@ -22,11 +22,11 @@
             @foreach (var List in @Model.CopyList)
             {
                 <tr>
-                    <th scope="row">@List.Copy.Id</th>
+                    <th scope="row" class="hide-sm">@List.Copy.Id</th>
                     <td><a class="text-decoration-none text-dark" asp-route-id="@List.Book.Id" asp-controller="Book" asp-action="Details">@List.Book.Title</a></td>
                     <td><img src="~/images/@List.Book.Image" style="object-fit: cover;" height="100"/></td>
                     <td><a class="text-decoration-none text-dark" asp-route-id="@List.Author.Id" asp-controller="Author" asp-action="Details">@List.Book.Author.Name @List.Book.Author.LastName</a></td>
-                    <td><a class="text-decoration-none text-dark" asp-route-id="@List.Book.Id" asp-controller="Book" asp-action="Details">@List.Copy.Number</a></td>
+                    <td class="hide-sm"><a class="text-decoration-none text-dark" asp-route-id="@List.Book.Id" asp-controller="Book" asp-action="Details">@List.Copy.Number</a></td>
 
                     @if (List.Copy.Status=="0"){
                         <td>Niedostępna</td>
@@ -35,7 +35,7 @@
                         <td>Dostępna</td>
                     }
 
-                    <td>@List.Copy.Date</td>
+                    <td class="hide-sm hide-md">@List.Copy.Date</td>
                     <td class="text-end">
                         <a class="btn btn-success mb-1" asp-route-id="@List.Copy.Id" asp-controller="Copy" asp-action="Edit"><i class="bi bi-pencil-square"></i></a>
                         @if (List.Copy.Status == "1"){
