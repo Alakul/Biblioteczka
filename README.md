@@ -14,7 +14,7 @@ Biblioteczka is a web app written with ASP.NET Core. It was created to manage bo
 
 ## Technology
 Project is created with:
-* ASP.NET Core 6
+* ASP.NET Core MVC 6
 * C#
 * SQL Server
 * JavaScript
