@@ -182,8 +182,8 @@ namespace Biblioteczka.Data
         public static List<Author> SortElementsAuthor(List<Author> elements, SortValues sortValues) =>
         sortValues switch
         {
-            SortValues.NameAsc => elements = elements.OrderBy(x => x.LastName).ToList(),
-            SortValues.NameDesc => elements = elements.OrderByDescending(x => x.LastName).ToList(),
+            SortValues.NameAsc => elements = elements.OrderBy(x => x.Name).ToList(),
+            SortValues.NameDesc => elements = elements.OrderByDescending(x => x.Name).ToList(),
             SortValues.LastNameAsc => elements = elements.OrderBy(x => x.LastName).ToList(),
             SortValues.LastNameDesc => elements = elements.OrderByDescending(x => x.LastName).ToList(),
             SortValues.DateAsc => elements = elements.OrderBy(x => x.Date).ToList(),
