@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace Biblioteczka.Data;
+namespace Biblioteczka.Areas.Identity.Data;
 
 public class AppDbContext : IdentityDbContext<AppUser>
 {

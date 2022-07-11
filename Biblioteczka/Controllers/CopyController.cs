@@ -1,4 +1,5 @@
-﻿using Biblioteczka.Data;
+﻿using Biblioteczka.Areas.Identity.Data;
+using Biblioteczka.Data;
 using Biblioteczka.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;

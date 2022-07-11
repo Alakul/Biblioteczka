@@ -7,6 +7,7 @@ using X.PagedList;
 using System.Security.Claims;
 using System.Web;
 using System.Collections.ObjectModel;
+using Biblioteczka.Areas.Identity.Data;
 
 namespace Biblioteczka.Controllers
 {
