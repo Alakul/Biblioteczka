@@ -10,7 +10,12 @@
     {
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle text-white fw-bold" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Admin @UserManager.GetUserName(User)
+                @if (User.IsInRole(AppData.Admin)){
+                    <span>Administrator @UserManager.GetUserName(User)</span>
+                }
+                else if (User.IsInRole(AppData.Librarian)){
+                    <span>Bibliotekarz @UserManager.GetUserName(User)</span>
+                } 
             </a>
             <ul id="nav-dropdown" class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                 <li><a class="dropdown-item" asp-controller="Book" asp-action="Index">Książki</a></li>
